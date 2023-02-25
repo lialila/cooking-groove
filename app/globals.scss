@@ -1,0 +1,36 @@
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+body {
+  -webkit-font-smooting: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  font-family: 'Montserrat Alternates', sans-serif, 'Questrial', sans-serif,
+    'Mr Dafoe', sans-serif, 'Monoton', sans-serif;
+  font-size: 21px;
+  color: black;
+  margin: 0;
+  padding: 0;
+  line-height: 1.5;
+  overflow: visible;
+}
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+body {
+  -webkit-font-smooting: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  font-family: 'Montserrat Alternates', sans-serif, 'Questrial', sans-serif,
+    'Inter', sans-serif, 'Monoton', sans-serif;
+  font-size: 21px;
+  // color: black;
+  margin: 0;
+  padding: 0;
+  line-height: 1.5;
+  overflow: visible;
+}

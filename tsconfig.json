@@ -24,6 +24,16 @@
       "@C:/Program": ["./*"]
     }
   },
-  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", ".next/types/**/*.ts"],
+  "include": [
+    "next-env.d.ts",
+    "**/*.ts",
+    "**/*.tsx",
+    ".next/types/**/*.ts",
+    "app/LandingPage.js",
+    "app/signUp/page.js",
+    "app/signUp/layout.js",
+    "app/layout.js",
+    "app/page.js"
+  ],
   "exclude": ["node_modules"]
 }
