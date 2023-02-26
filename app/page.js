@@ -24,17 +24,6 @@ export default function LandingPage() {
           is rhythm in which one lives their life; <br />
           pattern of behavior.
         </p>
-        <div>
-          <button>
-            <Link href="signUp/signIn">Log in</Link>
-          </button>
-          <button>
-            <Link href="signUp">Create new account</Link>
-          </button>
-          <button>
-            <Link href="signUp">Search a groove</Link>
-          </button>
-        </div>
       </div>
     </main>
   );

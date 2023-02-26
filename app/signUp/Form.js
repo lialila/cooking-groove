@@ -4,38 +4,35 @@ import { useState } from 'react';
 import styles from './page.module.scss';
 
 export default function From() {
-  const [firstName, setFirstName] = useState('');
-  const [lastName, setLastName] = useState('');
+  const [userName, setUserName] = useState('');
+  const [name, setName] = useState('');
   const [email, setEmail] = useState('');
-  const [address, setAddress] = useState('');
-  const [city, setCity] = useState('');
-  const [postalCode, setPostalCode] = useState('');
-  const [country, setCountry] = useState('');
-  const [creditCardNumber, setCreditCardNumber] = useState('');
-  const [expirationDate, setExpirationDate] = useState('');
-  const [cvc, setCvc] = useState('');
+  const [eatingExperience, setEatingExperience] = useState('');
+  const [cookingExperience, setCookingExperience] = useState('');
+  const [favouriteFood, setFavouriteFood] = useState('');
+  const [language, setLanguage] = useState('');
 
   return (
     <form className={styles.form}>
-      <label htmlFor="firstName">
-        First name:
+      <label htmlFor="userName">
+        User name:
         <input
           data-test-id="checkout-first-name"
-          value={firstName}
+          value={userName}
           required
-          onChange={(e) => setFirstName(e.target.value)}
+          onChange={(e) => setUserName(e.target.value)}
         />
       </label>
       <br />
-      <label htmlFor="lastName">Last name: </label>
+      <label htmlFor="name">Name: </label>
       <input
         data-test-id="checkout-last-name"
-        value={lastName}
+        value={name}
         required
-        onChange={(e) => setLastName(e.target.value)}
+        onChange={(e) => setName(e.target.value)}
       />
       <br />
-      <label htmlFor="email">Enter your e-mail:</label>
+      <label htmlFor="email">E-mail:</label>
       <input
         type="email"
         data-test-id="checkout-email"
@@ -44,69 +41,48 @@ export default function From() {
         onChange={(e) => setEmail(e.target.value)}
       />
       <br />
-      <label htmlFor="address">Enter your adress:</label>
+      <label htmlFor="eatingExperience">Eating experience:</label>
       <input
         data-test-id="checkout-address"
-        value={address}
+        value={eatingExperience}
         required
-        onChange={(e) => setAddress(e.target.value)}
+        onChange={(e) => setEatingExperience(e.target.value)}
       />{' '}
       <br />
-      <label htmlFor="city">Enter the city:</label>
+      <label htmlFor="cookingExperience">Cooking experience:</label>
       <input
         data-test-id="checkout-city"
-        value={city}
+        value={cookingExperience}
         required
-        onChange={(e) => setCity(e.target.value)}
+        onChange={(e) => setCookingExperience(e.target.value)}
       />{' '}
       <br />
-      <label htmlFor="postalCode">Enter the postal code:</label>
+      <label htmlFor="favouriteFood">Favourite food:</label>
       <input
         data-test-id="checkout-postal-code"
-        value={postalCode}
+        value={favouriteFood}
         required
-        onChange={(e) => setPostalCode(e.target.value)}
+        onChange={(e) => setFavouriteFood(e.target.value)}
       />{' '}
       <br />
-      <label htmlFor="country">Enter the country:</label>
+      <label htmlFor="language">Language:</label>
       <input
         data-test-id="checkout-country"
-        value={country}
+        value={language}
         required
-        onChange={(e) => setCountry(e.target.value)}
+        onChange={(e) => setLanguage(e.target.value)}
       />{' '}
       <br />
-      <label htmlFor="creditCardNumber">Enter your credit card number:</label>
-      <input
-        data-test-id="checkout-credit-card"
-        value={creditCardNumber}
-        required
-        onChange={(e) => setCreditCardNumber(e.target.value)}
-      />{' '}
       <br />
-      <label htmlFor="expirationDate">Enter the expiration date:</label>
-      <input
-        data-test-id="checkout-expiration-date"
-        value={expirationDate}
-        required
-        onChange={(e) => setExpirationDate(e.target.value)}
-      />{' '}
-      <br />
-      <label htmlFor="cvc">Enter the CVC:</label>
-      <input
-        data-test-id="checkout-security-code"
-        value={cvc}
-        required
-        onChange={(e) => setCvc(e.target.value)}
-      />{' '}
-      <br />
-      {/* <p>Press Enter to submit</p> */}
-      <Link href="/./thankyou">
+      <Link href="/">
+        <button>Back </button>
+      </Link>
+      <Link href="/">
         <button
           data-test-id="checkout-confirm-order"
           disabled={
-            firstName.length === 0 ||
-            lastName.length === 0 ||
+            userName.length === 0 ||
+            name.length === 0 ||
             email.length === 0 ||
             address.length === 0 ||
             city.length === 0 ||
