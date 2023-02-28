@@ -45,7 +45,7 @@ export default function From() {
       />
       <br />
       <div>
-        <Link href="/../signUp">
+        <Link href="/dashboard/registration">
           <button
           //  disabled={userName.length === 0 || email.length === 0}
           >

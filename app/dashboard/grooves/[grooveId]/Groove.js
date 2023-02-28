@@ -12,7 +12,7 @@ export default function Groove(props) {
   // const [itemsQuantity, setItemsQuantity] = useState(1);
 
   return (
-    <main>
+    <section>
       <div>
         {/* <img
           data-test-id="product-image"
@@ -41,6 +41,6 @@ export default function Groove(props) {
           </div>
         </div>
       </div>
-    </main>
+    </section>
   );
 }

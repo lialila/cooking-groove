@@ -1,5 +1,6 @@
 import Link from 'next/link';
 import { getGrooves } from '../../../database/grooves';
+import styles from './page.module.scss';
 import SearchForm from './SearchForm';
 
 export const dynamic = 'force-dynamic';
@@ -15,8 +16,8 @@ export default async function GroovesPage() {
   return (
     <>
       {' '}
-      <main>
-        <h1>Find your groove!</h1>
+      <section className={styles.main}>
+        <h1>Find your groove</h1>
         <SearchForm />
 
         <ul>
@@ -45,7 +46,7 @@ export default async function GroovesPage() {
             );
           })}
         </ul>
-      </main>
+      </section>
     </>
   );
 }

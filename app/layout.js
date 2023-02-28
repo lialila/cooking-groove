@@ -33,24 +33,25 @@ export default function RootLayout({ children }) {
                     src="/logowithoutbackground3.png"
                     width="80"
                     height="65"
+                    alt="logo"
                   />
                 </Link>
               </li>
               <li>
-                <Link href="signUp/signIn">Log in</Link>
+                <Link href="/dashboard/signin">Log in</Link>
               </li>
               <li>
-                <Link href="signUp"> Create account </Link>
+                <Link href="/dashboard/registration"> Create account </Link>
               </li>
               <li>
                 <Link href="/">
                   <label htmlFor="Search">
-                    <input value="search" />
+                    <input type="search" />
                   </label>{' '}
                 </Link>
               </li>
               <li>
-                <Image src="/search.png" width="18" height="18" />
+                <Image src="/search.png" width="18" height="18" alt="search" />
               </li>
             </ul>
           </nav>
@@ -60,24 +61,44 @@ export default function RootLayout({ children }) {
           <ul>
             <Link href="/">
               <li>
-                <Image src="/twitterwhite.png" width="30" height="30" />
+                <Image
+                  src="/twitterwhite.png"
+                  width="30"
+                  height="30"
+                  alt="twitter"
+                />
               </li>
             </Link>
             <Link href="/">
               <li>
                 {' '}
-                <Image src="/acebookwhite.png" width="30" height="30" />
+                <Image
+                  src="/acebookwhite.png"
+                  width="30"
+                  height="30"
+                  alt="fb"
+                />
               </li>
             </Link>
             <Link href="/">
               <li>
-                <Image src="/emailwhite.png" width="25" height="25" />
+                <Image
+                  src="/emailwhite.png"
+                  width="25"
+                  height="25"
+                  alt="email"
+                />
               </li>
             </Link>
             <Link href="/">
               <li>
                 {' '}
-                <Image src="/linkedinwhite.png" width="20" height="20" />
+                <Image
+                  src="/linkedinwhite.png"
+                  width="20"
+                  height="20"
+                  alt="in"
+                />
               </li>
             </Link>
           </ul>

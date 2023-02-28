@@ -4,7 +4,6 @@ import {
   Inter,
   Montserrat,
 } from '@next/font/google';
-import Link from 'next/link';
 import styles from './page.module.scss';
 
 const courierPrime = Courier_Prime({
@@ -17,7 +16,7 @@ export const metadata = {
 };
 export default function LandingPage() {
   return (
-    <main className={styles.main}>
+    <section className={styles.main}>
       <div className={styles.div}>
         <h2 className={courierPrime.className}>Cooking Groove</h2>
 
@@ -28,6 +27,6 @@ export default function LandingPage() {
           pattern of behavior.
         </p>
       </div>
-    </main>
+    </section>
   );
 }
