@@ -11,7 +11,10 @@ const courierPrime = Courier_Prime({
   weight: '400',
   subsets: ['latin'],
 });
-
+export const metadata = {
+  title: 'Cooking Groove',
+  description: 'Cooking together',
+};
 export default function LandingPage() {
   return (
     <main className={styles.main}>

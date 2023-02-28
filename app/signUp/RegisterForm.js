@@ -3,7 +3,7 @@ import Link from 'next/link';
 import { useState } from 'react';
 import styles from './page.module.scss';
 
-export default function From() {
+export default function RegisterForm() {
   const [userName, setUserName] = useState('');
   const [name, setName] = useState('');
   const [email, setEmail] = useState('');
@@ -11,6 +11,7 @@ export default function From() {
   const [cookingExperience, setCookingExperience] = useState('');
   const [favouriteFood, setFavouriteFood] = useState('');
   const [language, setLanguage] = useState('');
+  const [password, setPassword] = useState('');
 
   return (
     <form className={styles.form}>
@@ -72,6 +73,13 @@ export default function From() {
         required
         onChange={(e) => setLanguage(e.target.value)}
       />{' '}
+      <label htmlFor="password">Password:</label>
+      <input
+        data-test-id="password"
+        value={password}
+        required
+        onChange={(e) => setPassword(e.target.value)}
+      />
       <br />
       <br />
       <Link href="/">
@@ -79,19 +87,18 @@ export default function From() {
       </Link>
       <Link href="/">
         <button
-          data-test-id="checkout-confirm-order"
-          disabled={
-            userName.length === 0 ||
-            name.length === 0 ||
-            email.length === 0 ||
-            address.length === 0 ||
-            city.length === 0 ||
-            postalCode.length === 0 ||
-            country.length === 0 ||
-            creditCardNumber.length === 0 ||
-            expirationDate.length === 0 ||
-            cvc.length === 0
-          }
+        // disabled={
+        //   userName.length === 0 ||
+        //   name.length === 0 ||
+        //   email.length === 0 ||
+        //   address.length === 0 ||
+        //   city.length === 0 ||
+        //   postalCode.length === 0 ||
+        //   country.length === 0 ||
+        //   creditCardNumber.length === 0 ||
+        //   expirationDate.length === 0 ||
+        //   cvc.length === 0
+        // }
         >
           Sign up
         </button>

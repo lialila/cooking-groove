@@ -44,15 +44,18 @@ export default function From() {
         onChange={(e) => setEmail(e.target.value)}
       />
       <br />
-
-      <Link href="/">
-        <button
-          data-test-id="checkout-confirm-order"
-          disabled={userName.length === 0 || email.length === 0}
-        >
-          Sign up
-        </button>
-      </Link>
+      <div>
+        <Link href="/../signUp">
+          <button
+          //  disabled={userName.length === 0 || email.length === 0}
+          >
+            Sign up
+          </button>
+        </Link>{' '}
+        <Link href="/">
+          <button>Log in</button>
+        </Link>
+      </div>
     </form>
   );
 }

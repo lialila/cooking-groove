@@ -20,11 +20,6 @@ const MontserratText = Montserrat({
   subsets: ['latin'],
 });
 
-export const metadata = {
-  title: 'Cooking Groove',
-  description: 'Cooking together',
-};
-
 export default function RootLayout({ children }) {
   return (
     <html lang="en" className={styles.html}>
@@ -51,8 +46,11 @@ export default function RootLayout({ children }) {
                 <Link href="/">
                   <label htmlFor="Search">
                     <input value="search" />
-                  </label>
+                  </label>{' '}
                 </Link>
+              </li>
+              <li>
+                <Image src="/search.png" width="18" height="18" />
               </li>
             </ul>
           </nav>
