@@ -33,7 +33,8 @@
     "app/dashboard/(auth)/registration/page.js",
     "app/dashboard/layout.js",
     "app/layout.js",
-    "app/page.js"
+    "app/page.js",
+    "app/dashboard/(auth)/registration/RegisterForm.tsx"
   ],
   "exclude": ["node_modules"]
 }

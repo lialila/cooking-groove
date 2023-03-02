@@ -21,30 +21,28 @@ const MontserratText = Montserrat({
 export default function DashboardLayout({ children }) {
   return (
     <section className={styles.html}>
-      <header className={MontserratText.className}>
-        <nav>
-          <ul>
-            <li>
-              <Link href="/">
-                <Image
-                  src="/logowithoutbackground3.png"
-                  width="80"
-                  height="65"
-                  alt="logo"
-                />
-              </Link>
-            </li>
-            <li>
-              <Link href="/">Profile</Link>
-            </li>
-            <li>
-              <Link href="/../grooves">
-                <Image src="/search.png" width="18" height="18" alt="search" />
-              </Link>
-            </li>
-          </ul>
-        </nav>
-      </header>
+      <nav className={MontserratText.className}>
+        <ul>
+          <li>
+            <Link href="/">
+              <Image
+                src="/logowithoutbackground3.png"
+                width="80"
+                height="65"
+                alt="logo"
+              />
+            </Link>
+          </li>
+          <li>
+            <Link href="/">Profile</Link>
+          </li>
+          <li>
+            <Link href="/dashboard/grooves">
+              <Image src="/search.png" width="18" height="18" alt="search" />
+            </Link>
+          </li>
+        </ul>
+      </nav>
       <div className={MontserratText.className}>{children}</div>
       <footer className={MontserratText.className}>
         <ul>

@@ -31,28 +31,28 @@ export default function RootLayout({ children }) {
                 <Link href="/">
                   <Image
                     src="/logowithoutbackground3.png"
-                    width="80"
-                    height="65"
+                    width="100"
+                    height="83"
                     alt="logo"
                   />
                 </Link>
               </li>
               <li>
-                <Link href="/dashboard/signin">Log in</Link>
+                <Link href="/dashboard/login">Log in</Link>
               </li>
               <li>
                 <Link href="/dashboard/registration"> Create account </Link>
               </li>
-              <li>
-                <Link href="/">
-                  <label htmlFor="Search">
-                    <input type="search" />
-                  </label>{' '}
-                </Link>
-              </li>
-              <li>
-                <Image src="/search.png" width="18" height="18" alt="search" />
-              </li>
+              <Link href="/dashboard/grooves">
+                <li>
+                  <Image
+                    src="/search.png"
+                    width="18"
+                    height="18"
+                    alt="search"
+                  />
+                </li>{' '}
+              </Link>
             </ul>
           </nav>
         </header>
@@ -87,17 +87,6 @@ export default function RootLayout({ children }) {
                   width="25"
                   height="25"
                   alt="email"
-                />
-              </li>
-            </Link>
-            <Link href="/">
-              <li>
-                {' '}
-                <Image
-                  src="/linkedinwhite.png"
-                  width="20"
-                  height="20"
-                  alt="in"
                 />
               </li>
             </Link>

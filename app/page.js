@@ -1,9 +1,4 @@
-import {
-  Alternates,
-  Courier_Prime,
-  Inter,
-  Montserrat,
-} from '@next/font/google';
+import { Courier_Prime } from '@next/font/google';
 import styles from './page.module.scss';
 
 const courierPrime = Courier_Prime({
