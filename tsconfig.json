@@ -30,8 +30,8 @@
     "**/*.tsx",
     ".next/types/**/*.ts",
     "app/LandingPage.js",
-    "app/dashboard/(auth)/registration/page.js",
-    "app/dashboard/layout.js",
+    "app/dashboard/(auth)/registration/page.tsx",
+    "app/dashboard/layout.tsx",
     "app/layout.js",
     "app/page.js",
     "app/dashboard/(auth)/registration/RegisterForm.tsx"

@@ -1,0 +1,24 @@
+.main {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  margin-top: 12rem;
+  // padding: 2rem;
+  // height: 100vh;
+  width: 100vw;
+
+  // padding: 10px;
+  // margin: auto;
+  line-height: 2rem;
+  text-transform: lowercase;
+  font-weight: 400;
+  font-size: 1rem;
+  letter-spacing: 0.2vw;
+  background: rgba(255, 255, 255, 0.5);
+  border-radius: 16px;
+  box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+  backdrop-filter: blur(5px);
+  -webkit-backdrop-filter: blur(5px);
+  border: 1px solid rgba(255, 255, 255, 0.3);
+}

@@ -19,7 +19,7 @@ export const createSession = cache(async (token: string, userId: number) => {
   await deleteExpiredSessions();
   return session;
 });
-export condt deleteExpiredSessions = cache(async()=>{
+export const deleteExpiredSessions = cache(async()=>{
 
   await sql`
   DELETE FROM

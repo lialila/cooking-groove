@@ -54,36 +54,36 @@ export default function Form(props: { returnTo?: string | string[] }) {
           /^\/[a-zA-Z0-9-?=/]*$/.test(props.returnTo)
         ) {
           router.push(props.returnTo);
+
           return;
         }
-
-        router.replace(`/profile/${data.user.username}`);
-        router.refresh();
+        router.push(`/dashboard/profile/${data.user.username}`);
+        // router.refresh();
       }}
     >
       {errors.map((error) => (
         <div key={`error-${error.message}`}>Error: {error.message}</div>
       ))}
-      <label htmlFor="username" className={courierPrime.className}>
+      <label className={courierPrime.className}>
         Username:
         <input
           data-test-id="checkout-first-name"
           value={username}
-          required
+          //  required
           onChange={(e) => setUsername(e.target.value)}
         />
       </label>
       <br />
-      <label htmlFor="password" className={courierPrime.className}>
+      <label className={courierPrime.className}>
         password:
+        <input
+          type="password"
+          data-test-id="checkout-password"
+          value={password}
+          // required
+          onChange={(e) => setPassword(e.target.value)}
+        />
       </label>
-      <input
-        type="password"
-        data-test-id="checkout-password"
-        value={password}
-        required
-        onChange={(e) => setPassword(e.target.value)}
-      />
       <br />
       <div>
         <button className={courierPrime.className}>Log in</button>

@@ -14,10 +14,19 @@ export type User = {
 };
 
 export const getUserByUsername = cache(async (username: string) => {
-  const [user] = await sql<{ id: number; username: string }[]>`
+  const [user] = await sql<
+    {
+      id: number;
+      username: string;
+      name: string;
+      eatingExperience: string;
+      cookingExperience: string;
+      favouriteFood: string;
+      language: string;
+    }[]
+  >`
   SELECT
-    id,
-    username
+*
   FROM
     users
   WHERE

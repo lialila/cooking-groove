@@ -7,10 +7,12 @@ export const metadata = {
   },
 };
 
-export default function RegistrationPage() {
+type Props = { searchParams: { returnTo?: string | string[] } };
+
+export default function RegistrationPage(props: Props) {
   return (
     <div className={styles.main}>
-      <RegisterForm />
+      <RegisterForm returnTo={props.searchParams.returnTo} />
     </div>
   );
 }

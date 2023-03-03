@@ -4,8 +4,11 @@ import {
   Inter,
   Montserrat,
 } from '@next/font/google';
+// import { cookies } from 'next/headers';
 import Image from 'next/image';
 import Link from 'next/link';
+import { getUserBySessionToken } from '../../database/users';
+// import CookieBanner from './CookieBanner';
 import styles from './layout.module.scss';
 
 const courierPrime = Courier_Prime({
@@ -18,6 +21,12 @@ const MontserratText = Montserrat({
   subsets: ['latin'],
 });
 
+type Props = {
+  children: React.ReactNode;
+};
+
+export const dynamic = 'force-dynamic';
+
 export default function DashboardLayout({ children }) {
   return (
     <section className={styles.html}>
@@ -27,14 +36,14 @@ export default function DashboardLayout({ children }) {
             <Link href="/">
               <Image
                 src="/logowithoutbackground3.png"
-                width="80"
-                height="65"
+                width="100"
+                height="83"
                 alt="logo"
               />
             </Link>
           </li>
           <li>
-            <Link href="/">Profile</Link>
+            <Link href="/dashboard/profile">Profile</Link>
           </li>
           <li>
             <Link href="/dashboard/grooves">
@@ -65,12 +74,6 @@ export default function DashboardLayout({ children }) {
           <Link href="/">
             <li>
               <Image src="/emailwhite.png" width="25" height="25" alt="email" />
-            </li>
-          </Link>
-          <Link href="/">
-            <li>
-              {' '}
-              <Image src="/linkedinwhite.png" width="20" height="20" alt="in" />
             </li>
           </Link>
         </ul>
