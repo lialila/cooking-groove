@@ -1,7 +1,10 @@
+import crypto from 'node:crypto';
 import bcrypt from 'bcrypt';
 import { NextRequest, NextResponse } from 'next/server';
 import { z } from 'zod';
+import { createSession } from '../../../../../database/sessions';
 import { createUser, getUserByUsername } from '../../../../../database/users';
+import { createSerializedRegisterSessionTokenCookie } from '../../../../../utils/cookies';
 
 // zod is library for input validation
 const userSchema = z.object({
@@ -80,6 +83,30 @@ export async function POST(request: NextRequest) {
     );
   }
 
-  // 5. return the new username
-  return NextResponse.json({ user: { username: newUser.username } });
+  // 5. create a session (in the next chapter)
+  // - create the token
+  const token = crypto.randomBytes(80).toString('base64');
+
+  const session = await createSession(token, newUser.id);
+
+  if (!session) {
+    return NextResponse.json(
+      { errors: [{ message: 'session creation failed' }] },
+      { status: 500 },
+    );
+  }
+
+  const serializedCookie = createSerializedRegisterSessionTokenCookie(
+    session.token,
+  );
+
+  // 6. return the new username
+  return NextResponse.json(
+    { user: { username: newUser.username } },
+    {
+      status: 200,
+      // - Attach the new cookie serialized to the header of the response
+      headers: { 'Set-Cookie': serializedCookie },
+    },
+  );
 }

@@ -1,7 +1,11 @@
 import { cookies } from 'next/headers';
+import { useRouter } from 'next/navigation';
 import { NextRequest, NextResponse } from 'next/server';
+import { getUserBySessionToken } from '../../../../../database/users';
 
-export function GET() {
+export async function GET() {
+  const router = useRouter();
+
   const cookieStore = cookies();
   const token = cookieStore.get('sessionToken');
 
@@ -10,5 +14,7 @@ export function GET() {
   if (!user) {
     return NextResponse.json({ error: 'user not found' });
   }
+  router.refresh();
+
   return NextResponse.json(user);
 }

@@ -1,11 +1,10 @@
-// import crypto from 'node:crypto';
+import crypto from 'node:crypto';
 import bcrypt from 'bcrypt';
 import { NextRequest, NextResponse } from 'next/server';
 import { z } from 'zod';
-// import { createSession } from '../../../../../database/sessions';
+import { createSession } from '../../../../../database/sessions';
 import { getUserByUsernameWithPasswordHash } from '../../../../../database/users';
-
-// import { createSerializedRegisterSessionTokenCookie } from '../../../../../utils/cookies';
+import { createSerializedRegisterSessionTokenCookie } from '../../../../../utils/cookies';
 
 const userSchema = z.object({
   username: z.string(),
@@ -77,35 +76,38 @@ export async function POST(request: NextRequest) {
 
   // 4. create a session
   // - create a token
-  // const token = crypto.randomBytes(80).toString('base64');
+  const token = crypto.randomBytes(80).toString('base64');
+  // base64 is an object created by node.js
 
-  // // - create a session
-  // const session = await createSession(token, userWithPasswordHash.id);
-  // // - attach a new cookie
-  // // serialize to the header of the response
-  // if (!session) {
-  //   return NextResponse.json(
-  //     {
-  //       errors: [{ message: 'session creation failed' }],
-  //     },
-  //     { status: 500 },
-  //   );
-  // }
+  // - create a session
+  const session = await createSession(token, userWithPasswordHash.id);
 
-  // const serializedCookie = createSerializedRegisterSessionTokenCookie(
-  //   session.token,
-  // );
+  // console.log(session);
+  // - attach a new cookie
+  // serialize to the header of the response
+  if (!session) {
+    return NextResponse.json(
+      {
+        errors: [{ message: 'session creation failed' }],
+      },
+      { status: 500 },
+    );
+  }
+
+  const serializedCookie = createSerializedRegisterSessionTokenCookie(
+    session.token,
+  );
   // add hte new header
+  console.log(serializedCookie);
 
   return NextResponse.json(
     {
       user: { username: userWithPasswordHash.username },
     },
-    //,
-    // {
-    //   status: 200,
-    //   //  Attach serialized new cookie  to the header of the response(?)
-    //   headers: { 'Set-Cookie': serializedCookie },
-    // },
+    {
+      status: 200,
+      //   //  Attach serialized new cookie  to the header of the response(?)
+      headers: { 'Set-Cookie': serializedCookie },
+    },
   );
 }

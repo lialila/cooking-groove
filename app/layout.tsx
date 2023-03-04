@@ -5,10 +5,19 @@ import {
   Inter,
   Montserrat,
 } from '@next/font/google';
+// import { Inter } from 'next/font/google';
+import { cookies } from 'next/headers';
 import Image from 'next/image';
 import Link from 'next/link';
-// import { Inter } from 'next/font/google';
+import { getUserBySessionToken } from '../database/users';
 import styles from './layout.module.scss';
+
+export const metadata = {
+  title: {
+    default: 'Cooking Groove',
+    template: '%s | Find your Groove',
+  },
+};
 
 const CourierPrime = Courier_Prime({
   weight: '400',
@@ -19,8 +28,23 @@ const MontserratText = Montserrat({
   weight: '400',
   subsets: ['latin'],
 });
+type Props = {
+  children: React.ReactNode;
+};
 
-export default function RootLayout({ children }) {
+export const dynamic = 'force-dynamic';
+
+export default async function RootLayout(props: Props) {
+  // 1. get the session token from the cookie
+  const cookieStore = cookies();
+  const sessionToken = cookieStore.get('sessionToken');
+
+  // 2. validate that session
+  // 3. get the user profile matching the session
+  const user = !sessionToken?.value
+    ? undefined
+    : await getUserBySessionToken(sessionToken.value);
+
   return (
     <html lang="en" className={styles.html}>
       <body className={styles.body}>
@@ -37,12 +61,20 @@ export default function RootLayout({ children }) {
                   />
                 </Link>
               </li>
-              <li>
-                <Link href="/dashboard/login">Log in</Link>
-              </li>
-              <li>
-                <Link href="/dashboard/registration"> Create account </Link>
-              </li>
+
+              {user ? (
+                <>
+                  <Link href="/dashboard/logout" prefetch={false}>
+                    Log out
+                  </Link>
+                  <li>{user.username}</li>
+                </>
+              ) : (
+                <>
+                  <Link href="/dashboard/registration">Create account</Link>
+                  <Link href="/dashboard/login">Log in</Link>
+                </>
+              )}
               <Link href="/dashboard/grooves">
                 <li>
                   <Image
@@ -56,7 +88,7 @@ export default function RootLayout({ children }) {
             </ul>
           </nav>
         </header>
-        {children}
+        {props.children}
         <footer className={MontserratText.className}>
           <ul>
             <Link href="/">

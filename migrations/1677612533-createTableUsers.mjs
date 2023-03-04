@@ -9,7 +9,7 @@ CREATE TABLE users(
   cooking_experience varchar(600),
   favourite_food varchar(600),
   language varchar(300),
-  password_hash varchar(70) NOT NULL
+  password_hash varchar(110) NOT NULL
   -- image_url varchar(1000)
 );
 `;
