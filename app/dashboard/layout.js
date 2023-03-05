@@ -7,7 +7,7 @@ import {
 // import { cookies } from 'next/headers';
 import Image from 'next/image';
 import Link from 'next/link';
-import { getUserBySessionToken } from '../../database/users';
+// import { getUserBySessionToken } from '../../database/users';
 // import CookieBanner from './CookieBanner';
 import styles from './layout.module.scss';
 
@@ -20,10 +20,6 @@ const MontserratText = Montserrat({
   weight: '400',
   subsets: ['latin'],
 });
-
-type Props = {
-  children: React.ReactNode;
-};
 
 export const dynamic = 'force-dynamic';
 

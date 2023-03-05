@@ -64,10 +64,30 @@ export default async function RootLayout(props: Props) {
 
               {user ? (
                 <>
+                  <li>{user.username}</li>{' '}
                   <Link href="/dashboard/logout" prefetch={false}>
                     Log out
                   </Link>
-                  <li>{user.username}</li>
+                  <li>
+                    <Link href="/">
+                      <Image
+                        src="/plus.png"
+                        width="20"
+                        height="20"
+                        alt="search"
+                      />
+                    </Link>
+                  </li>
+                  <Link href="/dashboard/grooves">
+                    <li>
+                      <Image
+                        src="/search.png"
+                        width="18"
+                        height="18"
+                        alt="search"
+                      />
+                    </li>{' '}
+                  </Link>
                 </>
               ) : (
                 <>
@@ -75,16 +95,6 @@ export default async function RootLayout(props: Props) {
                   <Link href="/dashboard/login">Log in</Link>
                 </>
               )}
-              <Link href="/dashboard/grooves">
-                <li>
-                  <Image
-                    src="/search.png"
-                    width="18"
-                    height="18"
-                    alt="search"
-                  />
-                </li>{' '}
-              </Link>
             </ul>
           </nav>
         </header>

@@ -2,7 +2,7 @@
   align-items: center;
   text-align: center;
   padding: 2rem;
-  margin-top: 10rem;
+  margin-top: 5rem;
   width: 100vw;
   // height: 100vh;
 }
@@ -34,7 +34,7 @@
     background-color: rgba(185, 179, 179, 0);
     border: solid 1.2px rgb(43, 38, 92);
     // border-radius: 1.8px;
-    height: 1rem;
+    // height: 1rem;
   }
   button {
     background: rgba(185, 179, 179, 0);
@@ -46,6 +46,6 @@
     font-family: 'Montserrat', sans-serif;
   }
   button:hover {
-    border: solid rgb(241, 58, 95) 1.2px;
+    border: solid rgb(250, 234, 7) 1.2px;
   }
 }

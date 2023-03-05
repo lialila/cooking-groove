@@ -9,8 +9,8 @@ export async function GET() {
 
   if (token) {
     await deleteSessionByToken(token.value);
-    console.log(token.value);
   }
+  console.log('token', token);
 
   return new NextResponse(null, {
     status: 307,

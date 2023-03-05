@@ -29,8 +29,8 @@
     width: 100%;
     margin: auto;
     padding: 0;
-    text-align: center;
-    // background-color: rgba(185, 179, 179, 0);
+    text-align: left;
+    background-color: rgba(185, 179, 179, 0);
     border: solid 1.2px rgb(43, 38, 92);
     // border-radius: 3px;
   }
@@ -44,6 +44,6 @@
     font-family: 'Montserrat', sans-serif;
   }
   button:hover {
-    border: solid rgb(241, 58, 95) 1.2px;
+    border: solid rgb(250, 234, 7) 1.2px;
   }
 }

@@ -21,12 +21,14 @@ export default async function UserProfile({ params }: Props) {
 
   return (
     <div className={styles.main}>
-      <h1>{user.username}</h1>
-      <p>{user.name}</p>
-      <p>eating experience: {user.eatingExperience}</p>
-      <p>cooking experience: {user.cookingExperience}</p>
-      <p>favourite food: {user.favouriteFood}</p>
-      <p>language: {user.language}</p>
+      <div>
+        <h1>{user.username}</h1>
+        <p>{user.name}</p>
+        <p>eating experience: {user.eatingExperience}</p>
+        <p>cooking experience: {user.cookingExperience}</p>
+        <p>favourite food: {user.favouriteFood}</p>
+        <p>language: {user.language}</p>
+      </div>
     </div>
   );
 }

@@ -1,7 +1,5 @@
 import cookie from 'cookie';
 
-// import Cookies from 'js-cookie';
-
 export function createSerializedRegisterSessionTokenCookie(token: string) {
   const isProduction = process.env.NODE_ENV === 'production';
   // in the deployed version we want cookie to be sent only on the https
