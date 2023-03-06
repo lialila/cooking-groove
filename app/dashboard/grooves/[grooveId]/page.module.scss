@@ -1,0 +1,32 @@
+.main {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  text-align: center;
+  margin-top: 6rem;
+  padding: 2rem;
+  width: 100vw;
+
+  p {
+    font-size: 0.8rem;
+    line-height: 0.8rem;
+    margin: auto;
+  }
+  h3 {
+    font-size: 1rem;
+    margin: auto;
+  }
+  h2 {
+    margin: auto;
+    font-size: 1.8rem;
+  }
+}
+.div {
+  display: flex;
+  flex-direction: column;
+  backdrop-filter: blur(18.2px);
+  -webkit-backdrop-filter: blur(18.2px);
+  background: rgba(203, 198, 198, 0.2);
+  border-radius: 7px;
+  padding: 1.5rem;
+}

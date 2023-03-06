@@ -1,12 +1,13 @@
 import cookie from 'cookie';
 import { cookies } from 'next/headers';
 import { NextResponse } from 'next/server';
-import { deleteSessionByToken } from '../../../../database/sessions';
+import { deleteSessionByToken } from '../../database/sessions';
 
 export async function GET() {
   const cookieStore = cookies();
   const token = cookieStore.get('sessionToken');
 
+  console.log(token);
   if (token) {
     await deleteSessionByToken(token.value);
   }

@@ -12,8 +12,8 @@ export type Groove = {
   label: string | null;
   imgUrl: string | null;
   userId: number;
-  time: Date;
-  date: Date;
+  time: string;
+  date: string;
 };
 
 export const createGroove = cache(
@@ -55,7 +55,7 @@ SELECT * FROM grooves
 });
 
 // get a single user
-export const getGroove = cache(async (id: number) => {
+export const getGrooveById = cache(async (id: number) => {
   const [groove] = await sql<Groove[]>`
   SELECT * FROM grooves
   WHERE id = ${id}

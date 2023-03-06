@@ -1,28 +1,30 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { z } from 'zod';
-import { createGroove } from '../../../../../database/grooves';
+import { createGroove, getGrooves } from '../../../../../database/grooves';
 
-// zod is library for input validation
 const grooveSchema = z.object({
   name: z.string(),
   offer: z.string(),
   lookingFor: z.string(),
   description: z.string(),
-  restriction: z.string(),
   location: z.string(),
   label: z.string(),
   imgUrl: z.string(),
   userId: z.number(),
   time: z.string(),
   date: z.string(),
+  language: z.string(),
 });
 
-export type RegisterResponseBody =
-  | { errors: { message: string }[] }
-  | { groove: { name: string } };
+export async function GET(request: NextRequest, params) {
+  const { searchParams } = new URL(request.url);
+
+  const grooves = await getGrooves();
+
+  return NextResponse.json({ grooves: grooves });
+}
 
 export async function POST(request: NextRequest) {
-  // 1. check if the data is correct: validate the data
   const body = await request.json();
 
   const result = grooveSchema.safeParse(body);
@@ -30,82 +32,33 @@ export async function POST(request: NextRequest) {
   if (!result.success) {
     return NextResponse.json(
       {
-        errors: result.error.issues,
+        errors: 'Request body is missing some properties',
       },
       { status: 400 },
     );
   }
 
-  // check if the string is empty
-  // if (!result.data.name || !result.data.password) {
-  //   return NextResponse.json(
-  //     {
-  //       errors: [{ message: 'username or password are empty' }],
-  //     },
-  //     { status: 400 },
-  //   );
-  // }
-  //  2. check if the user already exists
-  //  2a compare the username with the db
-  // const user = await getUserByUsername(result.data.username);
-
-  // if (user) {
-  //   return NextResponse.json(
-  //     {
-  //       errors: [{ message: 'username is already taken' }],
-  //     },
-  //     { status: 400 },
-  //   );
-  // }
-  // 3.hash the password
-  const passwordHash = await bcrypt.hash(result.data.password, 12);
-  // try to use 'passsword 'as few as possible
-
-  // 4. create the user role
-  const newUser = await createUser(
-    result.data.username,
+  const newGroove = await createGroove(
     result.data.name,
-    result.data.email,
-    result.data.eatingExperience,
-    result.data.cookingExperience,
-    result.data.favouriteFood,
+    result.data.offer,
+    result.data.lookingFor,
+    result.data.description,
+    result.data.location,
+    result.data.label,
+    result.data.imgUrl,
+    result.data.userId,
+    result.data.time,
+    result.data.date,
     result.data.language,
-    passwordHash,
   );
 
-  if (!newUser) {
+  if (!newGroove) {
     return NextResponse.json(
       {
-        errors: [{ message: 'user creation failed' }],
+        error: 'Groove creation failed',
       },
-      { status: 500 },
+      { status: 400 },
     );
   }
-
-  // 5. create a session (in the next chapter)
-  // - create the token
-  const token = crypto.randomBytes(80).toString('base64');
-
-  const session = await createSession(token, newUser.id);
-
-  if (!session) {
-    return NextResponse.json(
-      { errors: [{ message: 'session creation failed' }] },
-      { status: 500 },
-    );
-  }
-
-  const serializedCookie = createSerializedRegisterSessionTokenCookie(
-    session.token,
-  );
-
-  // 6. return the new username
-  return NextResponse.json(
-    { user: { username: newUser.username } },
-    {
-      status: 200,
-      // - Attach the new cookie serialized to the header of the response
-      headers: { 'Set-Cookie': serializedCookie },
-    },
-  );
+  return NextResponse.json({ groove: newGroove });
 }

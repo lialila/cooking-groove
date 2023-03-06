@@ -22,7 +22,7 @@ export default async function GroovesPage() {
         <ul>
           {grooves.map((groove) => {
             return (
-              <li key={groove.id}>
+              <li key={`groove.${groove.id}`}>
                 <Link
                   href={`dashboard/grooves/${groove.id}`}
                   data-test-id={`product-${groove.id}`}

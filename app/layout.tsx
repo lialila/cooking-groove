@@ -44,6 +44,7 @@ export default async function RootLayout(props: Props) {
   const user = !sessionToken?.value
     ? undefined
     : await getUserBySessionToken(sessionToken.value);
+  console.log('user from layout', user);
 
   return (
     <html lang="en" className={styles.html}>
@@ -64,12 +65,14 @@ export default async function RootLayout(props: Props) {
 
               {user ? (
                 <>
-                  <li>{user.username}</li>{' '}
-                  <Link href="/dashboard/logout" prefetch={false}>
+                  <Link href={`dashboard/profile/${user.username}`}>
+                    <li>{user.username}</li>
+                  </Link>
+                  <Link href="/logout" prefetch={false}>
                     Log out
                   </Link>
                   <li>
-                    <Link href="/">
+                    <Link href="/dashboard/grooves/create-groove">
                       <Image
                         src="/plus.png"
                         width="20"
