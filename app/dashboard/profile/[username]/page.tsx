@@ -1,3 +1,4 @@
+import Link from 'next/link';
 import { notFound } from 'next/navigation';
 import { getUserByUsername } from '../../../../database/users';
 import styles from './page.module.scss';
@@ -28,6 +29,9 @@ export default async function UserProfile({ params }: Props) {
         <p>cooking experience: {user.cookingExperience}</p>
         <p>favourite food: {user.favouriteFood}</p>
         <p>language: {user.language}</p>
+        <Link href="/dashboard/grooves">
+          <button>My grooves</button>
+        </Link>
       </div>
     </div>
   );

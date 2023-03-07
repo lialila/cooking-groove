@@ -10,7 +10,7 @@ const grooveSchema = z.object({
   location: z.string(),
   label: z.string(),
   imgUrl: z.string(),
-  userId: z.number(),
+  userId: z.string(),
   time: z.string(),
   date: z.string(),
   language: z.string(),

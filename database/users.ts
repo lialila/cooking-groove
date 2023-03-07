@@ -66,6 +66,13 @@ export const getUserBySessionToken = cache(async (token: string) => {
   return user;
 });
 
+export const getUsers = cache(async () => {
+  const users = await sql<User[]>`
+SELECT * FROM users
+  `;
+  return users;
+});
+
 export const createUser = cache(
   async (
     username: string,

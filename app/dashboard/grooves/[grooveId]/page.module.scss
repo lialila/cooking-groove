@@ -3,7 +3,7 @@
   flex-direction: row;
   align-items: center;
   text-align: center;
-  margin-top: 6rem;
+  margin-top: 3rem;
   padding: 2rem;
   width: 100vw;
 
@@ -24,9 +24,17 @@
 .div {
   display: flex;
   flex-direction: column;
+
+  padding: 1.5rem;
+}
+.groove {
+  color: black;
+  margin: 1rem;
+  padding: 1rem;
   backdrop-filter: blur(18.2px);
   -webkit-backdrop-filter: blur(18.2px);
   background: rgba(203, 198, 198, 0.2);
   border-radius: 7px;
-  padding: 1.5rem;
+}
+.div {
 }
