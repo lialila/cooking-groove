@@ -98,7 +98,6 @@ export async function POST(request: NextRequest) {
     session.token,
   );
   // add hte new header
-  console.log(serializedCookie);
 
   return NextResponse.json(
     {

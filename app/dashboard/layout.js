@@ -54,7 +54,7 @@ export default function DashboardLayout({ children }) {
         </ul> */}
       </nav>
       <div className={MontserratText.className}>{children}</div>
-      <footer className={MontserratText.className}>
+      {/* <footer className={MontserratText.className}>
         <ul>
           <Link href="/">
             <li>
@@ -78,7 +78,7 @@ export default function DashboardLayout({ children }) {
             </li>
           </Link>
         </ul>
-      </footer>
+      </footer> */}
     </section>
   );
 }

@@ -17,7 +17,7 @@ CREATE TABLE grooves(
   id integer PRIMARY KEY GENERATED ALWAYS AS IDENTITY,
    name varchar(30) NOT NULL,
   offer varchar(600) NOT NULL,
-  what_looking_for varchar(600) NOT NULL,
+  looking_for varchar(600) NOT NULL,
   description varchar(600),
   time varchar(600) ,
   date varchar(600) NOT NULL,

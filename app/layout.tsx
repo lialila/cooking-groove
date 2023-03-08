@@ -11,6 +11,7 @@ import Image from 'next/image';
 import Link from 'next/link';
 import { getUserBySessionToken } from '../database/users';
 import styles from './layout.module.scss';
+import LogOut from './LogOut';
 
 export const metadata = {
   title: {
@@ -68,9 +69,7 @@ export default async function RootLayout(props: Props) {
                   <Link href={`dashboard/profile/${user.username}`}>
                     <li>{user.username}</li>
                   </Link>
-                  <Link href="/logout" prefetch={false}>
-                    Log out
-                  </Link>
+                  <LogOut />
                   <li>
                     <Link href="/dashboard/grooves/create-groove">
                       <Image

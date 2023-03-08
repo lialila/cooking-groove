@@ -1,0 +1,22 @@
+.main {
+  color: black;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  text-align: center;
+  margin-top: 6rem;
+  padding: 2rem;
+  width: 100vw;
+  ul {
+    display: flex;
+    flex-direction: column;
+    color: black;
+  }
+  li {
+    backdrop-filter: blur(18.2px);
+    -webkit-backdrop-filter: blur(18.2px);
+    background: rgba(203, 198, 198, 0.2);
+    margin: 0.5rem;
+    border-radius: 7px;
+  }
+}

@@ -1,11 +1,13 @@
 'use client';
 import { Courier_Prime, Montserrat } from '@next/font/google';
+import { useRouter } from 'next/navigation';
 import { useState } from 'react';
 import { Groove } from '../../../../database/grooves';
 import styles from './page.module.scss';
 
 type Props = {
   grooves: Groove[];
+  userId: number;
 };
 
 const courierPrime = Courier_Prime({
@@ -19,8 +21,9 @@ const montserratText = Montserrat({
 });
 
 export default function CreateGrooveForm(props: Props) {
-  const [grooves, setGrooves] = useState<Groove[]>(props.grooves);
+  const router = useRouter();
 
+  const [grooves, setGrooves] = useState<Groove[]>(props.grooves);
   const [name, setName] = useState<string>('');
   const [offer, setOffer] = useState<string>('');
   const [lookingFor, setLookingFor] = useState<string>('');
@@ -31,20 +34,12 @@ export default function CreateGrooveForm(props: Props) {
   const [time, setTime] = useState<string>('');
   const [date, setDate] = useState<string>('');
   const [language, setLanguage] = useState<string>('');
-  const [userId, setUserId] = useState<string>('');
   const [error, setError] = useState<string>();
 
+  console.log('userId from CreateGrooveForm: ', props.userId);
   return (
     <form className={styles.form}>
       <h3>Create Groove</h3>
-      <label className={courierPrime.className}>
-        UserId (change!!)
-        <input
-          value={userId}
-          required
-          onChange={(e) => setUserId(e.currentTarget.value)}
-        />
-      </label>
       <br />
       <label className={courierPrime.className}>
         Groove name:
@@ -138,7 +133,7 @@ export default function CreateGrooveForm(props: Props) {
           const response = await fetch('/dashboard/api/grooves', {
             method: 'POST',
             headers: {
-              'content-type': 'application/json',
+              'Content-type': 'application/json',
             },
             body: JSON.stringify({
               name,
@@ -148,23 +143,23 @@ export default function CreateGrooveForm(props: Props) {
               location,
               label,
               imgUrl,
-              userId,
+              userId: props.userId,
               time,
               date,
               language,
             }),
           });
           const data = await response.json();
-          console.log(data);
 
           if (data.error) {
             setError(data.error);
             return;
           }
-          // you should use this
-          // router.refresh();
+          router.refresh();
 
+          // router.push('/dashboard/grooves');
           setGrooves([...grooves, data.groove]);
+          // router.refresh();
         }}
       >
         Create a Groove

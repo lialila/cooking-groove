@@ -10,7 +10,7 @@ export type Groove = {
   location: string | null;
   label: string | null;
   imgUrl: string | null;
-  userId: string;
+  userId: number;
   time: string;
   date: string;
   language: string;
@@ -25,7 +25,7 @@ export const createGroove = cache(
     location: string,
     label: string,
     imgUrl: string,
-    userId: string,
+    userId: number,
     time: string,
     date: string,
     language: string,
@@ -35,7 +35,7 @@ export const createGroove = cache(
   ( name, offer,
     looking_for,
     description,
-          location,
+          location, label,
     img_url, user_id, time, date, language  )
      VALUES
   (${name}, ${offer}, ${lookingFor}, ${description}, ${location}, ${label}, ${imgUrl}, ${userId}, ${time}, ${date}, ${language})
@@ -82,7 +82,7 @@ export const updateGrooveById = cache(
     location: string,
     label: string,
     imgUrl: string,
-    userId: string,
+    userId: number,
     time: string,
     date: string,
     language: string,

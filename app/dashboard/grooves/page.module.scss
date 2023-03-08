@@ -14,18 +14,6 @@
   // backdrop-filter: blur(5px);
   // -webkit-backdrop-filter: blur(5px);
   // border: 1px solid rgba(255, 255, 255, 0.3);
-
-  ul {
-    display: flex;
-    flex-direction: column;
-  }
-  li {
-    backdrop-filter: blur(18.2px);
-    -webkit-backdrop-filter: blur(18.2px);
-    background: rgba(203, 198, 198, 0.2);
-    margin: 0.5rem;
-    border-radius: 7px;
-  }
 }
 .searchForm {
   padding: 10px;
