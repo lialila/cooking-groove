@@ -2,6 +2,7 @@
 import { Courier_Prime, Montserrat } from '@next/font/google';
 import { useRouter } from 'next/navigation';
 import { useState } from 'react';
+import DatePicker from 'react-date-picker';
 import { Groove } from '../../../../database/grooves';
 import styles from './page.module.scss';
 
@@ -111,11 +112,12 @@ export default function CreateGrooveForm(props: Props) {
       <br />
       <label className={courierPrime.className}>
         Date:
-        <input
+        <DatePicker value={date} onChange={(date) => setDate(date)} />
+        {/* <input
           value={date}
           required
           onChange={(e) => setDate(e.currentTarget.value)}
-        />{' '}
+        />{' '} */}
       </label>{' '}
       <br />
       <label className={courierPrime.className}>
