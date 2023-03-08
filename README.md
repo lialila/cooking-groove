@@ -1,38 +1,57 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+~~6.03: Create a page for users to create an event (groove) with a **form for users** to enter event details. Store the event information securely in the database~~.
 
-## Getting Started
+7.03: Implement a page for users to **view all grooves/events created by other users.** Implement pagination, so the user can view grooves across multiple pages.
 
-First, run the development server:
+8.03: ~~Implement a page for users to view a single groove/event,~~ with the **ability to join and leave the groove.**
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-```
+9.03: Implement user profile pages with the ability to **upload profile pictures using Cloudinary**. **Display a list of grooves created by the user.**
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+- ~~Create a new page in your Next.js application for user profiles, such as **`/users/:id`**.~~
+- ~~Implement a **`GET`** route in your REST API that retrieves the user data from the database and returns it as JSON.~~
+- ~~Use server-side rendering to render the user profile page with the initial data from the **`GET`** request.~~
+- **Add a form to the user profile page that allows users to upload a profile picture** using Cloudinary's API.
+- Display a list of grooves created by the user on their profile page.
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+  10.03 **.Add a map** to the page showing the location of the event.
 
-[API routes](https://nextjs.org/docs/api-routes/introduction) can be accessed on [http://localhost:3000/api/hello](http://localhost:3000/api/hello). This endpoint can be edited in `pages/api/hello.ts`.
+**`???`** 11.03: Implement **commenting functionality on groove pages**. Users should be able to leave comments on grooves and view comments left by others.
 
-The `pages/api` directory is mapped to `/api/*`. Files in this directory are treated as [API routes](https://nextjs.org/docs/api-routes/introduction) instead of React pages.
+- Create a new table in your database to store comments, with foreign keys to link comments to the user who left them and the groove they are associated with.
+- Implement a **`GET`** route in your REST API that retrieves all comments for a specific groove and returns them as JSON.
+- Implement a **`POST`** route in your REST API that allows users to leave comments on grooves and stores them securely in the database.
+- Add a form to the groove page that allows users to leave comments.
+- Display a list of comments left on the groove page, with the ability to paginate through multiple pages.
 
-This project uses [`next/font`](https://nextjs.org/docs/basic-features/font-optimization) to automatically optimize and load Inter, a custom Google Font.
+  11.03: Implement search functionality on the grooves page. Users should be able to **filter grooves by date, time, location, and label.**
 
-## Learn More
+- Add search inputs to the grooves page that allow users to filter grooves by date, time, location, and label.
+- Implement a **`GET`** route in your REST API that retrieves grooves based on the search criteria and returns them as JSON.
+- Use server-side rendering to render the grooves page with the initial data from the **`GET`** request.
+- Add pagination to the search results to allow the user to view grooves across multiple pages.
 
-To learn more about Next.js, take a look at the following resources:
+  12.03: Implement **responsive design** using pure CSS, without a library. Ensure that the application is fully functional and looks good on mobile devices.
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+- Use CSS media queries to create responsive styles that adjust the layout and appearance of the application based on screen size.
+- Test the application on multiple devices and ensure that it looks and works well on mobile devices.
+- Ensure that the application is accessible to users with disabilities by following accessibility best practices.
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
+  13.03: Implement additional features and polish the application.
 
-## Deploy on Vercel
+- Add any additional features that you feel are necessary or desirable, such as a password reset function, email verification, or social login.
+- Test the application thoroughly to ensure that it is functional, secure, and easy to use.
+- Add **dropdown menu** with js
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+  14.03: Write unit **tests with Jest and use Playwright** to test the user interface.
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
+- Write Jest tests to ensure that all server-side and client-side code is working as expected.
+- Use Playwright to test the user interface, making sure that all buttons, forms, and links are working correctly.
+- Test the application on multiple devices and browsers to ensure that it works well on a variety of platforms.
+
+  15.03: **Deploy** the application to a hosting provider.
+
+- Choose a hosting provider that supports Next.js and PostgreSQL, such as Vercel or Heroku.
+- Create a production build of your Next.js application.
+- Set up a PostgreSQL database on your hosting provider, and migrate your database schema and data to the production database.
+- Deploy your application to the hosting provider, ensuring that all necessary environment variables are set up correctly.
+- Test the deployed application to ensure that it is functioning correctly and securely.
+- Set up continuous integration and deployment (CI/CD) to automate the deployment process and ensure that the application is always up to date.
