@@ -232,6 +232,7 @@ export default function CreateGrooveForm(props: Props) {
         <label>
           Time:
           <input
+            type="time"
             value={time}
             required
             onChange={(e) => setTime(e.currentTarget.value)}
@@ -243,6 +244,7 @@ export default function CreateGrooveForm(props: Props) {
           {/* <DatePicker value={date} onChange={(date) => setDate(date)} /> */}
           <input
             value={date}
+            type="date"
             required
             onChange={(e) => setDate(e.currentTarget.value)}
           />{' '}

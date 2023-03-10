@@ -151,6 +151,7 @@ export default function EditGrooveForm(props: Props) {
               <label>
                 Enter time:
                 <input
+                  type="time"
                   value={editTime}
                   onChange={(e) => setEditTime(e.currentTarget.value)}
                 />
@@ -162,6 +163,7 @@ export default function EditGrooveForm(props: Props) {
               <label>
                 Enter date:
                 <input
+                  type="date"
                   value={editDate}
                   onChange={(e) => setEditDate(e.currentTarget.value)}
                 />
