@@ -1,6 +1,5 @@
 .html {
   height: 100vh;
-
   margin: 0px;
   background-image: url('/backgroundphoto16.jpg');
   background-position: center;
@@ -47,6 +46,8 @@
     bottom: 0;
     width: 100%;
     padding: 30px;
+    position: fixed;
+
     ul {
       padding-top: 20px;
       border-top: solid 1.2px white;

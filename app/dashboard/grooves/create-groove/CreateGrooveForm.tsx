@@ -167,7 +167,7 @@ export default function CreateGrooveForm(props: Props) {
       console.error(error);
     }
     // setGrooves([...grooves, data.groove]);
-    router.push('/dashboard/grooves');
+    // router.push('/dashboard/grooves');
   }
 
   console.log('userId from CreateGrooveForm: ', props.userId);
@@ -206,7 +206,7 @@ export default function CreateGrooveForm(props: Props) {
         </label>
         <br />
         <label>
-          Describe the idea of your groove:
+          Describe the idea of groove:
           <input
             value={description}
             onChange={(e) => setDescription(e.currentTarget.value)}
@@ -214,7 +214,7 @@ export default function CreateGrooveForm(props: Props) {
         </label>{' '}
         <br />
         <label>
-          location:
+          Location:
           <input
             value={location}
             onChange={(e) => setLocation(e.currentTarget.value)}
@@ -222,7 +222,7 @@ export default function CreateGrooveForm(props: Props) {
         </label>{' '}
         <br />
         <label>
-          label:
+          Label:
           <input
             value={label}
             onChange={(e) => setLabel(e.currentTarget.value)}
@@ -230,7 +230,7 @@ export default function CreateGrooveForm(props: Props) {
         </label>{' '}
         <br />
         <label>
-          time:
+          Time:
           <input
             value={time}
             required
@@ -258,7 +258,7 @@ export default function CreateGrooveForm(props: Props) {
         </label>{' '}
         <br />
         <label>
-          imgUrl
+          Upload image:
           <input type="file" name="fileInput" />
         </label>
         {/* <img src={imgUrl} alt="here will be your file" width="120" /> */}

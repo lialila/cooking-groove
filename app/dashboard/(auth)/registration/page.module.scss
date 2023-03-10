@@ -4,18 +4,14 @@
   padding: 2rem;
   margin-top: 5rem;
   width: 100vw;
-  // height: 100vh;
 }
+
 .form {
-  //display: flex;
-  // flex-direction: column;
   text-align: left;
   padding: 10px;
   color: black;
   display: inline-block;
-  //justify-content: flex-start;
   margin: auto;
-  //line-height: 1rem;
   text-transform: lowercase;
   font-weight: 700;
   font-size: 1rem;
@@ -33,9 +29,8 @@
     text-align: left;
     background-color: rgba(185, 179, 179, 0);
     border: solid 1.2px rgb(43, 38, 92);
-    // border-radius: 1.8px;
-    // height: 1rem;
   }
+
   button {
     background: rgba(185, 179, 179, 0);
     border: solid rgb(43, 38, 92) 1.2px;
@@ -45,6 +40,7 @@
     width: 140px;
     font-family: 'Montserrat', sans-serif;
   }
+
   button:hover {
     border: solid rgb(250, 234, 7) 1.2px;
   }

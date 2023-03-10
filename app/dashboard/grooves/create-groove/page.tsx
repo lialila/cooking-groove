@@ -30,9 +30,11 @@ export default async function CreateGroove() {
 
   return (
     <div className={styles.main}>
-      <div className={styles.div}>
-        <CreateGrooveForm grooves={grooves} userId={userId} />
-      </div>
+      <CreateGrooveForm
+        grooves={grooves}
+        userId={userId}
+        className={styles.div}
+      />
     </div>
   );
 }

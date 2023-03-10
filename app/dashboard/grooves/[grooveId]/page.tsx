@@ -10,7 +10,7 @@ import { notFound, redirect } from 'next/navigation';
 import { getGrooveById, getGrooves } from '../../../../database/grooves';
 import { getValidSessionByToken } from '../../../../database/sessions';
 import { getUserBySessionToken } from '../../../../database/users';
-import EditGrooveForm from './EditGrooveFrom';
+import EditGrooveForm from './EditGrooveForm';
 import { grooveNotFoundMetadata } from './not-found';
 
 export const dynamic = 'force-dynamic';

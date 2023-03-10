@@ -4,18 +4,18 @@
   flex-direction: row;
   align-items: center;
   text-align: center;
-  margin-top: 6rem;
-  padding: 2rem;
-  // height: 100vh;
+  margin-top: 7rem;
+  padding: 1rem;
   width: 100vw;
 }
+
 .div {
   // display: flex;
   // flex-direction: column;
-  padding: 10px;
-  margin: auto;
+  padding: 2rem;
+  margin: 1rem 2rem 7rem;
   line-height: 2rem;
-  text-transform: lowercase;
+  // text-transform: lowercase;
   font-weight: 400;
   font-size: 1rem;
   letter-spacing: 0.2vw;
@@ -25,7 +25,17 @@
   backdrop-filter: blur(5px);
   -webkit-backdrop-filter: blur(5px);
   border: 1px solid rgba(255, 255, 255, 0.3);
+  text-align: left;
+
+  h3 {
+    margin: auto;
+  }
+
+  input {
+    width: 100%;
+    margin: auto;
+    text-align: left;
+    background-color: rgba(185, 179, 179, 0);
+    border: solid 1.2px rgb(43, 38, 92);
+  }
 }
-// .form {
-//   color: black;
-// }
