@@ -8,7 +8,7 @@ export async function up(sql) {
   description varchar(600),
   location varchar(300) NOT NULL,
   label varchar(300),
-  img_url varchar(300),
+  img_url varchar(650000),
   user_id integer REFERENCES users (id) ON DELETE CASCADE,  time varchar(600) NOT NULL,
   date varchar(600) NOT NULL,
   language varchar(300) NOT NULL

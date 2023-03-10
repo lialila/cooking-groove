@@ -23,11 +23,13 @@ export default async function GroovesPage() {
           {grooves.map((groove) => {
             return (
               <li key={`groove.${groove.id}`}>
-                {' '}
                 <Link
                   href={`dashboard/grooves/${groove.id}`}
                   data-test-id={`product-${groove.id}`}
                 >
+                  <div>
+                    <img src={groove.imgUrl} width="150" alt="Groove" />
+                  </div>{' '}
                   <h3>{groove.name}</h3>{' '}
                   <p>
                     {groove.offer} {groove.lookingFor}

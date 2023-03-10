@@ -11,7 +11,8 @@ import Image from 'next/image';
 import Link from 'next/link';
 import { getUserBySessionToken } from '../database/users';
 import styles from './layout.module.scss';
-import LogOut from './LogOut';
+
+// import LogOut from './LogOut';
 
 export const metadata = {
   title: {
@@ -52,7 +53,7 @@ export default async function RootLayout(props: Props) {
       <body className={styles.body}>
         <header className={MontserratText.className}>
           <nav>
-            <ul>
+            <ul className={styles.nav}>
               <li>
                 <Link href="/">
                   <Image
@@ -69,7 +70,9 @@ export default async function RootLayout(props: Props) {
                   <Link href={`dashboard/profile/${user.username}`}>
                     <li>{user.username}</li>
                   </Link>
-                  <LogOut />
+                  <Link href="/logout" prefetch={false}>
+                    Log out
+                  </Link>
                   <li>
                     <Link href="/dashboard/grooves/create-groove">
                       <Image
@@ -102,7 +105,7 @@ export default async function RootLayout(props: Props) {
         </header>
         {props.children}
         <footer className={MontserratText.className}>
-          <ul>
+          <ul className={styles.footer}>
             <Link href="/">
               <li>
                 <Image

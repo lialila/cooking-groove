@@ -59,121 +59,153 @@ export default function EditGrooveForm(props: Props) {
 
   const [error, setError] = useState<string>();
 
+  const handleImageUpload = async (e: React.ChangeEvent<HTMLInputElement>) => {
+    const image = e.target.files?.[0];
+    if (image) {
+      const formData = new FormData();
+      formData.append('file', image);
+      formData.append('upload_preset', 'my-uploads');
+      const response = await fetch(
+        'https://api.cloudinary.com/v1_1/drjnxvwj6/upload',
+        {
+          method: 'POST',
+          body: formData,
+        },
+      );
+      if (response.ok) {
+        const data = await response.json();
+        setEditImgUrl(data.secure_url);
+      } else {
+        setError('Failed to upload image');
+      }
+    }
+  };
+
   return (
     <div className={styles.main}>
       <div className={courierPrime.className}>
         <div className={styles.div}>
           <div key={props.singleGroove.id} className={styles.groove}>
-            {idOnEditMode !== props.singleGroove.id ? (
-              <h1>{props.singleGroove.name}</h1>
-            ) : (
-              <label>
-                Groove name:
-                <input
-                  value={editName}
-                  onChange={(e) => setEditName(e.currentTarget.value)}
-                />
-              </label>
-            )}{' '}
-            {idOnEditMode !== props.singleGroove.id ? (
-              props.singleGroove.offer
-            ) : (
-              <label>
-                Your offer:
-                <input
-                  value={editOffer}
-                  onChange={(e) => setEditOffer(e.currentTarget.value)}
-                />{' '}
-              </label>
-            )}{' '}
-            {idOnEditMode !== props.singleGroove.id ? (
-              props.singleGroove.lookingFor
-            ) : (
-              <label>
-                What are you missing:
-                <input
-                  value={editLookingFor}
-                  onChange={(e) => setEditLookingFor(e.currentTarget.value)}
-                />
-              </label>
-            )}{' '}
-            {idOnEditMode !== props.singleGroove.id ? (
-              props.singleGroove.label
-            ) : (
-              <label>
-                Add labels
-                <input
-                  value={editLabel || ''}
-                  onChange={(e) => setEditLabel(e.currentTarget.value)}
-                />
-              </label>
-            )}{' '}
-            {idOnEditMode !== props.singleGroove.id ? (
-              <p>When? {props.singleGroove.time}</p>
-            ) : (
-              <label>
-                Enter time:
-                <input
-                  value={editTime}
-                  onChange={(e) => setEditTime(e.currentTarget.value)}
-                />
-              </label>
-            )}{' '}
-            {idOnEditMode !== props.singleGroove.id ? (
-              props.singleGroove.date
-            ) : (
-              <label>
-                Enter date:
-                <input
-                  value={editDate}
-                  onChange={(e) => setEditDate(e.currentTarget.value)}
-                />
-              </label>
-            )}{' '}
-            {idOnEditMode !== props.singleGroove.id ? (
-              props.singleGroove.language
-            ) : (
-              <label>
-                Language:
-                <input
-                  value={editLanguage}
-                  onChange={(e) => setEditLanguage(e.currentTarget.value)}
-                />
-              </label>
-            )}{' '}
-            {idOnEditMode !== props.singleGroove.id ? (
-              props.singleGroove.description
-            ) : (
-              <label>
-                Description:
-                <input
-                  value={editDescription || ''}
-                  onChange={(e) => setEditDescription(e.currentTarget.value)}
-                />
-              </label>
-            )}{' '}
-            {idOnEditMode !== props.singleGroove.id ? (
-              <p>Where? {props.singleGroove.location}</p>
-            ) : (
-              <label>
-                Location:
-                <input
-                  value={editLocation || ''}
-                  onChange={(e) => setEditLocation(e.currentTarget.value)}
-                />{' '}
-              </label>
-            )}{' '}
-            {idOnEditMode !== props.singleGroove.id ? (
-              <p>Photo {props.singleGroove.imgUrl}</p>
-            ) : (
-              <label>
-                Location:
-                <input
-                  value={editImgUrl || ''}
-                  onChange={(e) => setEditImgUrl(e.currentTarget.value)}
-                />{' '}
-              </label>
-            )}{' '}
+            <form>
+              {idOnEditMode !== props.singleGroove.id ? (
+                <div>
+                  {' '}
+                  <img
+                    src={props.singleGroove.imgUrl}
+                    width="150"
+                    alt="Groove"
+                  />
+                </div>
+              ) : (
+                <label>
+                  Image:{' '}
+                  <input
+                    type="file"
+                    name="fileInput"
+                    onChange={handleImageUpload}
+                  />{' '}
+                </label>
+              )}
+              {idOnEditMode !== props.singleGroove.id ? (
+                <h1>{props.singleGroove.name}</h1>
+              ) : (
+                <label>
+                  Groove name:
+                  <input
+                    value={editName}
+                    onChange={(e) => setEditName(e.currentTarget.value)}
+                  />
+                </label>
+              )}{' '}
+              {idOnEditMode !== props.singleGroove.id ? (
+                props.singleGroove.offer
+              ) : (
+                <label>
+                  Your offer:
+                  <input
+                    value={editOffer}
+                    onChange={(e) => setEditOffer(e.currentTarget.value)}
+                  />{' '}
+                </label>
+              )}{' '}
+              {idOnEditMode !== props.singleGroove.id ? (
+                props.singleGroove.lookingFor
+              ) : (
+                <label>
+                  What are you missing:
+                  <input
+                    value={editLookingFor}
+                    onChange={(e) => setEditLookingFor(e.currentTarget.value)}
+                  />
+                </label>
+              )}{' '}
+              {idOnEditMode !== props.singleGroove.id ? (
+                props.singleGroove.label
+              ) : (
+                <label>
+                  Add labels
+                  <input
+                    value={editLabel || ''}
+                    onChange={(e) => setEditLabel(e.currentTarget.value)}
+                  />
+                </label>
+              )}{' '}
+              {idOnEditMode !== props.singleGroove.id ? (
+                <p>When? {props.singleGroove.time}</p>
+              ) : (
+                <label>
+                  Enter time:
+                  <input
+                    value={editTime}
+                    onChange={(e) => setEditTime(e.currentTarget.value)}
+                  />
+                </label>
+              )}{' '}
+              {idOnEditMode !== props.singleGroove.id ? (
+                props.singleGroove.date
+              ) : (
+                <label>
+                  Enter date:
+                  <input
+                    value={editDate}
+                    onChange={(e) => setEditDate(e.currentTarget.value)}
+                  />
+                </label>
+              )}{' '}
+              {idOnEditMode !== props.singleGroove.id ? (
+                props.singleGroove.language
+              ) : (
+                <label>
+                  Language:
+                  <input
+                    value={editLanguage}
+                    onChange={(e) => setEditLanguage(e.currentTarget.value)}
+                  />
+                </label>
+              )}{' '}
+              {idOnEditMode !== props.singleGroove.id ? (
+                props.singleGroove.description
+              ) : (
+                <label>
+                  Description:
+                  <input
+                    value={editDescription || ''}
+                    onChange={(e) => setEditDescription(e.currentTarget.value)}
+                  />
+                </label>
+              )}{' '}
+              {idOnEditMode !== props.singleGroove.id ? (
+                <p>Where? {props.singleGroove.location}</p>
+              ) : (
+                <label>
+                  Location:
+                  <input
+                    value={editLocation || ''}
+                    onChange={(e) => setEditLocation(e.currentTarget.value)}
+                  />{' '}
+                </label>
+              )}{' '}
+            </form>
           </div>
         </div>
         {props.singleGroove.userId !== props.userId ? (
@@ -250,7 +282,7 @@ export default function EditGrooveForm(props: Props) {
                 }
                 router.push('/dashboard/grooves/my-grooves');
                 // setGrooves([...grooves, data.groove]);
-                // router.refresh();
+                router.refresh();
               }}
             >
               Delete

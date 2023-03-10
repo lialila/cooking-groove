@@ -40,12 +40,12 @@ export default async function MyGrooves() {
                   data-test-id={`product-${groove.id}`}
                 >
                   <h3>{groove.name}</h3>{' '}
+                  <img src={groove.imgUrl} width="150" alt="Groove" />
+                  <p>
+                    {groove.offer} {groove.lookingFor}
+                    {groove.description} {groove.location} {groove.label}
+                  </p>{' '}
                 </Link>
-
-                <p>
-                  {groove.offer} {groove.lookingFor}
-                  {groove.description} {groove.location} {groove.label}
-                </p>
                 <Link
                   href={`dashboard/grooves/${groove.id}`}
                   data-test-id={`product-${groove.id}`}
