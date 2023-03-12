@@ -1,12 +1,10 @@
 export async function up(sql) {
   await sql`
   CREATE TABLE usersgrooves (
-    grooves_id INTEGER NOT NULL,
-    users_id INTEGER NOT NULL,
-    PRIMARY KEY (grooves_id, users_id),
-    FOREIGN KEY (grooves_id) REFERENCES grooves(id) ON DELETE CASCADE,
-    FOREIGN KEY (users_id) REFERENCES users(id) ON DELETE CASCADE
-  )`;
+    id integer PRIMARY KEY GENERATED ALWAYS AS IDENTITY,
+    groove_id INTEGER REFERENCES grooves(id) ON DELETE CASCADE NOT NULL,
+    user_id INTEGER REFERENCES users(id) ON DELETE CASCADE NOT NULL
+    )`;
 }
 
 export async function down(sql) {

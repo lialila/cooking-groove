@@ -50,9 +50,9 @@ export default function RegisterForm(props: { returnTo?: string | string[] }) {
         },
       );
       const cloudinaryData = await cloudinaryResponse.json();
-      const profileImgUrl = cloudinaryData.secure_url;
+      const profileImgUrl1 = cloudinaryData.secure_url;
 
-      setProfileImgUrl(profileImgUrl);
+      setProfileImgUrl(profileImgUrl1);
       event.preventDefault();
 
       const response = await fetch('/dashboard/api/register', {
