@@ -7,6 +7,7 @@ import {
 } from '@next/font/google';
 import { useRouter } from 'next/navigation';
 import { useState } from 'react';
+import { getSafeReturnToPath } from '../../../../utils/validation';
 import { RegisterResponseBody } from '../../api/(auth)/register/route';
 import styles from './page.module.scss';
 
@@ -23,6 +24,7 @@ export default function RegisterForm(props: { returnTo?: string | string[] }) {
   const [username, setUsername] = useState('');
   const [name, setName] = useState('');
   const [email, setEmail] = useState('');
+  const [profileImgUrl, setProfileImgUrl] = useState<string>('');
   const [eatingExperience, setEatingExperience] = useState('');
   const [cookingExperience, setCookingExperience] = useState('');
   const [favouriteFood, setFavouriteFood] = useState('');
@@ -32,46 +34,67 @@ export default function RegisterForm(props: { returnTo?: string | string[] }) {
 
   const router = useRouter();
 
-  return (
-    <form
-      className={styles.form}
-      onSubmit={async (e) => {
-        e.preventDefault();
+  async function handleSubmit(event) {
+    event.preventDefault();
+    const file = event.target.elements.fileInput.files[0];
+    const formData = new FormData();
+    formData.append('file', file);
+    formData.append('upload_preset', 'my-uploads');
 
-        const response = await fetch('/dashboard/api/register', {
+    try {
+      const cloudinaryResponse = await fetch(
+        'https://api.cloudinary.com/v1_1/drjnxvwj6/upload',
+        {
           method: 'POST',
-          body: JSON.stringify({
-            username,
-            name,
-            email,
-            eatingExperience,
-            cookingExperience,
-            favouriteFood,
-            language,
-            password,
-          }),
-        });
+          body: formData,
+        },
+      );
+      const cloudinaryData = await cloudinaryResponse.json();
+      const profileImgUrl = cloudinaryData.secure_url;
 
-        const data: RegisterResponseBody = await response.json();
+      setProfileImgUrl(profileImgUrl);
+      event.preventDefault();
 
-        if ('errors' in data) {
-          setErrors(data.errors);
-          return;
-        }
-        if (
-          props.returnTo &&
-          !Array.isArray(props.returnTo) &&
-          // This is checking that the return to is a valid path in your application and not going to a different domain
-          /^\/[a-zA-Z0-9-?=/]*$/.test(props.returnTo)
-        ) {
-          router.push(props.returnTo);
-          return;
-        }
+      const response = await fetch('/dashboard/api/register', {
+        method: 'POST',
+        body: JSON.stringify({
+          username,
+          name,
+          email,
+          profileImgUrl,
+          eatingExperience,
+          cookingExperience,
+          favouriteFood,
+          language,
+          password,
+        }),
+      });
 
-        router.push(`/dashboard/profile/${data.user.username}`);
+      const data: RegisterResponseBody = await response.json();
+
+      if ('errors' in data) {
+        setErrors(data.errors);
+        return;
+      } else {
         router.refresh();
-      }}
-    >
+      }
+
+      const returnTo = getSafeReturnToPath(props.returnTo);
+
+      if (returnTo) {
+        router.push(returnTo);
+        return;
+      }
+
+      router.replace(`/dashboard/profile/${data.user.username}`);
+      router.refresh();
+    } catch (error) {
+      console.error(error);
+    }
+  }
+
+  return (
+    <form className={styles.form} onSubmit={handleSubmit}>
       {errors.map((error) => (
         <div key={`error-${error.message}`}>Error: {error.message}</div>
       ))}
@@ -155,6 +178,10 @@ export default function RegisterForm(props: { returnTo?: string | string[] }) {
         onChange={(e) => setPassword(e.currentTarget.value)}
       />
       <br />
+      <label className={courierPrime.className}>
+        Upload image:
+        <input type="file" name="fileInput" />
+      </label>
       <br />
       <button className={courierPrime.className}>Back </button>
       <button className={courierPrime.className}>Sign up</button>

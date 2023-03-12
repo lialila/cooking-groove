@@ -40,7 +40,7 @@ export default async function RootLayout(props: Props) {
   // 1. get the session token from the cookie
   const cookieStore = cookies();
   const sessionToken = cookieStore.get('sessionToken');
-
+  console.log('sessionToken from layout: ', sessionToken?.value);
   // 2. validate that session
   // 3. get the user profile matching the session
   const user = !sessionToken?.value

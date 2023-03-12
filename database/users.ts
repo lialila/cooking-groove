@@ -6,6 +6,7 @@ export type User = {
   username: string;
   name: string;
   email: string;
+  profileImgUrl: string;
   eatingExperience: string | null;
   cookingExperience: string | null;
   favouriteFood: string | null;
@@ -19,6 +20,7 @@ export const getUserByUsername = cache(async (username: string) => {
       id: number;
       username: string;
       name: string;
+      profileImgUrl: string;
       eatingExperience: string;
       cookingExperience: string;
       favouriteFood: string;
@@ -78,6 +80,7 @@ export const createUser = cache(
     username: string,
     name: string,
     email: string,
+    profileImgUrl: string,
     eatingExperience: string,
     cookingExperience: string,
     favouriteFood: string,
@@ -87,16 +90,16 @@ export const createUser = cache(
     const [user] = await sql<User[]>`
      INSERT INTO users
   (username, name,
-  email,
+  email, profile_img_url,
   eating_experience,
   cooking_experience,
   favourite_food,
   language,
   password_hash)
      VALUES
-  (${username}, ${name}, ${email}, ${eatingExperience}, ${cookingExperience}, ${favouriteFood}, ${language}, ${passwordHash})
+  (${username}, ${name}, ${email}, ${profileImgUrl}, ${eatingExperience}, ${cookingExperience}, ${favouriteFood}, ${language}, ${passwordHash})
  RETURNING
- username, name, email, eating_experience, cooking_experience, favourite_food, language
+ username, name, email, profile_img_url, eating_experience, cooking_experience, favourite_food, language
   `;
     return user;
   },

@@ -39,84 +39,6 @@ export default function CreateGrooveForm(props: Props) {
   const [error, setError] = useState<string>();
 
   const [imgUrl, setImgUrl] = useState<string>('');
-  // const fileInputRef = useRef(null);
-
-  // cody
-  // const [uploadData, setUploadData] = useState();
-
-  // function handleOnChange(changeEvent) {
-  //   const reader = new FileReader();
-
-  //   reader.onload = function (onLoadEvent) {
-  //     setImgUrl(onLoadEvent.target.result);
-  //     setUploadData(undefined);
-  //   };
-
-  //   reader.readAsDataURL(changeEvent.target.files[0]);
-  // }
-
-  // async function handleOnSubmit(event) {
-  //   event.preventDefault();
-
-  //   const form = event.currentTarget;
-  //   const fileInput = Array.from(form.elements).find((name) => name === 'file');
-  //   console.log(fileInput);
-  //   const formData = new FormData();
-
-  //   for (const file of fileInput.files) {
-  //     formData.append('file', file);
-  //   }
-
-  //   formData.append('upload_preset', 'my-uploads');
-
-  //   const data = await fetch(
-  //     'https://api.cloudinary.com/v1_1/drjnxvwj6/image/upload',
-  //     {
-  //       method: 'POST',
-  //       body: formData,
-  //     },
-  //   ).then((r) => r.json());
-
-  //   setImgUrl(data.secure_url);
-  //   setUploadData(data);
-
-  //   console.log(data);
-  // }
-
-  // require('dotenv').config();
-  // const cloudinary = require('cloudinary').v2;
-  // console.log(cloudinary.config().drjnxvwj6);
-
-  // cloudinary.uploader
-  //   .upload('./backgroundphoto2.jpg', {
-  //     resource_type: 'image',
-  //   })
-  //   .then((result) => {
-  //     console.log('success', JSON.stringify(result, null, 2));
-  //   })
-  //   .catch((error) => {
-  //     console.log('error', JSON.stringify(error, null, 2));
-  //   });
-
-  // const handleImageUpload = (e) => {
-  //   e.preventDefault();
-  //   const file = e.currentTarget['fileInput'].files[0];
-
-  //   const formData = new FormData();
-  //   formData.append('file', file);
-
-  //   fetch('https://echo-api.3scale.net/', {
-  //     method: 'POST',
-  //     body: formData,
-  //   })
-  //     .then((response) => response.json())
-  //     .then((data) => {
-  //       setImgUrl(data);
-  //     })
-  //     .catch((error) => {
-  //       console.error(error);
-  //     });
-  // };
 
   async function handleSubmit(event) {
     event.preventDefault();
@@ -134,9 +56,9 @@ export default function CreateGrooveForm(props: Props) {
         },
       );
       const cloudinaryData = await cloudinaryResponse.json();
-      const imgUrl = cloudinaryData.secure_url;
+      const imgUrl1 = cloudinaryData.secure_url;
 
-      setImgUrl(imgUrl);
+      setImgUrl(imgUrl1);
       // After uploading the file to Cloudinary, send the rest of the form data to your API
       const apiResponse = await fetch('/dashboard/api/grooves', {
         method: 'POST',
@@ -158,6 +80,7 @@ export default function CreateGrooveForm(props: Props) {
         }),
       });
       const apiData = await apiResponse.json();
+
       if (apiData.error) {
         setError(apiData.error);
       } else {
@@ -241,7 +164,6 @@ export default function CreateGrooveForm(props: Props) {
         <br />
         <label>
           Date:
-          {/* <DatePicker value={date} onChange={(date) => setDate(date)} /> */}
           <input
             value={date}
             type="date"

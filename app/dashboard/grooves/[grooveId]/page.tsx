@@ -43,15 +43,7 @@ export default async function GrooveIdPage(props: Props) {
   console.log('user.id from edit groove page', user?.id);
 
   const userId = user?.id;
-  // const sessionTokenCookie = cookies().get('sessionToken');
 
-  // const session =
-  //   sessionTokenCookie &&
-  //   (await getValidSessionByToken(sessionTokenCookie.value));
-
-  // if (!session) {
-  //   redirect('/dashboard/login');
-  // }
   const singleGroove = await getGrooveById(parseInt(props.params.grooveId));
 
   if (!singleGroove) {

@@ -5,16 +5,30 @@ import {
   getUserBySessionToken,
   getUserByUsername,
 } from '../../../../database/users';
+import EditUserForm from './EditUserForm';
 import styles from './page.module.scss';
 
 type Props = {
   params: {
     username: string;
+    profileImgUrl: string;
     eatingExperience: string;
     cookingExperience: string;
     favouriteFood: string;
     language: string;
   };
+};
+type SessionUser = {
+  id: number;
+  username: string;
+  name: string;
+  email: string;
+  profileImgUrl: string;
+  eatingExperience: string;
+  cookingExperience: string;
+  favouriteFood: string;
+  language: string;
+  password: string;
 };
 
 export default async function UserProfile({ params }: Props) {
@@ -34,22 +48,8 @@ export default async function UserProfile({ params }: Props) {
   // console.log('user.id from profile page: ', user.id);
 
   return (
-    <div className={styles.main}>
-      <div>
-        <h1>{user.username}</h1>
-        <p>{user.name}</p>
-        <p>eating experience: {user.eatingExperience}</p>
-        <p>cooking experience: {user.cookingExperience}</p>
-        <p>favourite food: {user.favouriteFood}</p>
-        <p>language: {user.language}</p>
-        <Link href="/dashboard/grooves/my-grooves">
-          {sessionUser && sessionUser.id === user.id ? (
-            <button>My grooves</button>
-          ) : (
-            <h4>Access denied</h4>
-          )}
-        </Link>
-      </div>
-    </div>
+    <section className={styles.main}>
+      <EditUserForm sessionUser={sessionUser} user={user} />
+    </section>
   );
 }

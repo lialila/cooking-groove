@@ -5,6 +5,7 @@ CREATE TABLE users(
   username varchar(30) NOT NULL UNIQUE,
   name varchar(80) NOT NULL,
   email varchar(50) NOT NULL,
+  profile_img_url varchar(250),
   eating_experience varchar(600),
   cooking_experience varchar(600),
   favourite_food varchar(600),

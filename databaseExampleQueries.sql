@@ -3,6 +3,7 @@ CREATE TABLE users(
    id integer PRIMARY KEY GENERATED ALWAYS AS IDENTITY,
    username(30) NOT NULL,
   email varchar(30) NOT NULL,
+  profile_img_url varchar(150) NOT NULL,
   eating_experience varchar(600),
   cooking_experience varchar(600),
   favourite_food varchar(600)
@@ -10,7 +11,7 @@ CREATE TABLE users(
 );
 
 INSERT INTO users
-(username, email, eating_experience, cooking_experience, favourite_food, language)
+(username, email, profile_img_url, eating_experience, cooking_experience, favourite_food, language)
 VALUES ();
 
 CREATE TABLE grooves(

@@ -1,11 +1,11 @@
 export async function up(sql) {
   await sql`
   CREATE TABLE usersgrooves (
-    groove_id INTEGER NOT NULL,
-    user_id INTEGER NOT NULL,
-    PRIMARY KEY (groove _id, user_id),
-    FOREIGN KEY (groove_id) REFERENCES groove(id) ON DELETE CASCADE,
-    FOREIGN KEY (user_id) REFERENCES users(id) ON DELETE CASCADE
+    grooves_id INTEGER NOT NULL,
+    users_id INTEGER NOT NULL,
+    PRIMARY KEY (grooves_id, users_id),
+    FOREIGN KEY (grooves_id) REFERENCES grooves(id) ON DELETE CASCADE,
+    FOREIGN KEY (users_id) REFERENCES users(id) ON DELETE CASCADE
   )`;
 }
 
