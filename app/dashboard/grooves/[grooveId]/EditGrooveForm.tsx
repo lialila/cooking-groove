@@ -56,7 +56,6 @@ export default function EditGrooveForm(props: Props) {
   const [editDate, setEditDate] = useState<string>('');
   const [editLanguage, setEditLanguage] = useState<string>('');
   const [editImgUrl, setEditImgUrl] = useState<string>('');
-  const [participating, setParticipating] = useState<boolean>(false);
 
   const [error, setError] = useState<string>();
 
@@ -206,64 +205,7 @@ export default function EditGrooveForm(props: Props) {
           </form>
 
           {props.singleGroove.userId !== props.userId ? (
-            participating ? (
-              <button
-                onClick={async () => {
-                  const response = await fetch(
-                    'dashboard/api/grooves/usersgrooves',
-                    {
-                      method: 'DELETE',
-                      body: JSON.stringify({
-                        userId: props.userId,
-                        grooveId: props.singleGroove.id,
-                      }),
-                    },
-                  );
-
-                  const data = await response.json();
-                  if ('errors' in data) {
-                    setError(data.errors);
-                    return;
-                  } else {
-                    setParticipating(false);
-                    router.refresh();
-                  }
-                }}
-              >
-                Leave
-              </button>
-            ) : (
-              <button
-                onClick={async () => {
-                  const response = await fetch(
-                    '/dashboard/api/grooves/usersgrooves',
-                    {
-                      method: 'POST',
-                      headers: {
-                        'Content-Type': 'application/json',
-                      },
-
-                      body: JSON.stringify({
-                        userId: props.userId,
-                        grooveId: props.singleGroove.id,
-                      }),
-                    },
-                  );
-
-                  const data = await response.json();
-
-                  if ('errors' in data) {
-                    setError(data.errors);
-                    return;
-                  } else {
-                    setParticipating(true);
-                    router.refresh();
-                  }
-                }}
-              >
-                Participate
-              </button>
-            )
+            <button>Participate</button>
           ) : (
             <div>
               <button
@@ -292,19 +234,17 @@ export default function EditGrooveForm(props: Props) {
                         'Content-type': 'application/json',
                       },
                       body: JSON.stringify({
-                        name: editName || props.singleGroove.name,
-                        offer: editOffer || props.singleGroove.offer,
-                        lookingFor:
-                          editLookingFor || props.singleGroove.lookingFor,
-                        description:
-                          editDescription || props.singleGroove.description,
-                        location: editLocation || props.singleGroove.location,
-                        label: editLabel || props.singleGroove.label,
-                        imgUrl: editImgUrl || props.singleGroove.imgUrl,
-                        userId: props.userId || props.singleGroove.userId,
-                        time: editTime || props.singleGroove.time,
-                        date: editDate || props.singleGroove.date,
-                        language: editLanguage || props.singleGroove.language,
+                        name: editName,
+                        offer: editOffer,
+                        lookingFor: editLookingFor,
+                        description: editDescription,
+                        location: editLocation,
+                        label: editLabel,
+                        imgUrl: editImgUrl,
+                        userId: props.userId,
+                        time: editTime,
+                        date: editDate,
+                        language: editLanguage,
                       }),
                     },
                   );

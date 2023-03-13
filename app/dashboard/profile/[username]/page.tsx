@@ -4,8 +4,6 @@ import { notFound } from 'next/navigation';
 import {
   getUserBySessionToken,
   getUserByUsername,
-  getUsers,
-  User,
 } from '../../../../database/users';
 import EditUserForm from './EditUserForm';
 import styles from './page.module.scss';
@@ -32,12 +30,9 @@ type SessionUser = {
   language: string;
   password: string;
 };
-type user = User[];
 
 export default async function UserProfile({ params }: Props) {
   const user = await getUserByUsername(params.username);
-
-  const users = await getUsers();
 
   if (!user) {
     notFound();
@@ -54,7 +49,7 @@ export default async function UserProfile({ params }: Props) {
 
   return (
     <section className={styles.main}>
-      <EditUserForm sessionUser={sessionUser} user={user} users={users} />
+      <EditUserForm sessionUser={sessionUser} user={user} />
     </section>
   );
 }

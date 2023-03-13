@@ -50,9 +50,8 @@ export default async function MyGrooves() {
                   href={`dashboard/grooves/${groove.id}`}
                   data-test-id={`product-${groove.id}`}
                 >
-                  <button>View</button>
-                </Link>{' '}
-                {/* <button>Participate</button> */}
+                  <button>Edit</button>
+                </Link>
               </li>
             );
           })}

@@ -22,7 +22,7 @@ type Props = {
     cookingExperience: string;
     favouriteFood: string;
     language: string;
-    passwordHash: string;
+    password: string;
   };
   user: {
     id: number;
@@ -34,9 +34,8 @@ type Props = {
     cookingExperience: string;
     favouriteFood: string;
     language: string;
-    passwordHash: string;
+    password: string;
   };
-  users: User[];
 };
 const courierPrime = Courier_Prime({
   weight: '400',
@@ -46,7 +45,7 @@ const courierPrime = Courier_Prime({
 export default function EditUserForm(props: Props) {
   const router = useRouter();
 
-  const [users, setUsers] = useState<User[]>(props.users);
+  const [users, setUsers] = useState<User[]>(props.user);
 
   const [idOnEditMode, setIdOnEditMode] = useState<number>();
   const [editUsername, setEditUsername] = useState('');
@@ -58,7 +57,7 @@ export default function EditUserForm(props: Props) {
     useState<string>('');
   const [editFavouriteFood, setEditFavouriteFood] = useState<string>('');
   const [editLanguage, setEditLanguage] = useState<string>('');
-  // const [editPassword, setEditPassword] = useState<string>('');
+  const [editPassword, setEditPassword] = useState<string>('');
 
   const [error, setError] = useState<string>();
 
@@ -84,56 +83,10 @@ export default function EditUserForm(props: Props) {
     }
   };
 
-  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
-    e.preventDefault();
-
-    const updatedUser = {
-      id: props.user.id,
-      username: editUsername || props.user.username,
-      name: editName || props.user.name,
-      email: editEmail || props.user.email,
-      profileImgUrl: editProfileImgUrl || props.user.profileImgUrl,
-      eatingExperience: editEatingExperience || props.user.eatingExperience,
-      cookingExperience: editCookingExperience || props.user.cookingExperience,
-      favouriteFood: editFavouriteFood || props.user.favouriteFood,
-      language: editLanguage || props.user.language,
-      passwordHash: props.user.passwordHash,
-    };
-    console.log('updatedUser: ', updatedUser);
-    try {
-      const response = await fetch(
-        `/dashboard/api/profile/${props.user.username}`,
-        {
-          method: 'PUT',
-          headers: {
-            'Content-Type': 'application/json',
-          },
-          body: JSON.stringify(updatedUser),
-        },
-      );
-
-      if (!response.ok) {
-        throw new Error('Failed to update user');
-      }
-
-      const data = await response.json();
-      setUsers([data]);
-
-      setIdOnEditMode(undefined); // exit edit mode
-      setUsers([...users, data.users]);
-      router.push(`/dashboard/profile/${props.user.username}`);
-
-      router.refresh();
-    } catch (error) {
-      console.error(error);
-      // setError(error.message);
-    }
-  };
-
   return (
     <div className={styles.div}>
       <div className={courierPrime.className}>
-        <form className={styles.form} onSubmit={handleSubmit}>
+        <form className={styles.form}>
           {idOnEditMode !== props.user.id ? (
             <div>
               <img src={props.user.profileImgUrl} width="150" alt="Profile" />
@@ -229,8 +182,8 @@ export default function EditUserForm(props: Props) {
               />{' '}
             </label>
           )}
-          {/* {idOnEditMode !== props.user.id ? (
-            props.user.passwordHash
+          {idOnEditMode !== props.user.id ? (
+            props.user.password
           ) : (
             <label>
               Password:
@@ -239,7 +192,7 @@ export default function EditUserForm(props: Props) {
                 onChange={(e) => setEditPassword(e.currentTarget.value)}
               />{' '}
             </label>
-          )} */}
+          )}
 
           {props.sessionUser && props.sessionUser.id === props.user.id ? (
             <>
@@ -256,56 +209,51 @@ export default function EditUserForm(props: Props) {
                   setEditEatingExperience(props.user.eatingExperience || '');
                   setEditCookingExperience(props.user.cookingExperience || '');
                   setEditFavouriteFood(props.user.favouriteFood || '');
-                  // setEditPassword(props.user.passwordHash);
+                  setEditPassword(props.user.password);
                   setEditLanguage(props.user.language || '');
                 }}
               >
                 Edit profile
               </button>
               <button
+                onClick={async () => {
+                  const response = await fetch(
+                    `/dashboard/api/users/${props.user.id}`,
+                    {
+                      method: 'PUT',
+                      headers: {
+                        'Content-type': 'application/json',
+                      },
+                      body: JSON.stringify({
+                        username: editUsername,
+                        name: editName,
+                        email: editEmail,
+                        profileImgUrl: editProfileImgUrl,
+                        eatingExperience: editEatingExperience,
+                        cookingExperience: editCookingExperience,
+                        favouriteFood: editFavouriteFood,
+                        language: editLanguage,
+                        password: editPassword,
+                      }),
+                    },
+                  );
+                  const data = await response.json();
 
-              // onClick={async () => {
-              //   const response = await fetch(
-              //     `/dashboard/api/profile/${props.user.name}`,
-              //     {
-              //       method: 'PUT',
-              //       headers: {
-              //         'Content-type': 'application/json',
-              //       },
-              //       body: JSON.stringify({
-              //         username: editUsername || props.user.username,
-              //         name: editName || props.user.name,
-              //         email: editEmail || props.user.email,
-              //         profileImgUrl:
-              //           editProfileImgUrl || props.user.profileImgUrl,
-              //         eatingExperience:
-              //           editEatingExperience || props.user.eatingExperience,
-              //         cookingExperience:
-              //           editCookingExperience || props.user.cookingExperience,
-              //         favouriteFood:
-              //           editFavouriteFood || props.user.favouriteFood,
-              //         language: editLanguage || props.user.language,
-              //         password: editPassword || props.user.password,
-              //       }),
-              //     },
-              //   );
-              //   const data = await response.json();
-
-              //   if (data.error) {
-              //     setError(data.error);
-              //     return;
-              //   }
-              //   setIdOnEditMode(undefined);
-              //   setUsers([...users, data.user]);
-              //   router.refresh();
-              // }}
+                  if (data.error) {
+                    setError(data.error);
+                    return;
+                  }
+                  setIdOnEditMode(undefined);
+                  setUsers([...users, data.user]);
+                  router.refresh();
+                }}
               >
                 Save
               </button>
               <button
                 onClick={async () => {
                   const response = await fetch(
-                    `/dashboard/api/profile/${props.sessionUser.name}`,
+                    `/dashboard/api/grooves/${props.sessionUser.id}`,
                     {
                       method: 'DELETE',
                     },

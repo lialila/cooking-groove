@@ -83,14 +83,14 @@ export default function CreateGrooveForm(props: Props) {
 
       if (apiData.error) {
         setError(apiData.error);
-        return;
+      } else {
+        router.refresh();
       }
-      setGrooves([...grooves, apiData.groove]);
-
-      router.push('/dashboard/grooves');
     } catch (error) {
       console.error(error);
     }
+    // setGrooves([...grooves, data.groove]);
+    // router.push('/dashboard/grooves');
   }
 
   console.log('userId from CreateGrooveForm: ', props.userId);
