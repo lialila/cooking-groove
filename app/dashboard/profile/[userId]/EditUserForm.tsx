@@ -22,7 +22,6 @@ type Props = {
     cookingExperience: string;
     favouriteFood: string;
     language: string;
-    password: string;
   };
   user: {
     id: number;
@@ -34,8 +33,8 @@ type Props = {
     cookingExperience: string;
     favouriteFood: string;
     language: string;
-    password: string;
   };
+  users: User[];
 };
 const courierPrime = Courier_Prime({
   weight: '400',
@@ -45,7 +44,7 @@ const courierPrime = Courier_Prime({
 export default function EditUserForm(props: Props) {
   const router = useRouter();
 
-  const [users, setUsers] = useState<User[]>(props.user);
+  const [users, setUsers] = useState<User[]>(props.users);
 
   const [idOnEditMode, setIdOnEditMode] = useState<number>();
   const [editUsername, setEditUsername] = useState('');
@@ -57,7 +56,6 @@ export default function EditUserForm(props: Props) {
     useState<string>('');
   const [editFavouriteFood, setEditFavouriteFood] = useState<string>('');
   const [editLanguage, setEditLanguage] = useState<string>('');
-  const [editPassword, setEditPassword] = useState<string>('');
 
   const [error, setError] = useState<string>();
 
@@ -68,7 +66,7 @@ export default function EditUserForm(props: Props) {
       formData.append('file', image);
       formData.append('upload_preset', 'my-uploads');
       const response = await fetch(
-        'https://api.cloudinary.com/v1_1/drjnxvwj6/upload',
+        `https://api.cloudinary.com/v1_1/${process.env.NEXT_PUBLIC_CLOUDINARY_CLOUD_NAME}/upload`,
         {
           method: 'POST',
           body: formData,
@@ -182,103 +180,95 @@ export default function EditUserForm(props: Props) {
               />{' '}
             </label>
           )}
-          {idOnEditMode !== props.user.id ? (
-            props.user.password
-          ) : (
-            <label>
-              Password:
-              <input
-                value={editPassword}
-                onChange={(e) => setEditPassword(e.currentTarget.value)}
-              />{' '}
-            </label>
-          )}
-
-          {props.sessionUser && props.sessionUser.id === props.user.id ? (
-            <>
-              <Link href="/dashboard/grooves/my-grooves">
-                <button>My grooves</button>
-              </Link>
-              <button
-                onClick={() => {
-                  setIdOnEditMode(props.user.id);
-                  setEditName(props.user.name);
-                  setEditUsername(props.user.username);
-                  setEditEmail(props.user.email);
-                  setEditProfileImgUrl(props.user.profileImgUrl || '');
-                  setEditEatingExperience(props.user.eatingExperience || '');
-                  setEditCookingExperience(props.user.cookingExperience || '');
-                  setEditFavouriteFood(props.user.favouriteFood || '');
-                  setEditPassword(props.user.password);
-                  setEditLanguage(props.user.language || '');
-                }}
-              >
-                Edit profile
-              </button>
-              <button
-                onClick={async () => {
-                  const response = await fetch(
-                    `/dashboard/api/users/${props.user.id}`,
-                    {
-                      method: 'PUT',
-                      headers: {
-                        'Content-type': 'application/json',
-                      },
-                      body: JSON.stringify({
-                        username: editUsername,
-                        name: editName,
-                        email: editEmail,
-                        profileImgUrl: editProfileImgUrl,
-                        eatingExperience: editEatingExperience,
-                        cookingExperience: editCookingExperience,
-                        favouriteFood: editFavouriteFood,
-                        language: editLanguage,
-                        password: editPassword,
-                      }),
-                    },
-                  );
-                  const data = await response.json();
-
-                  if (data.error) {
-                    setError(data.error);
-                    return;
-                  }
-                  setIdOnEditMode(undefined);
-                  setUsers([...users, data.user]);
-                  router.refresh();
-                }}
-              >
-                Save
-              </button>
-              <button
-                onClick={async () => {
-                  const response = await fetch(
-                    `/dashboard/api/grooves/${props.sessionUser.id}`,
-                    {
-                      method: 'DELETE',
-                    },
-                  );
-                  const data = await response.json();
-                  router.refresh();
-
-                  if (data.error) {
-                    setError(data.error);
-                    return;
-                  }
-                  router.push('/');
-                  setUsers([...users, data.users]);
-                  router.refresh();
-                }}
-              >
-                Delete profile
-              </button>
-            </>
-          ) : (
-            <Link href="/dashboard/grooves">
-              <button>{props.user.username} grooves</button>
-            </Link>
-          )}
         </form>
+
+        {props.sessionUser && props.sessionUser.id === props.user.id ? (
+          <>
+            <Link href="/dashboard/grooves/my-grooves">
+              <button>My grooves</button>
+            </Link>
+            <button
+              onClick={() => {
+                setIdOnEditMode(props.user.id);
+                setEditName(props.user.name);
+                setEditUsername(props.user.username);
+                setEditEmail(props.user.email);
+                setEditProfileImgUrl(props.user.profileImgUrl || '');
+                setEditEatingExperience(props.user.eatingExperience || '');
+                setEditCookingExperience(props.user.cookingExperience || '');
+                setEditFavouriteFood(props.user.favouriteFood || '');
+                setEditLanguage(props.user.language || '');
+              }}
+            >
+              Edit profile
+            </button>
+            <button
+              onClick={async () => {
+                const response = await fetch(
+                  `/dashboard/api/profile/${props.user.id}`,
+                  {
+                    method: 'PUT',
+                    headers: {
+                      'Content-type': 'application/json',
+                    },
+                    body: JSON.stringify({
+                      username: editUsername || props.user.username,
+                      name: editName || props.user.name,
+                      email: editEmail || props.user.email,
+                      profileImgUrl:
+                        editProfileImgUrl || props.user.profileImgUrl,
+                      eatingExperience:
+                        editEatingExperience || props.user.eatingExperience,
+                      cookingExperience:
+                        editCookingExperience || props.user.cookingExperience,
+                      favouriteFood:
+                        editFavouriteFood || props.user.favouriteFood,
+                      language: editLanguage || props.user.language,
+                    }),
+                  },
+                );
+                console.log('response from EditUserForm: ', response);
+                const data = await response.json();
+
+                if (data.error) {
+                  setError(data.error);
+                  return;
+                }
+                setIdOnEditMode(undefined);
+                setUsers([...users, data.user]);
+                router.refresh();
+              }}
+            >
+              Save
+            </button>
+            <button
+              onClick={async () => {
+                const response = await fetch(
+                  `/dashboard/api/profile/${props.user.id}`,
+                  {
+                    method: 'DELETE',
+                  },
+                );
+                const data = await response.json();
+                router.refresh();
+
+                if (data.error) {
+                  setError(data.error);
+                  return;
+                }
+                router.push('/');
+                setUsers([...users, data.users]);
+                router.refresh();
+              }}
+            >
+              Delete profile
+            </button>
+          </>
+        ) : (
+          <Link href="/dashboard/grooves">
+            <button>{props.user.username} grooves</button>
+          </Link>
+        )}
       </div>
     </div>
   );

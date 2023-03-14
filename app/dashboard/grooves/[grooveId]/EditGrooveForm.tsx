@@ -25,9 +25,10 @@ type Props = {
     date: string;
     language: string;
   };
-
+  comments: { id: number; text: string; userId: number; grooveId: number }[];
   userId: number;
   grooves: Groove[];
+  usersParticipating: { id: number; userId: number; grooveId: number }[];
 };
 
 const courierPrime = Courier_Prime({
@@ -56,7 +57,6 @@ export default function EditGrooveForm(props: Props) {
   const [editDate, setEditDate] = useState<string>('');
   const [editLanguage, setEditLanguage] = useState<string>('');
   const [editImgUrl, setEditImgUrl] = useState<string>('');
-
   const [error, setError] = useState<string>();
 
   const handleImageUpload = async (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -66,7 +66,7 @@ export default function EditGrooveForm(props: Props) {
       formData.append('file', image);
       formData.append('upload_preset', 'my-uploads');
       const response = await fetch(
-        'https://api.cloudinary.com/v1_1/drjnxvwj6/upload',
+        `https://api.cloudinary.com/v1_1/${process.env.NEXT_PUBLIC_CLOUDINARY_CLOUD_NAME}/upload`,
         {
           method: 'POST',
           body: formData,
@@ -80,7 +80,13 @@ export default function EditGrooveForm(props: Props) {
       }
     }
   };
-
+  console.log('props.usersParticipating: ', props.usersParticipating);
+  const userIdParticipating = props.usersParticipating.map(
+    (item) => item.userId,
+  );
+  const numUserIdParticipating = parseInt(userIdParticipating);
+  console.log('parsed userIdParticipating: ', parseInt(userIdParticipating));
+  console.log('typeof props.userId', typeof props.userId);
   return (
     <div className={styles.main}>
       <div className={courierPrime.className}>
@@ -205,7 +211,62 @@ export default function EditGrooveForm(props: Props) {
           </form>
 
           {props.singleGroove.userId !== props.userId ? (
-            <button>Participate</button>
+            numUserIdParticipating === props.userId ? (
+              <button
+                onClick={async () => {
+                  const response = await fetch(
+                    'dashboard/api/grooves/usersgrooves',
+                    {
+                      method: 'DELETE',
+                      body: JSON.stringify({
+                        userId: props.userId,
+                        grooveId: props.singleGroove.id,
+                      }),
+                    },
+                  );
+
+                  const data = await response.json();
+                  if ('errors' in data) {
+                    setError(data.errors);
+                    return;
+                  } else {
+                    router.refresh();
+                  }
+                }}
+              >
+                Leave
+              </button>
+            ) : (
+              <button
+                onClick={async () => {
+                  const response = await fetch(
+                    '/dashboard/api/grooves/usersgrooves',
+                    {
+                      method: 'POST',
+                      headers: {
+                        'Content-Type': 'application/json',
+                      },
+
+                      body: JSON.stringify({
+                        userId: props.userId,
+                        grooveId: props.singleGroove.id,
+                      }),
+                    },
+                  );
+
+                  const data = await response.json();
+
+                  if ('errors' in data) {
+                    setError(data.errors);
+                    return;
+                  } else {
+                    router.refresh();
+                  }
+                }}
+              >
+                Participate
+              </button>
+            )
           ) : (
             <div>
               <button
@@ -234,17 +295,19 @@ export default function EditGrooveForm(props: Props) {
                         'Content-type': 'application/json',
                       },
                       body: JSON.stringify({
-                        name: editName,
-                        offer: editOffer,
-                        lookingFor: editLookingFor,
-                        description: editDescription,
-                        location: editLocation,
-                        label: editLabel,
-                        imgUrl: editImgUrl,
-                        userId: props.userId,
-                        time: editTime,
-                        date: editDate,
-                        language: editLanguage,
+                        name: editName || props.singleGroove.name,
+                        offer: editOffer || props.singleGroove.offer,
+                        lookingFor:
+                          editLookingFor || props.singleGroove.lookingFor,
+                        description:
+                          editDescription || props.singleGroove.description,
+                        location: editLocation || props.singleGroove.location,
+                        label: editLabel || props.singleGroove.label,
+                        imgUrl: editImgUrl || props.singleGroove.imgUrl,
+                        userId: props.userId || props.singleGroove.userId,
+                        time: editTime || props.singleGroove.time,
+                        date: editDate || props.singleGroove.date,
+                        language: editLanguage || props.singleGroove.language,
                       }),
                     },
                   );

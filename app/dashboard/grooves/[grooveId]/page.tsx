@@ -7,9 +7,11 @@ import {
 import { Metadata } from 'next';
 import { cookies } from 'next/headers';
 import { notFound, redirect } from 'next/navigation';
+import { getCommentsByGrooveId } from '../../../../database/comments';
 import { getGrooveById, getGrooves } from '../../../../database/grooves';
 import { getValidSessionByToken } from '../../../../database/sessions';
 import { getUserBySessionToken } from '../../../../database/users';
+import { getUsersgroovesByGrooveId } from '../../../../database/usersgrooves';
 import EditGrooveForm from './EditGrooveForm';
 import { grooveNotFoundMetadata } from './not-found';
 
@@ -30,6 +32,7 @@ export async function generateMetadata(props: Props): Promise<Metadata> {
 type Props = {
   params: {
     grooveId: string;
+    userId: number;
   };
 };
 
@@ -51,12 +54,19 @@ export default async function GrooveIdPage(props: Props) {
   }
   const grooves = await getGrooves();
 
+  const comments = await getCommentsByGrooveId(parseInt(props.params.grooveId));
+  const usersParticipating = await getUsersgroovesByGrooveId(
+    parseInt(props.params.grooveId),
+  );
+  console.log('usersParticipating: ', usersParticipating);
   return (
     <section>
       <EditGrooveForm
         singleGroove={singleGroove}
         userId={userId}
         grooves={grooves}
+        comments={comments}
+        usersParticipating={usersParticipating}
       />
     </section>
   );

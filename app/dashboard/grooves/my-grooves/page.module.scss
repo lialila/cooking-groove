@@ -12,11 +12,17 @@
     flex-direction: column;
     color: black;
   }
-  li {
-    backdrop-filter: blur(18.2px);
-    -webkit-backdrop-filter: blur(18.2px);
-    background: rgba(203, 198, 198, 0.2);
-    margin: 0.5rem;
-    border-radius: 7px;
+
+  h2 {
+    font-weight: 400;
+    font-size: 1.5rem;
   }
+}
+.div {
+  backdrop-filter: blur(18.2px);
+  -webkit-backdrop-filter: blur(18.2px);
+  background: rgba(203, 198, 198, 0.2);
+  margin: 0.5rem;
+  border-radius: 7px;
+  padding: 1rem;
 }

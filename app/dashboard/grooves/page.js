@@ -22,7 +22,7 @@ export default async function GroovesPage() {
         <ul>
           {grooves.map((groove) => {
             return (
-              <li key={`groove.${groove.id}`}>
+              <li className={styles.div} key={`groove.${groove.id}`}>
                 <Link
                   href={`dashboard/grooves/${groove.id}`}
                   data-test-id={`product-${groove.id}`}
@@ -31,11 +31,16 @@ export default async function GroovesPage() {
                     <img src={groove.imgUrl} width="150" alt="Groove" />
                   </div>{' '}
                   <h3>{groove.name}</h3>{' '}
-                  <p>
-                    {groove.offer} {groove.lookingFor}
-                    {groove.description} {groove.location} {groove.label}
-                  </p>{' '}
                 </Link>
+
+                <p>Offer: {groove.offer}</p>
+                <p>Looking for: {groove.lookingFor}</p>
+                <p>{groove.description}</p>
+                <p>Location: {groove.location} </p>
+                <p>
+                  Time: {groove.time} date: {groove.date}
+                </p>
+                <p> #{groove.label}</p>
               </li>
             );
           })}

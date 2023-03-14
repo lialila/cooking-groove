@@ -31,6 +31,7 @@
     font-size: 0.8rem;
     list-style: none;
     padding: 0;
+    text-transform: lowercase;
   }
   nav {
     text-align: center;
@@ -42,15 +43,16 @@
     padding: 12px;
   }
   footer {
-    position: absolute;
+    // position: absolute;
     bottom: 0;
     width: 100%;
     padding: 30px;
     position: fixed;
-
+    // margin: 2rem;
+    // border-top: solid 1.2px white;
     ul {
       padding-top: 20px;
-      border-top: solid 1.2px white;
+      border-top: solid 1.2px rgb(255, 255, 255);
     }
   }
   // input {

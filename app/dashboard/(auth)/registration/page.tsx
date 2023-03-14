@@ -1,6 +1,7 @@
 import { cookies } from 'next/headers';
 import { redirect } from 'next/navigation';
 import { getValidSessionByToken } from '../../../../database/sessions';
+import { getUserById, getUserBySessionToken } from '../../../../database/users';
 import styles from './page.module.scss';
 import RegisterForm from './RegisterForm';
 
@@ -25,10 +26,16 @@ export default async function RegistrationPage(props: Props) {
   if (session) {
     redirect('/');
   }
-
+  // const user = await getUserBySessionToken(session);
+  // const userId = user?.id;
+  console.log('session from registration page', session);
   return (
     <div className={styles.main}>
-      <RegisterForm returnTo={props.searchParams.returnTo} />
+      <RegisterForm
+        // user={user}
+        // userId={userId}
+        returnTo={props.searchParams.returnTo}
+      />
     </div>
   );
 }

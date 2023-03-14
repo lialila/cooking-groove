@@ -5,8 +5,6 @@
   text-align: center;
   margin-top: 8rem;
   width: 100vw;
-  // height: 100vh;
-
   text-transform: lowercase;
   font-weight: 400;
   font-size: 1rem;
@@ -18,9 +16,9 @@
   backdrop-filter: blur(19.2px);
   -webkit-backdrop-filter: blur(19.2px);
   background: rgba(203, 198, 198, 0.2);
-  margin: 0.5rem;
-  border-radius: 7px;
+  margin: 1.2rem;
   padding: 1rem;
+  border-radius: 16px;
 
   .form {
     text-align: left;
@@ -29,15 +27,8 @@
     display: inline-block;
     margin: auto;
     text-transform: lowercase;
-    // font-weight: 700;
     font-size: 1rem;
     letter-spacing: 0.2vw;
-    // background: rgba(255, 255, 255, 0.5);
-    border-radius: 16px;
-    // box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
-    // backdrop-filter: blur(4px);
-    // -webkit-backdrop-filter: blur(4px);
-    // border: 1px solid rgba(255, 255, 255, 0.3);
 
     input {
       width: 100%;

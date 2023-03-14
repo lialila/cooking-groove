@@ -49,7 +49,7 @@ export default function CreateGrooveForm(props: Props) {
 
     try {
       const cloudinaryResponse = await fetch(
-        'https://api.cloudinary.com/v1_1/drjnxvwj6/upload',
+        `https://api.cloudinary.com/v1_1/${process.env.NEXT_PUBLIC_CLOUDINARY_CLOUD_NAME}/upload`,
         {
           method: 'POST',
           body: formData,
@@ -83,9 +83,11 @@ export default function CreateGrooveForm(props: Props) {
 
       if (apiData.error) {
         setError(apiData.error);
-      } else {
-        router.refresh();
+        return;
       }
+      setGrooves([...grooves, apiData.groove]);
+
+      router.push('/dashboard/grooves');
     } catch (error) {
       console.error(error);
     }

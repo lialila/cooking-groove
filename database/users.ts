@@ -1,3 +1,4 @@
+// import { Martian_Mono } from '@next/font/google';
 import { cache } from 'react';
 import { sql } from './connect';
 
@@ -25,6 +26,7 @@ export const getUserByUsername = cache(async (username: string) => {
       cookingExperience: string;
       favouriteFood: string;
       language: string;
+      passwordHash: string;
     }[]
   >`
   SELECT
@@ -104,3 +106,102 @@ export const createUser = cache(
     return user;
   },
 );
+
+export const deleteUserByUsername = cache(async (username: string) => {
+  const [user] = await sql<User[]>`
+  DELETE FROM
+    users
+  WHERE
+    username = ${username}
+  RETURNING *
+  `;
+  return user;
+});
+
+export const deleteUserById = cache(async (id: number) => {
+  const [user] = await sql<User[]>`
+  DELETE FROM
+    users
+  WHERE
+    id = ${id}
+  RETURNING *
+  `;
+  return user;
+});
+
+export const getUserById = cache(async (id: number) => {
+  const [user] = await sql<User[]>`
+  SELECT * FROM users
+  WHERE id = ${id}
+  `;
+  return user;
+});
+
+export const updateUserById = cache(
+  async (
+    id: number,
+    username: string,
+    name: string,
+    email: string,
+    profileImgUrl: string,
+    eatingExperience: string,
+    cookingExperience: string,
+    favouriteFood: string,
+    language: string,
+  ) => {
+    const [user] = await sql<User[]>`
+      UPDATE
+        users
+      SET
+      username=${username}, name=${name},
+      email=${email},
+      profile_img_url=${profileImgUrl},
+      eating_experience=${eatingExperience},  cooking_experience=${cookingExperience},
+      favourite_food=${favouriteFood}, language=${language}
+      WHERE
+        id = ${id}
+      RETURNING *
+    `;
+    return user;
+  },
+);
+
+export const updateUserByUsername = cache(
+  async (
+    id: number,
+    username: string,
+    name: string,
+    email: string,
+    profileImgUrl: string,
+    eatingExperience: string,
+    cookingExperience: string,
+    favouriteFood: string,
+    language: string,
+  ) => {
+    const [user] = await sql<User[]>`
+      UPDATE
+        users
+      SET
+      username=${username}, name=${name},
+      email=${email},
+      profile_img_url=${profileImgUrl},
+      eating_experience=${eatingExperience},  cooking_experience=${cookingExperience},
+      favourite_food=${favouriteFood}, language=${language}
+      WHERE
+        username = ${username}
+      RETURNING *
+    `;
+    return user;
+  },
+);
+
+// UPDATE
+// users
+// SET
+// username='maria', name='maria',
+// email='maria@Martia.com',
+// profile_img_url='photo',
+// eating_experience= 'eatingExperience',  cooking_experience= 'cookingExperience',
+// favourite_food='favouriteFood', language='language', password_hash='maria'
+// WHERE
+// username='maria';

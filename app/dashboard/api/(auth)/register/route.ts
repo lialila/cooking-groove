@@ -21,7 +21,12 @@ const userSchema = z.object({
 
 export type RegisterResponseBody =
   | { errors: { message: string }[] }
-  | { user: { username: string } };
+  | {
+      user: {
+        id: any;
+        username: string;
+      };
+    };
 
 export async function POST(request: NextRequest) {
   // 1. check if the data is correct: validate the data

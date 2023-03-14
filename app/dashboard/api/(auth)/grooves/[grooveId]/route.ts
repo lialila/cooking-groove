@@ -25,7 +25,8 @@ export async function GET(
   { params }: { params: Record<string, string | string[]> },
 ) {
   const grooveId = Number(params.grooveId);
-
+  console.log('grooveId: ', grooveId);
+  console.log('params from grooveID page: ', params);
   if (!grooveId) {
     return NextResponse.json(
       {

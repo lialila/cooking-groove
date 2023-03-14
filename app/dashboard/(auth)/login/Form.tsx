@@ -52,7 +52,7 @@ export default function Form(props: { returnTo?: string | string[] }) {
 
           return;
         }
-        router.push(`/dashboard/profile/${data.user.username}`);
+        router.push(`/dashboard/profile/${data.user.id}`);
         router.refresh();
       }}
     >
