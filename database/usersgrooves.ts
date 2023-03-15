@@ -1,7 +1,7 @@
 import { cache } from 'react';
 import { sql } from './connect';
 
-export type Usersgrooves = {
+export type Usersgroove = {
   id: number;
   userId: number;
   grooveId: number;
@@ -30,32 +30,50 @@ id,
 );
 
 export const getUsersgrooves = cache(async () => {
-  const usersgrooves = await sql<Usersgrooves[]>`
+  const usersgroove = await sql<Usersgroove[]>`
   SELECT * FROM usersgrooves
   `;
-  return usersgrooves;
+  return usersgroove;
 });
 
 export const getUsersgroovesById = cache(async (id: number) => {
-  const [usersgrooves] = await sql<Usersgrooves[]>`
+  const [usersgroove] = await sql<Usersgroove[]>`
   SELECT * FROM usersgrooves
   WHERE id = ${id}
   `;
-  return usersgrooves;
+  return usersgroove;
 });
 
 export const getUsersgroovesByUserId = cache(async (userId: number) => {
-  const usersgrooves = await sql<Usersgrooves[]>`
+  const usersgroove = await sql<Usersgroove[]>`
   SELECT * FROM usersgrooves
   WHERE user_id = ${userId}
   `;
-  return usersgrooves;
+  return usersgroove;
 });
 
 export const getUsersgroovesByGrooveId = cache(async (grooveId: number) => {
-  const usersgrooves = await sql<Usersgrooves[]>`
+  const usersgroove = await sql<Usersgroove[]>`
   SELECT * FROM usersgrooves
   WHERE groove_id = ${grooveId}
   `;
-  return usersgrooves;
+  return usersgroove;
 });
+
+export const deleteUsersgroovesByGrooveId = cache(async (grooveId: number) => {
+  const [usersgroove] = await sql<Usersgroove[]>`
+  DELETE FROM
+    usersgrooves
+  WHERE
+    groove_id = ${grooveId}
+  RETURNING *
+  `;
+  return usersgroove;
+});
+
+// DELETE FROM
+// usersgrooves
+// WHERE
+//   user_id = 32
+//   AND
+//   groove_id = 3

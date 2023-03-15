@@ -23,11 +23,9 @@ const montserratText = Montserrat({
   subsets: ['latin'],
 });
 
-type Props = { userId: number; user: User[] };
+// type Props = { userId: number; user: User[] };
 
-export default function RegisterForm(
-  props: { returnTo?: string | string[] } & Props,
-) {
+export default function RegisterForm(props: { returnTo?: string | string[] }) {
   const [username, setUsername] = useState('');
   const [name, setName] = useState('');
   const [email, setEmail] = useState('');
@@ -79,11 +77,11 @@ export default function RegisterForm(
 
       const data: RegisterResponseBody = await response.json();
 
-      console.log('data in register form: ', data);
-      console.log('data.errors in register form: ', data.errors);
-      console.log('data.user in register form: ', data.user);
-      console.log('data.user.id in register form: ', data.user.id);
-      console.log('props.userId in register form: ', props.userId);
+      // console.log('data in register form: ', data);
+      // console.log('data.errors in register form: ', data.errors);
+      // console.log('data.user in register form: ', data.user);
+      // console.log('data.user.id in register form: ', data.user.id);
+      // console.log('props.userId in register form: ', props.userId);
       if ('errors' in data) {
         setErrors(data.errors);
         return;
@@ -97,8 +95,9 @@ export default function RegisterForm(
         router.push(returnTo);
         return;
       }
+      console.log('data.user.id in register form: ', data.user.id);
+      router.replace(`/dashboard/profile/${data.user.id}`);
 
-      router.replace(`/dashboard/profile/${props.user.id}`);
       router.refresh();
     } catch (error) {
       console.error(error);

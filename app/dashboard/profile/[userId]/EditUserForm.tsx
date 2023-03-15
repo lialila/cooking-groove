@@ -227,7 +227,7 @@ export default function EditUserForm(props: Props) {
                     }),
                   },
                 );
-                console.log('response from EditUserForm: ', response);
+
                 const data = await response.json();
 
                 if (data.error) {

@@ -85,8 +85,9 @@ export default function EditGrooveForm(props: Props) {
     (item) => item.userId,
   );
   const numUserIdParticipating = parseInt(userIdParticipating);
-  console.log('parsed userIdParticipating: ', parseInt(userIdParticipating));
-  console.log('typeof props.userId', typeof props.userId);
+
+  console.log('numUserIdParticipating: ', numUserIdParticipating);
+
   return (
     <div className={styles.main}>
       <div className={courierPrime.className}>
@@ -215,17 +216,19 @@ export default function EditGrooveForm(props: Props) {
               <button
                 onClick={async () => {
                   const response = await fetch(
-                    'dashboard/api/grooves/usersgrooves',
+                    `/dashboard/api/grooves/usersgrooves/${props.singleGroove.id}`,
                     {
                       method: 'DELETE',
-                      body: JSON.stringify({
-                        userId: props.userId,
-                        grooveId: props.singleGroove.id,
-                      }),
+                      // body: JSON.stringify({
+                      //   userId: props.userId,
+                      //   grooveId: props.singleGroove.id,
+                      // }),
                     },
                   );
+                  console.log('response from delete reeq: ', response);
 
                   const data = await response.json();
+                  console.log('data from delete req: ', data);
                   if ('errors' in data) {
                     setError(data.errors);
                     return;
@@ -240,7 +243,7 @@ export default function EditGrooveForm(props: Props) {
               <button
                 onClick={async () => {
                   const response = await fetch(
-                    '/dashboard/api/grooves/usersgrooves',
+                    `/dashboard/api/grooves/usersgrooves/${props.singleGroove.id}`,
                     {
                       method: 'POST',
                       headers: {

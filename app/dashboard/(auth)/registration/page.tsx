@@ -26,9 +26,23 @@ export default async function RegistrationPage(props: Props) {
   if (session) {
     redirect('/');
   }
+
+  // const user = !sessionTokenCookie?.value
+  //   ? undefined
+  //   : await getUserBySessionToken(sessionTokenCookie.value);
+
+  // const user =
+  //   session && (await getUserBySessionToken(sessionTokenCookie.value));
+  // const userId = !!user?.id && (await getUserById(user?.id));
+
   // const user = await getUserBySessionToken(session);
   // const userId = user?.id;
-  console.log('session from registration page', session);
+  // console.log('search params', props.searchParams.returnTo);
+  // console.log('session from registration page', session);
+  // console.log('user from registration page', user);
+  // console.log('userId from registration page', userId);
+  // console.log('props form registration page', props);
+
   return (
     <div className={styles.main}>
       <RegisterForm

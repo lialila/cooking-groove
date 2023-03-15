@@ -17,7 +17,6 @@ export default async function LoginPAge(props: Props) {
   if (session) {
     redirect('/');
   }
-
   return (
     <section className={styles.main}>
       <Form returnTo={props.searchParams.returnTo} />

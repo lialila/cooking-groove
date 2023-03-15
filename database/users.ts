@@ -53,6 +53,18 @@ export const getUserByUsernameWithPasswordHash = cache(
   },
 );
 
+export const getUserByUserIdWithPasswordHash = cache(async (id: number) => {
+  const [user] = await sql<User[]>`
+    SELECT
+      *
+    FROM
+      users
+    WHERE
+      id = ${id}
+  `;
+  return user;
+});
+
 export const getUserBySessionToken = cache(async (token: string) => {
   const [user] = await sql<{ id: number; username: string }[]>`
     SELECT
@@ -101,7 +113,7 @@ export const createUser = cache(
      VALUES
   (${username}, ${name}, ${email}, ${profileImgUrl}, ${eatingExperience}, ${cookingExperience}, ${favouriteFood}, ${language}, ${passwordHash})
  RETURNING
- username, name, email, profile_img_url, eating_experience, cooking_experience, favourite_food, language
+id, username, name, email, profile_img_url, eating_experience, cooking_experience, favourite_food, language
   `;
     return user;
   },
@@ -194,14 +206,3 @@ export const updateUserByUsername = cache(
     return user;
   },
 );
-
-// UPDATE
-// users
-// SET
-// username='maria', name='maria',
-// email='maria@Martia.com',
-// profile_img_url='photo',
-// eating_experience= 'eatingExperience',  cooking_experience= 'cookingExperience',
-// favourite_food='favouriteFood', language='language', password_hash='maria'
-// WHERE
-// username='maria';

@@ -23,7 +23,7 @@ export type RegisterResponseBody =
   | { errors: { message: string }[] }
   | {
       user: {
-        id: any;
+        id: number;
         username: string;
       };
     };
@@ -96,6 +96,8 @@ export async function POST(request: NextRequest) {
 
   const session = await createSession(token, newUser.id);
 
+  console.log('newUser: ', newUser);
+  console.log('session: ', session);
   if (!session) {
     return NextResponse.json(
       { errors: [{ message: 'session creation failed' }] },
@@ -109,7 +111,7 @@ export async function POST(request: NextRequest) {
 
   // 6. return the new username
   return NextResponse.json(
-    { user: { username: newUser.username } },
+    { user: { username: newUser.username, id: newUser.id } },
     {
       status: 200,
       // - Attach the new cookie serialized to the header of the response

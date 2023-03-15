@@ -3,23 +3,25 @@ import bcrypt from 'bcrypt';
 import { NextRequest, NextResponse } from 'next/server';
 import { z } from 'zod';
 import { createSession } from '../../../../../database/sessions';
-import { getUserByUsernameWithPasswordHash } from '../../../../../database/users';
+import {
+  getUserByUserIdWithPasswordHash,
+  getUserByUsernameWithPasswordHash,
+} from '../../../../../database/users';
 import { createSerializedRegisterSessionTokenCookie } from '../../../../../utils/cookies';
 
 const userSchema = z.object({
   username: z.string(),
-  // name: z.string(),
-  // email: z.string(),
-  // eating_experience: z.string(),
-  // cooking_experience: z.string(),
-  // favourite_food: z.string(),
-  // language: z.string(),
   password: z.string(),
 });
 
 export type RegisterResponseBody =
   | { errors: { message: string }[] }
-  | { user: { username: string } };
+  | {
+      user: {
+        id: number;
+        username: string;
+      };
+    };
 
 export async function POST(request: NextRequest) {
   // 1. validate the data
@@ -51,6 +53,7 @@ export async function POST(request: NextRequest) {
   const userWithPasswordHash = await getUserByUsernameWithPasswordHash(
     result.data.username,
   );
+  console.log('userWithPasswordHash: ', userWithPasswordHash);
 
   if (!userWithPasswordHash) {
     // consider using the same output for user or password not valid
@@ -101,7 +104,10 @@ export async function POST(request: NextRequest) {
 
   return NextResponse.json(
     {
-      user: { username: userWithPasswordHash.username },
+      user: {
+        username: userWithPasswordHash.username,
+        id: userWithPasswordHash.id,
+      },
     },
     {
       status: 200,

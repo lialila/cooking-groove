@@ -36,6 +36,7 @@ export default function Form(props: { returnTo?: string | string[] }) {
         });
 
         const data: RegisterResponseBody = await response.json();
+        console.log('data from login', data);
 
         if ('errors' in data) {
           setErrors(data.errors);
@@ -53,6 +54,9 @@ export default function Form(props: { returnTo?: string | string[] }) {
           return;
         }
         router.push(`/dashboard/profile/${data.user.id}`);
+        console.log('data.user.id', data.user.id);
+        console.log('user.data', data.user);
+
         router.refresh();
       }}
     >
@@ -64,7 +68,6 @@ export default function Form(props: { returnTo?: string | string[] }) {
         <input
           data-test-id="checkout-first-name"
           value={username}
-          //  required
           onChange={(e) => setUsername(e.target.value)}
         />
       </label>
@@ -75,7 +78,6 @@ export default function Form(props: { returnTo?: string | string[] }) {
           type="password"
           data-test-id="checkout-password"
           value={password}
-          // required
           onChange={(e) => setPassword(e.target.value)}
         />
       </label>

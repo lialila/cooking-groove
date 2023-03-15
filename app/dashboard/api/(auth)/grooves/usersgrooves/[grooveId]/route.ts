@@ -4,7 +4,7 @@ import {
   createUsersgrooves,
   deleteUsersgroovesByGrooveId,
   getUsersgrooves,
-} from '../../../../../../database/usersgrooves';
+} from '../../../../../../../database/usersgrooves';
 
 const usersgrooveSchema = z.object({
   // id: z.string(),
@@ -47,4 +47,36 @@ export async function POST(request: NextRequest) {
     );
   }
   return NextResponse.json({ usersgrooves: newUsersgroove });
+}
+
+export async function DELETE(
+  request: NextRequest,
+  { params }: { params: Record<string, string | string[]> },
+) {
+  console.log('params route usersgrooves: ', params);
+  console.log('params.userId route usersgrooves: ', params.userId);
+  console.log('params.grooveId route usersgrooves: ', params.grooveId);
+
+  const grooveId = Number(params.grooveId);
+
+  if (!grooveId) {
+    return NextResponse.json(
+      {
+        errors: 'Request body is missing some properties',
+      },
+      { status: 400 },
+    );
+  }
+  const singleUsersgroove = await deleteUsersgroovesByGrooveId(grooveId);
+
+  if (!singleUsersgroove) {
+    return NextResponse.json(
+      {
+        error: 'User not found',
+      },
+      { status: 404 },
+    );
+  }
+
+  return NextResponse.json({ usersgroove: singleUsersgroove });
 }
