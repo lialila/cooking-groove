@@ -112,7 +112,7 @@ export default function EditUserForm(props: Props) {
             </label>
           )}
           {idOnEditMode !== props.user.id ? (
-            <p> Name: {props.user.name}</p>
+            <p></p>
           ) : (
             <label>
               Name:
@@ -124,7 +124,7 @@ export default function EditUserForm(props: Props) {
           )}
 
           {idOnEditMode !== props.user.id ? (
-            <p> E-mail: {props.user.email}</p>
+            <p></p>
           ) : (
             <label>
               E-mail:
@@ -185,7 +185,12 @@ export default function EditUserForm(props: Props) {
         {props.sessionUser && props.sessionUser.id === props.user.id ? (
           <>
             <Link href="/dashboard/grooves/my-grooves">
-              <button>My grooves</button>
+              <img
+                src="/icons-main/icon1.png"
+                width="50"
+                height="50"
+                alt="search"
+              />
             </Link>
             <button
               onClick={() => {
@@ -200,8 +205,16 @@ export default function EditUserForm(props: Props) {
                 setEditLanguage(props.user.language || '');
               }}
             >
-              Edit profile
+              Edit
             </button>
+            <Link href="/logout" prefetch={false}>
+              <img
+                src="/nav-footer/logout.png"
+                width="22"
+                height="22"
+                alt="search"
+              />
+            </Link>
             {idOnEditMode === props.user.id ? (
               <>
                 <button

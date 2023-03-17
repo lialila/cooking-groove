@@ -37,9 +37,8 @@ export default async function GroovesPage() {
                 <p>Looking for: {groove.lookingFor}</p>
                 <p>{groove.description}</p>
                 <p>Location: {groove.location} </p>
-                <p>
-                  Time: {groove.time} date: {groove.date}
-                </p>
+                <p>Time: {groove.time}</p>
+                <p>date: {groove.date}</p>
                 <p> #{groove.label}</p>
               </li>
             );

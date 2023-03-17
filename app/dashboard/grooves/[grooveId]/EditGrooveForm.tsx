@@ -86,14 +86,38 @@ export default function EditGrooveForm(props: Props) {
   const [commentsInGroove, setCommentsInGroove] = useState<Comment[]>(
     props.commentsForCurrentGroove,
   );
+
+  // const today = new Date(),
+  //   todayformat =
+  //     [today.getHours().toString, today.getMinutes().toString()].join(':') +
+  //     ' ' +
+  //     [
+  //       today.getDate().toString,
+  //       today.getMonth().toString() + 1,
+  //       today.getFullYear().toString(),
+  //     ].join('.');
+  // console.log('todayformat: ', todayformat);
   // set the createdAt
-  const today = new Date().toISOString();
+  const today = new Date();
+  const hours = today.getHours().toString();
+  console.log('hours: ', hours);
+  const minutes = today.getMinutes().toString();
+  const date = today.getDate().toString();
+  const month = today.getMonth().toString();
+  const year = today.getFullYear().toString();
+  const currentTime = `${hours}:${minutes} ${date}.${month}.${year}`;
+  // console.log('tyoe of datetime: ', typeof currentTime);
 
   // const date =
-  //   today.getDate() + '-' + (today.getMonth() + 1) + '-' + today.getFullYear();
-  // const time = today.getHours() + ':' + today.getMinutes();
-  // const dateTimeBlack = time + ' ' + date;
-  // const dateTime = dateTimeBlack.toString();
+  //   today.getDate().toString() +
+  //   '-' +
+  //   today.getMonth().toString() +
+  //   '-' +
+  //   today.getFullYear().toString();
+  // const time =
+  //   today.getHours().toString() + ':' + today.getMinutes().toString();
+  // const currentTime = time + ' ' + date;
+  // console.log('currentTime: ', currentTime);
 
   const handleImageUpload = async (e: React.ChangeEvent<HTMLInputElement>) => {
     const image = e.target.files?.[0];
@@ -127,36 +151,15 @@ export default function EditGrooveForm(props: Props) {
     return item === props.currentUser.id;
   });
 
-  console.log('props.currentGroove.id: ', props.currentGroove.id);
-  console.log('commentsFroCurrentGroove: ', props.commentsForCurrentGroove);
-
   // array of obj users, who participates in the groove
   const usersProfilesParticipating = props.users.filter((item) => {
     return userIdParticipating.includes(item.id);
   });
-  console.log('usersProfilesParticipating: ', usersProfilesParticipating);
 
   // the user who created the groove - the admin, returns obj
   const grooveAdmin = props.users.find(
     (item) => item.id === props.currentGroove.userId,
   );
-
-  console.log('grooveAdmin: ', grooveAdmin);
-
-  // find the user who posted the comment
-  // const commentedUser = props.users.find(
-  //   props.commentsForCurrentGroove.map(
-  //     (comment) => comment.userId === userIdParticipating[0],
-  //   ),
-  // );
-
-  console.log('commentsForCurrentGroove: ', props.commentsForCurrentGroove);
-  // const commentedUser = props.commentsForCurrentGroove.find((comment) => {
-  //   return comment.userId === userIdParticipating.id;
-  // });
-  // );
-
-  // console.log('commentedUser: ', commentedUser);
 
   return (
     <div className={styles.main}>
@@ -194,7 +197,18 @@ export default function EditGrooveForm(props: Props) {
               </label>
             )}{' '}
             {idOnEditMode !== props.currentGroove.id ? (
-              props.currentGroove.offer
+              <p>#{props.currentGroove.label}</p>
+            ) : (
+              <label>
+                Add labels
+                <input
+                  value={editLabel || ''}
+                  onChange={(e) => setEditLabel(e.currentTarget.value)}
+                />
+              </label>
+            )}{' '}
+            {idOnEditMode !== props.currentGroove.id ? (
+              <p>Offer: {props.currentGroove.offer}</p>
             ) : (
               <label>
                 Your offer:
@@ -205,24 +219,13 @@ export default function EditGrooveForm(props: Props) {
               </label>
             )}{' '}
             {idOnEditMode !== props.currentGroove.id ? (
-              props.currentGroove.lookingFor
+              <p>Missing ingridients: {props.currentGroove.lookingFor}</p>
             ) : (
               <label>
-                What are you missing:
+                Missing ingridients:
                 <input
                   value={editLookingFor}
                   onChange={(e) => setEditLookingFor(e.currentTarget.value)}
-                />
-              </label>
-            )}{' '}
-            {idOnEditMode !== props.currentGroove.id ? (
-              props.currentGroove.label
-            ) : (
-              <label>
-                Add labels
-                <input
-                  value={editLabel || ''}
-                  onChange={(e) => setEditLabel(e.currentTarget.value)}
                 />
               </label>
             )}{' '}
@@ -239,7 +242,7 @@ export default function EditGrooveForm(props: Props) {
               </label>
             )}{' '}
             {idOnEditMode !== props.currentGroove.id ? (
-              props.currentGroove.date
+              <p>{props.currentGroove.date}</p>
             ) : (
               <label>
                 Enter date:
@@ -247,28 +250,6 @@ export default function EditGrooveForm(props: Props) {
                   type="date"
                   value={editDate}
                   onChange={(e) => setEditDate(e.currentTarget.value)}
-                />
-              </label>
-            )}{' '}
-            {idOnEditMode !== props.currentGroove.id ? (
-              props.currentGroove.language
-            ) : (
-              <label>
-                Language:
-                <input
-                  value={editLanguage}
-                  onChange={(e) => setEditLanguage(e.currentTarget.value)}
-                />
-              </label>
-            )}{' '}
-            {idOnEditMode !== props.currentGroove.id ? (
-              props.currentGroove.description
-            ) : (
-              <label>
-                Description:
-                <input
-                  value={editDescription || ''}
-                  onChange={(e) => setEditDescription(e.currentTarget.value)}
                 />
               </label>
             )}{' '}
@@ -283,23 +264,30 @@ export default function EditGrooveForm(props: Props) {
                 />{' '}
               </label>
             )}{' '}
+            {idOnEditMode !== props.currentGroove.id ? (
+              <p>About: {props.currentGroove.description}</p>
+            ) : (
+              <label>
+                Description:
+                <input
+                  value={editDescription || ''}
+                  onChange={(e) => setEditDescription(e.currentTarget.value)}
+                />
+              </label>
+            )}{' '}
+            {idOnEditMode !== props.currentGroove.id ? (
+              <p>Languages: {props.currentGroove.language}</p>
+            ) : (
+              <label>
+                Language:
+                <input
+                  value={editLanguage}
+                  onChange={(e) => setEditLanguage(e.currentTarget.value)}
+                />
+              </label>
+            )}{' '}
           </form>
-          <h4>Participants:</h4>
-          <ul>
-            <li>
-              <img src={grooveAdmin.profileImgUrl} width="50" alt="Profile" />
-              <p>{grooveAdmin.username}</p>
-              <p>Admin</p>
-            </li>
-            {usersProfilesParticipating.map((user) => {
-              return (
-                <li key={user.id}>
-                  <img src={user.profileImgUrl} width="50" alt="Profile" />
-                  <p>{user.username}</p>
-                </li>
-              );
-            })}
-          </ul>
+
           {props.currentGroove.userId !== props.currentUserId ? (
             findUserId ? (
               <button
@@ -436,6 +424,26 @@ export default function EditGrooveForm(props: Props) {
               >
                 Delete
               </button>
+              <h4>Participants:</h4>
+              <ul>
+                <li>
+                  <img
+                    src={grooveAdmin.profileImgUrl}
+                    width="50"
+                    alt="Profile"
+                  />
+                  <p>{grooveAdmin.username}</p>
+                  <p>Admin</p>
+                </li>
+                {usersProfilesParticipating.map((user) => {
+                  return (
+                    <li key={user.id}>
+                      <img src={user.profileImgUrl} width="50" alt="Profile" />
+                      <p>{user.username}</p>
+                    </li>
+                  );
+                })}
+              </ul>
             </div>
           )}
           {props.currentGroove.userId === props.currentUserId || findUserId ? (
@@ -492,7 +500,7 @@ export default function EditGrooveForm(props: Props) {
                         content: commentContent,
                         userId: props.currentUserId,
                         grooveId: props.currentGroove.id,
-                        createdAt: today,
+                        createdAt: currentTime,
                       }),
                     },
                   );

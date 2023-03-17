@@ -87,14 +87,15 @@ export default async function RootLayout(props: Props) {
           <ul className={styles.footer}>
             {user ? (
               <>
-                <Link href="/logout" prefetch={false}>
+                <Link href="/dashboard/grooves/my-grooves" prefetch={false}>
                   <Image
-                    src="/nav-footer/logout.png"
-                    width="22"
-                    height="22"
+                    src="/icons-main/icon1.png"
+                    width="45"
+                    height="45"
                     alt="search"
                   />
                 </Link>
+
                 <Link href="/dashboard/grooves/create-groove">
                   <li>
                     <Image

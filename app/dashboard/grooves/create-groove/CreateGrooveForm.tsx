@@ -32,7 +32,6 @@ export default function CreateGrooveForm(props: Props) {
   const [description, setDescription] = useState<string>('');
   const [location, setLocation] = useState<string>('');
   const [label, setLabel] = useState<string>('');
-
   const [time, setTime] = useState<string>('');
   const [date, setDate] = useState<string>('');
   const [language, setLanguage] = useState<string>('');
@@ -59,7 +58,6 @@ export default function CreateGrooveForm(props: Props) {
       const imgUrl1 = cloudinaryData.secure_url;
 
       setImgUrl(imgUrl1);
-      // After uploading the file to Cloudinary, send the rest of the form data to your API
       const apiResponse = await fetch('/dashboard/api/grooves', {
         method: 'POST',
         headers: {
@@ -146,13 +144,32 @@ export default function CreateGrooveForm(props: Props) {
           />
         </label>{' '}
         <br />
-        <label>
+        {/* <label>
           Label:
           <input
             value={label}
             onChange={(e) => setLabel(e.currentTarget.value)}
           />{' '}
-        </label>{' '}
+        </label>{' '} */}
+        <p>Choose your label</p>
+        <select
+          placeholder="Your label"
+          value={label}
+          onChange={(e) => setLabel(e.currentTarget.value)}
+        >
+          <option defaultValue="Choose the label">Choose the label</option>
+
+          <option>Vegeterian</option>
+          <option>Vegan</option>
+          <option>Gluten free</option>
+          <option>Diabetic</option>
+          <option>Pescatarian</option>
+          <option>Carnivore</option>
+          <option>Kosher</option>
+          <option>Halal</option>
+          <option>Raw</option>
+          <option>Organic</option>
+        </select>
         <br />
         <label>
           Time:

@@ -26,7 +26,7 @@ export const createComment = cache(
       }[]
     >`
   INSERT INTO comments
-    (content, user_id, groove_id,   created_at)
+    (content, user_id, groove_id, created_at)
   VALUES
     (${content}, ${userId}, ${grooveId}, ${createdAt})
   RETURNING

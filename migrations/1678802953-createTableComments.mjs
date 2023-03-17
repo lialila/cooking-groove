@@ -6,8 +6,8 @@ export async function up(sql) {
   user_id integer REFERENCES users (id) ON DELETE CASCADE,
   groove_id integer REFERENCES grooves (id) ON DELETE CASCADE,
   -- parent_id integer REFERENCES comments (id) ON DELETE CASCADE,
-  created_at timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP
-
+  -- created_at timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP
+  created_at varchar(1000) NOT NULL
 );
 `;
 }

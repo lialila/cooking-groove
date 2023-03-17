@@ -8,6 +8,7 @@ import { cookies } from 'next/headers';
 import Link from 'next/link';
 import { getGrooves, Groove } from '../../../../database/grooves';
 import { getUserBySessionToken } from '../../../../database/users';
+import { getUsersgroovesByUserId } from '../../../../database/usersgrooves';
 import styles from './page.module.scss';
 
 export const dynamic = 'force-dynamic';
@@ -40,6 +41,21 @@ export default async function MyGrooves() {
 
   const myGrooves = grooves.filter((groove) => groove.userId === user?.id);
 
+  // array of object with userid with current user id
+  const usersgrooves = await getUsersgroovesByUserId(user?.id);
+  console.log('usersgrooves from my-grooves page', usersgrooves);
+
+  // get the grooves i participate in, returns an array of objects
+  const myParticipatingGrooves = grooves.filter((groove) => {
+    return usersgrooves.some(
+      (usersgroove) => usersgroove.grooveId === groove.id,
+    );
+  });
+  console.log(
+    'myParticipatingGrooves from my-grooves page',
+    myParticipatingGrooves,
+  );
+
   return (
     <div className={courierPrime.className}>
       <div className={styles.main}>
@@ -61,14 +77,58 @@ export default async function MyGrooves() {
                       >
                         <h3>{groove.name}</h3>{' '}
                         <img src={groove.imgUrl} width="150" alt="Groove" />
-                        <p>
-                          {groove.offer} {groove.lookingFor}
-                          {groove.description} {groove.location} {groove.label}
-                        </p>{' '}
+                        <p>Offer: {groove.offer}</p>
+                        <p>Looking for: {groove.lookingFor}</p>
+                        <p>{groove.description}</p>
+                        <p>Location: {groove.location} </p>
+                        <p>Time: {groove.time}</p>
+                        <p>date: {groove.date}</p>
+                        <p> #{groove.label}</p>
                       </Link>
                       <Link
                         href={`dashboard/grooves/${groove.id}`}
                         data-test-id={`product-${groove.id}`}
+                      >
+                        <button>View</button>
+                      </Link>
+                    </li>
+                  );
+                })}
+              </ul>
+            </>
+          )}
+          {!myParticipatingGrooves ? (
+            <h2>You are not participating in any grooves</h2>
+          ) : (
+            <>
+              <h2>The Grooves I participate in:</h2>
+              <ul>
+                {myParticipatingGrooves.map((myParticipatingGroove) => {
+                  return (
+                    <li key={`groove.${myParticipatingGroove.id}`}>
+                      <Link
+                        href={`dashboard/grooves/${myParticipatingGroove.id}`}
+                      >
+                        <h3>{myParticipatingGroove.name}</h3>
+                        <img
+                          src={myParticipatingGroove.imgUrl}
+                          width="150"
+                          alt="Groove"
+                        />
+                        <p>Offer: {myParticipatingGroove.offer}</p>
+                        <p>
+                          Missing ingridients:{' '}
+                          {myParticipatingGroove.lookingFor}
+                        </p>
+                        <p>About: {myParticipatingGroove.description}</p>
+                        <p>Location: {myParticipatingGroove.location} </p>
+                        <p>Time: {myParticipatingGroove.time}</p>
+                        <p>date: {myParticipatingGroove.date}</p>
+                        <p> #{myParticipatingGroove.label}</p>
+                      </Link>
+                      <Link
+                        href={`dashboard/grooves/${myParticipatingGroove.id}`}
+                        data-test-id={`product-${myParticipatingGroove.id}`}
                       >
                         <button>View</button>
                       </Link>
