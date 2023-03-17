@@ -7,10 +7,18 @@ import {
 import { Metadata } from 'next';
 import { cookies } from 'next/headers';
 import { notFound, redirect } from 'next/navigation';
-import { getCommentsByGrooveId } from '../../../../database/comments';
+import {
+  deleteCommentById,
+  getCommentById,
+  getCommentsByGrooveId,
+} from '../../../../database/comments';
 import { getGrooveById, getGrooves } from '../../../../database/grooves';
 import { getValidSessionByToken } from '../../../../database/sessions';
-import { getUserBySessionToken } from '../../../../database/users';
+import {
+  getUserById,
+  getUserBySessionToken,
+  getUsers,
+} from '../../../../database/users';
 import { getUsersgroovesByGrooveId } from '../../../../database/usersgrooves';
 import EditGrooveForm from './EditGrooveForm';
 import { grooveNotFoundMetadata } from './not-found';
@@ -25,7 +33,7 @@ export async function generateMetadata(props: Props): Promise<Metadata> {
   }
   return {
     title: groove.name,
-    description: `{singleGroove.name}`,
+    description: `{currentGroove.name}`,
   };
 }
 
@@ -45,28 +53,44 @@ export default async function GrooveIdPage(props: Props) {
 
   console.log('user.id from edit groove page', user?.id);
 
-  const userId = user?.id;
+  const currentUserId = user?.id;
 
-  const singleGroove = await getGrooveById(parseInt(props.params.grooveId));
+  if (!user) {
+    return redirect('/login');
+  }
+  const users = await getUsers();
+  const currentUser = await getUserById(currentUserId);
 
-  if (!singleGroove) {
+  const currentGroove = await getGrooveById(parseInt(props.params.grooveId));
+
+  if (!currentGroove) {
     notFound();
   }
   const grooves = await getGrooves();
 
-  const comments = await getCommentsByGrooveId(parseInt(props.params.grooveId));
-  const usersParticipating = await getUsersgroovesByGrooveId(
+  const commentsForCurrentGroove = await getCommentsByGrooveId(
     parseInt(props.params.grooveId),
   );
-  console.log('usersParticipating: ', usersParticipating);
+  console.log('props.params.grooveId: ', props.params.grooveId);
+  console.log('commentsForCurrentGroove: ', commentsForCurrentGroove);
+
+  const usersgroovesParticipating = await getUsersgroovesByGrooveId(
+    parseInt(props.params.grooveId),
+  );
+  console.log('currentGroove.id from page.tsx: ', currentGroove.id);
+
+  console.log('usersgroovesParticipating: ', usersgroovesParticipating);
+  console.log('userId from page.tsx: ', currentUserId);
   return (
     <section>
       <EditGrooveForm
-        singleGroove={singleGroove}
-        userId={userId}
+        currentGroove={currentGroove} // current groove
+        currentUserId={currentUserId} // current user id
+        currentUser={currentUser}
         grooves={grooves}
-        comments={comments}
-        usersParticipating={usersParticipating}
+        commentsForCurrentGroove={commentsForCurrentGroove}
+        usersgroovesParticipating={usersgroovesParticipating}
+        users={users}
       />
     </section>
   );

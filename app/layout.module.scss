@@ -41,12 +41,15 @@
     position: fixed;
     top: 0px;
     padding: 12px;
+
+    transition: all 0.3s ease-out;
   }
   footer {
     // position: absolute;
+
     bottom: 0;
     width: 100%;
-    padding: 30px;
+    padding: 10px 20px;
     position: fixed;
     // margin: 2rem;
     // border-top: solid 1.2px white;

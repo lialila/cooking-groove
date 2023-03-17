@@ -46,7 +46,7 @@ export async function POST(request: NextRequest) {
       { status: 500 },
     );
   }
-  return NextResponse.json({ usersgrooves: newUsersgroove });
+  return NextResponse.json({ usersgroove: newUsersgroove });
 }
 
 export async function DELETE(

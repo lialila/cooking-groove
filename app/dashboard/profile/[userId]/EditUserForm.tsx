@@ -202,71 +202,78 @@ export default function EditUserForm(props: Props) {
             >
               Edit profile
             </button>
-            <button
-              onClick={async () => {
-                const response = await fetch(
-                  `/dashboard/api/profile/${props.user.id}`,
-                  {
-                    method: 'PUT',
-                    headers: {
-                      'Content-type': 'application/json',
-                    },
-                    body: JSON.stringify({
-                      username: editUsername || props.user.username,
-                      name: editName || props.user.name,
-                      email: editEmail || props.user.email,
-                      profileImgUrl:
-                        editProfileImgUrl || props.user.profileImgUrl,
-                      eatingExperience:
-                        editEatingExperience || props.user.eatingExperience,
-                      cookingExperience:
-                        editCookingExperience || props.user.cookingExperience,
-                      favouriteFood:
-                        editFavouriteFood || props.user.favouriteFood,
-                      language: editLanguage || props.user.language,
-                    }),
-                  },
-                );
+            {idOnEditMode === props.user.id ? (
+              <>
+                <button
+                  onClick={async () => {
+                    const response = await fetch(
+                      `/dashboard/api/profile/${props.user.id}`,
+                      {
+                        method: 'PUT',
+                        headers: {
+                          'Content-type': 'application/json',
+                        },
+                        body: JSON.stringify({
+                          username: editUsername || props.user.username,
+                          name: editName || props.user.name,
+                          email: editEmail || props.user.email,
+                          profileImgUrl:
+                            editProfileImgUrl || props.user.profileImgUrl,
+                          eatingExperience:
+                            editEatingExperience || props.user.eatingExperience,
+                          cookingExperience:
+                            editCookingExperience ||
+                            props.user.cookingExperience,
+                          favouriteFood:
+                            editFavouriteFood || props.user.favouriteFood,
+                          language: editLanguage || props.user.language,
+                        }),
+                      },
+                    );
 
-                const data = await response.json();
+                    const data = await response.json();
 
-                if (data.error) {
-                  setError(data.error);
-                  return;
-                }
-                setIdOnEditMode(undefined);
-                setUsers([...users, data.user]);
-                router.refresh();
-              }}
-            >
-              Save
-            </button>
-            <button
-              onClick={async () => {
-                const response = await fetch(
-                  `/dashboard/api/profile/${props.user.id}`,
-                  {
-                    method: 'DELETE',
-                  },
-                );
-                const data = await response.json();
-                router.refresh();
+                    if (data.error) {
+                      setError(data.error);
+                      return;
+                    }
+                    setIdOnEditMode(undefined);
+                    setUsers([...users, data.user]);
+                    router.refresh();
+                  }}
+                >
+                  Save
+                </button>
+                <button
+                  onClick={async () => {
+                    const response = await fetch(
+                      `/dashboard/api/profile/${props.user.id}`,
+                      {
+                        method: 'DELETE',
+                      },
+                    );
+                    const data = await response.json();
+                    router.refresh();
 
-                if (data.error) {
-                  setError(data.error);
-                  return;
-                }
-                router.push('/');
-                setUsers([...users, data.users]);
-                router.refresh();
-              }}
-            >
-              Delete profile
-            </button>
+                    if (data.error) {
+                      setError(data.error);
+                      return;
+                    }
+                    router.push('/');
+                    setUsers([...users, data.users]);
+                    router.refresh();
+                  }}
+                >
+                  Delete profile
+                </button>
+              </>
+            ) : null}
           </>
         ) : (
           <Link href="/dashboard/grooves">
-            <button>{props.user.username} grooves</button>
+            <button className={courierPrime.className}>
+              {props.user.username} grooves
+            </button>
           </Link>
         )}
       </div>

@@ -7,28 +7,44 @@ import {
 } from '@next/font/google';
 import { useRouter } from 'next/navigation';
 import { useState } from 'react';
+import { Comment } from '../../../../database/comments';
 import { Groove } from '../../../../database/grooves';
+import { User } from '../../../../database/users';
+import { Usersgroove } from '../../../../database/usersgrooves';
 import styles from './page.module.scss';
 
 type Props = {
-  singleGroove: {
+  currentGroove: {
     id: number;
     name: string;
     offer: string;
     lookingFor: string;
-    description: string | null;
-    location: string | null;
-    label: string | null;
-    imgUrl: string | null;
-    userId: number;
+    description: string;
+    location: string;
+    label: string;
     time: string;
     date: string;
     language: string;
+    imgUrl: string;
+    userId: number;
   };
-  comments: { id: number; text: string; userId: number; grooveId: number }[];
-  userId: number;
+  commentsForCurrentGroove: Comment[];
+  currentUserId: number;
   grooves: Groove[];
-  usersParticipating: { id: number; userId: number; grooveId: number }[];
+  usersgroovesParticipating: Usersgroove[]; // connection table between users and grooves who participates
+
+  currentUser: {
+    id: number;
+    username: string;
+    name: string;
+    email: string;
+    profileImgUrl: string;
+    eatingExperience: string | null;
+    cookingExperience: string | null;
+    favouriteFood: string | null;
+    language: string;
+  }; // this is the user who is logged in
+  users: User[];
 };
 
 const courierPrime = Courier_Prime({
@@ -57,7 +73,27 @@ export default function EditGrooveForm(props: Props) {
   const [editDate, setEditDate] = useState<string>('');
   const [editLanguage, setEditLanguage] = useState<string>('');
   const [editImgUrl, setEditImgUrl] = useState<string>('');
+
   const [error, setError] = useState<string>();
+
+  // set comment on edit mode
+  const [commentContent, setCommentContent] = useState<string>('');
+
+  // set parent comment id
+  const [parentCommentId, setParentCommentId] = useState<number>();
+
+  // set groove's comments
+  const [commentsInGroove, setCommentsInGroove] = useState<Comment[]>(
+    props.commentsForCurrentGroove,
+  );
+  // set the createdAt
+  const today = new Date().toISOString();
+
+  // const date =
+  //   today.getDate() + '-' + (today.getMonth() + 1) + '-' + today.getFullYear();
+  // const time = today.getHours() + ':' + today.getMinutes();
+  // const dateTimeBlack = time + ' ' + date;
+  // const dateTime = dateTimeBlack.toString();
 
   const handleImageUpload = async (e: React.ChangeEvent<HTMLInputElement>) => {
     const image = e.target.files?.[0];
@@ -80,23 +116,61 @@ export default function EditGrooveForm(props: Props) {
       }
     }
   };
-  console.log('props.usersParticipating: ', props.usersParticipating);
-  const userIdParticipating = props.usersParticipating.map(
+
+  // get the array of users who participates in the groove
+  const userIdParticipating = props.usersgroovesParticipating.map(
     (item) => item.userId,
   );
-  const numUserIdParticipating = parseInt(userIdParticipating);
 
-  console.log('numUserIdParticipating: ', numUserIdParticipating);
+  // find out, if the current (logged in) user participates in current groove, returns number of id if true, undefined if false
+  const findUserId = userIdParticipating.find((item) => {
+    return item === props.currentUser.id;
+  });
+
+  console.log('props.currentGroove.id: ', props.currentGroove.id);
+  console.log('commentsFroCurrentGroove: ', props.commentsForCurrentGroove);
+
+  // array of obj users, who participates in the groove
+  const usersProfilesParticipating = props.users.filter((item) => {
+    return userIdParticipating.includes(item.id);
+  });
+  console.log('usersProfilesParticipating: ', usersProfilesParticipating);
+
+  // the user who created the groove - the admin, returns obj
+  const grooveAdmin = props.users.find(
+    (item) => item.id === props.currentGroove.userId,
+  );
+
+  console.log('grooveAdmin: ', grooveAdmin);
+
+  // find the user who posted the comment
+  // const commentedUser = props.users.find(
+  //   props.commentsForCurrentGroove.map(
+  //     (comment) => comment.userId === userIdParticipating[0],
+  //   ),
+  // );
+
+  console.log('commentsForCurrentGroove: ', props.commentsForCurrentGroove);
+  // const commentedUser = props.commentsForCurrentGroove.find((comment) => {
+  //   return comment.userId === userIdParticipating.id;
+  // });
+  // );
+
+  // console.log('commentedUser: ', commentedUser);
 
   return (
     <div className={styles.main}>
       <div className={courierPrime.className}>
-        <div key={props.singleGroove.id} className={styles.div}>
+        <div key={props.currentGroove.id} className={styles.div}>
           <form>
-            {idOnEditMode !== props.singleGroove.id ? (
+            {idOnEditMode !== props.currentGroove.id ? (
               <div>
                 {' '}
-                <img src={props.singleGroove.imgUrl} width="150" alt="Groove" />
+                <img
+                  src={props.currentGroove.imgUrl}
+                  width="150"
+                  alt="Groove"
+                />
               </div>
             ) : (
               <label>
@@ -108,8 +182,8 @@ export default function EditGrooveForm(props: Props) {
                 />{' '}
               </label>
             )}
-            {idOnEditMode !== props.singleGroove.id ? (
-              <h1>{props.singleGroove.name}</h1>
+            {idOnEditMode !== props.currentGroove.id ? (
+              <h1>{props.currentGroove.name}</h1>
             ) : (
               <label>
                 Groove name:
@@ -119,8 +193,8 @@ export default function EditGrooveForm(props: Props) {
                 />
               </label>
             )}{' '}
-            {idOnEditMode !== props.singleGroove.id ? (
-              props.singleGroove.offer
+            {idOnEditMode !== props.currentGroove.id ? (
+              props.currentGroove.offer
             ) : (
               <label>
                 Your offer:
@@ -130,8 +204,8 @@ export default function EditGrooveForm(props: Props) {
                 />{' '}
               </label>
             )}{' '}
-            {idOnEditMode !== props.singleGroove.id ? (
-              props.singleGroove.lookingFor
+            {idOnEditMode !== props.currentGroove.id ? (
+              props.currentGroove.lookingFor
             ) : (
               <label>
                 What are you missing:
@@ -141,8 +215,8 @@ export default function EditGrooveForm(props: Props) {
                 />
               </label>
             )}{' '}
-            {idOnEditMode !== props.singleGroove.id ? (
-              props.singleGroove.label
+            {idOnEditMode !== props.currentGroove.id ? (
+              props.currentGroove.label
             ) : (
               <label>
                 Add labels
@@ -152,8 +226,8 @@ export default function EditGrooveForm(props: Props) {
                 />
               </label>
             )}{' '}
-            {idOnEditMode !== props.singleGroove.id ? (
-              <p>When? {props.singleGroove.time}</p>
+            {idOnEditMode !== props.currentGroove.id ? (
+              <p>When? {props.currentGroove.time}</p>
             ) : (
               <label>
                 Enter time:
@@ -164,8 +238,8 @@ export default function EditGrooveForm(props: Props) {
                 />
               </label>
             )}{' '}
-            {idOnEditMode !== props.singleGroove.id ? (
-              props.singleGroove.date
+            {idOnEditMode !== props.currentGroove.id ? (
+              props.currentGroove.date
             ) : (
               <label>
                 Enter date:
@@ -176,8 +250,8 @@ export default function EditGrooveForm(props: Props) {
                 />
               </label>
             )}{' '}
-            {idOnEditMode !== props.singleGroove.id ? (
-              props.singleGroove.language
+            {idOnEditMode !== props.currentGroove.id ? (
+              props.currentGroove.language
             ) : (
               <label>
                 Language:
@@ -187,8 +261,8 @@ export default function EditGrooveForm(props: Props) {
                 />
               </label>
             )}{' '}
-            {idOnEditMode !== props.singleGroove.id ? (
-              props.singleGroove.description
+            {idOnEditMode !== props.currentGroove.id ? (
+              props.currentGroove.description
             ) : (
               <label>
                 Description:
@@ -198,8 +272,8 @@ export default function EditGrooveForm(props: Props) {
                 />
               </label>
             )}{' '}
-            {idOnEditMode !== props.singleGroove.id ? (
-              <p>Where? {props.singleGroove.location}</p>
+            {idOnEditMode !== props.currentGroove.id ? (
+              <p>Where? {props.currentGroove.location}</p>
             ) : (
               <label>
                 Location:
@@ -210,19 +284,30 @@ export default function EditGrooveForm(props: Props) {
               </label>
             )}{' '}
           </form>
-
-          {props.singleGroove.userId !== props.userId ? (
-            numUserIdParticipating === props.userId ? (
+          <h4>Participants:</h4>
+          <ul>
+            <li>
+              <img src={grooveAdmin.profileImgUrl} width="50" alt="Profile" />
+              <p>{grooveAdmin.username}</p>
+              <p>Admin</p>
+            </li>
+            {usersProfilesParticipating.map((user) => {
+              return (
+                <li key={user.id}>
+                  <img src={user.profileImgUrl} width="50" alt="Profile" />
+                  <p>{user.username}</p>
+                </li>
+              );
+            })}
+          </ul>
+          {props.currentGroove.userId !== props.currentUserId ? (
+            findUserId ? (
               <button
                 onClick={async () => {
                   const response = await fetch(
-                    `/dashboard/api/grooves/usersgrooves/${props.singleGroove.id}`,
+                    `/dashboard/api/grooves/usersgrooves/${props.currentGroove.id}`,
                     {
                       method: 'DELETE',
-                      // body: JSON.stringify({
-                      //   userId: props.userId,
-                      //   grooveId: props.singleGroove.id,
-                      // }),
                     },
                   );
                   console.log('response from delete reeq: ', response);
@@ -243,7 +328,7 @@ export default function EditGrooveForm(props: Props) {
               <button
                 onClick={async () => {
                   const response = await fetch(
-                    `/dashboard/api/grooves/usersgrooves/${props.singleGroove.id}`,
+                    `/dashboard/api/grooves/usersgrooves/${props.currentGroove.id}`,
                     {
                       method: 'POST',
                       headers: {
@@ -251,8 +336,8 @@ export default function EditGrooveForm(props: Props) {
                       },
 
                       body: JSON.stringify({
-                        userId: props.userId,
-                        grooveId: props.singleGroove.id,
+                        userId: props.currentUserId,
+                        grooveId: props.currentGroove.id,
                       }),
                     },
                   );
@@ -274,16 +359,16 @@ export default function EditGrooveForm(props: Props) {
             <div>
               <button
                 onClick={() => {
-                  setIdOnEditMode(props.singleGroove.id);
-                  setEditName(props.singleGroove.name);
-                  setEditOffer(props.singleGroove.offer);
-                  setEditLookingFor(props.singleGroove.lookingFor);
-                  setEditDescription(props.singleGroove.description || '');
-                  setEditLocation(props.singleGroove.location || '');
-                  setEditLabel(props.singleGroove.label || '');
-                  setEditTime(props.singleGroove.time);
-                  setEditDate(props.singleGroove.date);
-                  setEditLanguage(props.singleGroove.language);
+                  setIdOnEditMode(props.currentGroove.id);
+                  setEditName(props.currentGroove.name);
+                  setEditOffer(props.currentGroove.offer);
+                  setEditLookingFor(props.currentGroove.lookingFor);
+                  setEditDescription(props.currentGroove.description || '');
+                  setEditLocation(props.currentGroove.location || '');
+                  setEditLabel(props.currentGroove.label || '');
+                  setEditTime(props.currentGroove.time);
+                  setEditDate(props.currentGroove.date);
+                  setEditLanguage(props.currentGroove.language);
                 }}
               >
                 Edit
@@ -291,26 +376,28 @@ export default function EditGrooveForm(props: Props) {
               <button
                 onClick={async () => {
                   const response = await fetch(
-                    `/dashboard/api/grooves/${props.singleGroove.id}`,
+                    `/dashboard/api/grooves/${props.currentGroove.id}`,
                     {
                       method: 'PUT',
                       headers: {
                         'Content-type': 'application/json',
                       },
                       body: JSON.stringify({
-                        name: editName || props.singleGroove.name,
-                        offer: editOffer || props.singleGroove.offer,
+                        name: editName || props.currentGroove.name,
+                        offer: editOffer || props.currentGroove.offer,
                         lookingFor:
-                          editLookingFor || props.singleGroove.lookingFor,
+                          editLookingFor || props.currentGroove.lookingFor,
                         description:
-                          editDescription || props.singleGroove.description,
-                        location: editLocation || props.singleGroove.location,
-                        label: editLabel || props.singleGroove.label,
-                        imgUrl: editImgUrl || props.singleGroove.imgUrl,
-                        userId: props.userId || props.singleGroove.userId,
-                        time: editTime || props.singleGroove.time,
-                        date: editDate || props.singleGroove.date,
-                        language: editLanguage || props.singleGroove.language,
+                          editDescription || props.currentGroove.description,
+                        location: editLocation || props.currentGroove.location,
+                        label: editLabel || props.currentGroove.label,
+                        imgUrl: editImgUrl || props.currentGroove.imgUrl,
+                        userId:
+                          props.currentUserId ||
+                          props.currentGroove.currentUserId,
+                        time: editTime || props.currentGroove.time,
+                        date: editDate || props.currentGroove.date,
+                        language: editLanguage || props.currentGroove.language,
                       }),
                     },
                   );
@@ -330,7 +417,7 @@ export default function EditGrooveForm(props: Props) {
               <button
                 onClick={async () => {
                   const response = await fetch(
-                    `/dashboard/api/grooves/${props.singleGroove.id}`,
+                    `/dashboard/api/grooves/${props.currentGroove.id}`,
                     {
                       method: 'DELETE',
                     },
@@ -350,6 +437,80 @@ export default function EditGrooveForm(props: Props) {
                 Delete
               </button>
             </div>
+          )}
+          {props.currentGroove.userId === props.currentUserId || findUserId ? (
+            <div className={styles.comments}>
+              <ul>
+                {props.commentsForCurrentGroove.map((comment) => {
+                  const commentedUser = props.users.find(
+                    (user) => user.id === comment.userId,
+                  );
+                  console.log('commentedUser from html: ', commentedUser);
+                  return (
+                    <li key={comment.id}>
+                      <img
+                        className={styles.profileImg}
+                        src={commentedUser.profileImgUrl}
+                        alt="profile"
+                        width="50"
+                        height="50"
+                      />
+                      <div>
+                        <p> {comment.createdAt}</p>
+                        <p>{commentedUser.username}</p>
+                        <p>{comment.content}</p>
+                      </div>
+                    </li>
+                  );
+                })}
+              </ul>
+              <img
+                className={styles.profileImg}
+                src={props.currentUser.profileImgUrl}
+                alt="profile"
+                width="50"
+                height="50"
+              />
+              <label>
+                <input
+                  placeholder="What is in your mind..."
+                  type="text"
+                  value={commentContent}
+                  onChange={(e) => setCommentContent(e.currentTarget.value)}
+                />
+              </label>
+              <button
+                onClick={async () => {
+                  const response = await fetch(
+                    `/dashboard/api/grooves/comments/${props.currentGroove.id}`,
+                    {
+                      method: 'POST',
+                      headers: {
+                        'Content-Type': 'application/json',
+                      },
+                      body: JSON.stringify({
+                        content: commentContent,
+                        userId: props.currentUserId,
+                        grooveId: props.currentGroove.id,
+                        createdAt: today,
+                      }),
+                    },
+                  );
+
+                  const data = await response.json();
+                  if (data.error) {
+                    setError(data.error);
+                    return;
+                  }
+                  setCommentsInGroove([...commentsInGroove, data.comment]);
+                  router.refresh();
+                }}
+              >
+                Add comment
+              </button>
+            </div>
+          ) : (
+            <div></div>
           )}
         </div>
       </div>

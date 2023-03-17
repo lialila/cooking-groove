@@ -3,12 +3,31 @@
   flex-direction: column;
   align-items: center;
   text-align: center;
-  margin-top: 8rem;
+  margin-top: 6rem;
   width: 100vw;
   text-transform: lowercase;
   font-weight: 400;
   font-size: 1rem;
   letter-spacing: 0.2vw;
+  button {
+    margin: 1rem;
+    padding: 0.2rem 0.5rem;
+    border-radius: 8px;
+    background-color: rgba(185, 179, 179, 0);
+    color: black;
+    font-size: 0.8rem;
+    letter-spacing: 0.2vw;
+    text-transform: lowercase;
+    cursor: pointer;
+    transition: 0.3s;
+    border: solid 1.2px rgb(7, 15, 65);
+
+    &:hover {
+      // background-color: rgba(43, 38, 92, 0.2);
+
+      color: white;
+    }
+  }
 }
 .div {
   display: flex;
@@ -19,23 +38,23 @@
   margin: 1.2rem;
   padding: 1rem;
   border-radius: 16px;
+}
 
-  .form {
-    text-align: left;
-    padding: 10px;
-    color: black;
-    display: inline-block;
+.form {
+  text-align: left;
+  padding: 10px;
+  color: black;
+  display: inline-block;
+  margin: auto;
+  text-transform: lowercase;
+  font-size: 1rem;
+  letter-spacing: 0.2vw;
+
+  input {
+    width: 100%;
     margin: auto;
-    text-transform: lowercase;
-    font-size: 1rem;
-    letter-spacing: 0.2vw;
-
-    input {
-      width: 100%;
-      margin: auto;
-      text-align: left;
-      background-color: rgba(185, 179, 179, 0);
-      border: solid 1.2px rgb(43, 38, 92);
-    }
+    text-align: left;
+    background-color: rgba(185, 179, 179, 0);
+    border: solid 1.2px rgb(43, 38, 92);
   }
 }
