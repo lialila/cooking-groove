@@ -288,6 +288,23 @@ export default function EditGrooveForm(props: Props) {
             )}{' '}
           </form>
 
+          <h4>Participants:</h4>
+          <ul>
+            <li>
+              <img src={grooveAdmin.profileImgUrl} width="50" alt="Profile" />
+              <p>{grooveAdmin.username}</p>
+              <p>Admin</p>
+            </li>
+            {usersProfilesParticipating.map((user) => {
+              return (
+                <li key={user.id}>
+                  <img src={user.profileImgUrl} width="50" alt="Profile" />
+                  <p>{user.username}</p>
+                </li>
+              );
+            })}
+          </ul>
+
           {props.currentGroove.userId !== props.currentUserId ? (
             findUserId ? (
               <button
@@ -424,26 +441,6 @@ export default function EditGrooveForm(props: Props) {
               >
                 Delete
               </button>
-              <h4>Participants:</h4>
-              <ul>
-                <li>
-                  <img
-                    src={grooveAdmin.profileImgUrl}
-                    width="50"
-                    alt="Profile"
-                  />
-                  <p>{grooveAdmin.username}</p>
-                  <p>Admin</p>
-                </li>
-                {usersProfilesParticipating.map((user) => {
-                  return (
-                    <li key={user.id}>
-                      <img src={user.profileImgUrl} width="50" alt="Profile" />
-                      <p>{user.username}</p>
-                    </li>
-                  );
-                })}
-              </ul>
             </div>
           )}
           {props.currentGroove.userId === props.currentUserId || findUserId ? (
