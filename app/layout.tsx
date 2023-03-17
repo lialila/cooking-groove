@@ -9,7 +9,7 @@ import {
 import { cookies } from 'next/headers';
 import Image from 'next/image';
 import Link from 'next/link';
-import { getUserBySessionToken } from '../database/users';
+import { getUserBySessionToken, getUsers } from '../database/users';
 import styles from './layout.module.scss';
 
 // import LogOut from './LogOut';
@@ -40,15 +40,17 @@ export default async function RootLayout(props: Props) {
   // 1. get the session token from the cookie
   const cookieStore = cookies();
   const sessionToken = cookieStore.get('sessionToken');
-
-  console.log('sessionToken from layout: ', sessionToken?.value);
-  // 2. validate that session
-  // 3. get the user profile matching the session
   const user = !sessionToken?.value
     ? undefined
     : await getUserBySessionToken(sessionToken.value);
 
-  console.log('user from layout', user);
+  // get all users
+  const allUsers = await getUsers();
+  const userObj = allUsers.find((oneUser) => oneUser.id === user?.id);
+
+  console.log('sessionToken from layout: ', sessionToken?.value);
+  // 2. validate that session
+  // 3. get the user profile matching the session
 
   return (
     <html lang="en" className={styles.html}>
@@ -107,7 +109,13 @@ export default async function RootLayout(props: Props) {
                   </li>{' '}
                 </Link>
                 <Link href={`dashboard/profile/${user.id}`}>
-                  <li>{user.username}</li>
+                  <img
+                    className={styles.profileImg}
+                    src={userObj.profileImgUrl}
+                    width="50"
+                    height="50"
+                    alt="Profile"
+                  />
                 </Link>
               </>
             ) : (

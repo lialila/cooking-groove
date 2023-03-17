@@ -291,14 +291,26 @@ export default function EditGrooveForm(props: Props) {
           <h4>Participants:</h4>
           <ul>
             <li>
-              <img src={grooveAdmin.profileImgUrl} width="50" alt="Profile" />
+              <img
+                src={grooveAdmin.profileImgUrl}
+                width="70"
+                height="70"
+                alt="Profile"
+                className={styles.profileImg}
+              />
               <p>{grooveAdmin.username}</p>
               <p>Admin</p>
             </li>
             {usersProfilesParticipating.map((user) => {
               return (
                 <li key={user.id}>
-                  <img src={user.profileImgUrl} width="50" alt="Profile" />
+                  <img
+                    src={user.profileImgUrl}
+                    width="70"
+                    height="70"
+                    alt="Profile"
+                    className={styles.profileImg}
+                  />
                   <p>{user.username}</p>
                 </li>
               );
