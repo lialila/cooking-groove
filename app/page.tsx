@@ -1,4 +1,7 @@
 import { Courier_Prime, Montserrat } from '@next/font/google';
+import { cookies } from 'next/headers';
+import Link from 'next/link';
+import { getUserBySessionToken } from '../database/users';
 import styles from './page.module.scss';
 
 const courierPrime = Courier_Prime({
@@ -15,7 +18,13 @@ export const metadata = {
   title: 'Cooking Groove',
   description: 'Cooking together',
 };
-export default function LandingPage() {
+export default async function LandingPage() {
+  const cookieStore = cookies();
+  const sessionToken = cookieStore.get('sessionToken');
+  const user = !sessionToken?.value
+    ? undefined
+    : await getUserBySessionToken(sessionToken.value);
+
   return (
     <section className={styles.main}>
       <div className={styles.div}>
@@ -27,6 +36,13 @@ export default function LandingPage() {
           is rhythm in which one lives their life; <br />
           pattern of behavior.
         </p>
+        {user ? (
+          <div></div>
+        ) : (
+          <Link href="/dashboard/login">
+            <button>Let's go!</button>
+          </Link>
+        )}
       </div>
     </section>
   );

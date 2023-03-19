@@ -9,10 +9,11 @@ import {
 import { cookies } from 'next/headers';
 import Image from 'next/image';
 import Link from 'next/link';
+import { getGrooves, Groove } from '../database/grooves';
 import { getUserBySessionToken, getUsers } from '../database/users';
 import styles from './layout.module.scss';
 
-// import LogOut from './LogOut';
+// import SearchForm from './SearchForm';
 
 export const metadata = {
   title: {
@@ -32,6 +33,7 @@ const MontserratText = Montserrat({
 });
 type Props = {
   children: React.ReactNode;
+  allGrooves: Groove[];
 };
 
 export const dynamic = 'force-dynamic';
@@ -48,9 +50,8 @@ export default async function RootLayout(props: Props) {
   const allUsers = await getUsers();
   const userObj = allUsers.find((oneUser) => oneUser.id === user?.id);
 
-  console.log('sessionToken from layout: ', sessionToken?.value);
-  // 2. validate that session
-  // 3. get the user profile matching the session
+  // get all grooves
+  const allGrooves = await getGrooves();
 
   return (
     <html lang="en" className={styles.html}>
@@ -71,16 +72,18 @@ export default async function RootLayout(props: Props) {
                   />
                 </Link>
               </li>
-              <Link href="/dashboard/grooves">
-                <li>
+              <li>
+                {/* <SearchForm allGrooves={allGrooves} /> */}
+                <Link href="/dashboard/grooves">
                   <Image
                     src="/nav-footer/search-white.png"
                     width="32"
                     height="30"
                     alt="search"
-                  />
-                </li>{' '}
-              </Link>
+                  />{' '}
+                </Link>
+              </li>{' '}
+              <li></li>
             </ul>
           </nav>
         </header>
@@ -97,17 +100,16 @@ export default async function RootLayout(props: Props) {
                     alt="search"
                   />
                 </Link>
-
-                <Link href="/dashboard/grooves/create-groove">
-                  <li>
+                <li>
+                  <Link href="/dashboard/grooves/create-groove">
                     <Image
                       src="/nav-footer/plusbutton.png"
                       width="24"
                       height="24"
                       alt="search"
                     />
-                  </li>{' '}
-                </Link>
+                  </Link>{' '}
+                </li>{' '}
                 <Link href={`dashboard/profile/${user.id}`}>
                   <img
                     className={styles.profileImg}
@@ -119,10 +121,10 @@ export default async function RootLayout(props: Props) {
                 </Link>
               </>
             ) : (
-              <>
-                <Link href="/dashboard/registration">create account</Link>
-                <Link href="/dashboard/login">log in</Link>
-              </>
+              <div>
+                {/* <Link href="/dashboard/registration">create account</Link>
+                <Link href="/dashboard/login">log in</Link> */}
+              </div>
             )}
           </ul>
         </footer>

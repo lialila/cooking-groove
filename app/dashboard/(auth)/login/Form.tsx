@@ -84,6 +84,7 @@ export default function Form(props: { returnTo?: string | string[] }) {
       <br />
       <div>
         <button className={courierPrime.className}>Log in</button>
+        <button className={courierPrime.className}>Create account</button>
       </div>
     </form>
   );

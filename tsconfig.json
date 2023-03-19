@@ -35,7 +35,7 @@
     "app/dashboard/(auth)/registration/page.tsx",
     "app/dashboard/layout.js",
     "app/layout.tsx",
-    "app/page.js",
+    "app/page.tsx",
     "app/dashboard/(auth)/registration/RegisterForm.tsx",
     "app/dashboard/grooves/[grooveId]/page.tsx",
     "app/dashboard/grooves/[grooveId]/EditGrooveForm.tsx"
