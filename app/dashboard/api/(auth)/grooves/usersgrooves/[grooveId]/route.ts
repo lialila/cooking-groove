@@ -7,7 +7,6 @@ import {
 } from '../../../../../../../database/usersgrooves';
 
 const usersgrooveSchema = z.object({
-  // id: z.string(),
   userId: z.number(),
   grooveId: z.number(),
 });
@@ -53,10 +52,6 @@ export async function DELETE(
   request: NextRequest,
   { params }: { params: Record<string, string | string[]> },
 ) {
-  console.log('params route usersgrooves: ', params);
-  console.log('params.userId route usersgrooves: ', params.userId);
-  console.log('params.grooveId route usersgrooves: ', params.grooveId);
-
   const grooveId = Number(params.grooveId);
 
   if (!grooveId) {

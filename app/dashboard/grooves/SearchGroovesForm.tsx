@@ -40,14 +40,7 @@ export default function SearchGroovesForm(props: Props) {
           onChange={(e) => setGrooveSearch(e.currentTarget.value)}
         />
       </label>
-      {/* <button className={styles.searchButton}>
-        <Image
-          src="/nav-footer/search-white.png"
-          width="32"
-          height="30"
-          alt="search"
-        />{' '}
-      </button>{' '} */}
+
       <ul>
         {props.allGrooves
           // .filter((groove) => groove.date > currentDate)

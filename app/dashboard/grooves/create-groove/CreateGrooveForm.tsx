@@ -10,6 +10,7 @@ import styles from './page.module.scss';
 type Props = {
   grooves: Groove[];
   userId: number;
+  groove: Groove[];
 };
 
 const courierPrime = Courier_Prime({
@@ -36,8 +37,9 @@ export default function CreateGrooveForm(props: Props) {
   const [date, setDate] = useState<string>('');
   const [language, setLanguage] = useState<string>('');
   const [error, setError] = useState<string>();
-
   const [imgUrl, setImgUrl] = useState<string>('');
+
+  console.log('groove', props.groove);
 
   async function handleSubmit(event) {
     event.preventDefault();
@@ -78,14 +80,15 @@ export default function CreateGrooveForm(props: Props) {
         }),
       });
       const apiData = await apiResponse.json();
-
+      console.log('apiData: ', apiData);
       if (apiData.error) {
         setError(apiData.error);
         return;
       }
       setGrooves([...grooves, apiData.groove]);
-
-      router.push('/dashboard/grooves');
+      console.log('apiData.groove.id: ', apiData.groove.id);
+      router.replace(`/dashboard/grooves/my-grooves`);
+      router.refresh();
     } catch (error) {
       console.error(error);
     }
@@ -144,13 +147,6 @@ export default function CreateGrooveForm(props: Props) {
           />
         </label>{' '}
         <br />
-        {/* <label>
-          Label:
-          <input
-            value={label}
-            onChange={(e) => setLabel(e.currentTarget.value)}
-          />{' '}
-        </label>{' '} */}
         <p>Choose your label</p>
         <select
           placeholder="Your label"

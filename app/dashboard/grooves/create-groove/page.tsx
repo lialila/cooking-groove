@@ -28,12 +28,15 @@ export default async function CreateGroove() {
   const grooves = await getGrooves();
   console.log('userId from create groove page: ', userId);
 
+  const groove = grooves.find((groove) => groove.userId === userId);
+
   return (
     <div className={styles.main}>
       <CreateGrooveForm
         grooves={grooves}
         userId={userId}
         className={styles.div}
+        groove={groove}
       />
     </div>
   );

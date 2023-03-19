@@ -5,6 +5,7 @@ import {
   Inter,
   Montserrat,
 } from '@next/font/google';
+import Link from 'next/link';
 import { useRouter } from 'next/navigation';
 import { useState } from 'react';
 import { Comment } from '../../../../database/comments';
@@ -76,28 +77,22 @@ export default function EditGrooveForm(props: Props) {
 
   const [error, setError] = useState<string>();
 
+  // set ingredients
+  const [ingredient, setIngredient] = useState<string>('');
+  // const [updated, setUpdated] = useState(message);
+
+  // set ingredients on edit mode
+  const [ingredientOnEditMode, setIngredientOnEditMode] = useState('');
+
   // set comment on edit mode
   const [commentContent, setCommentContent] = useState<string>('');
-
-  // set parent comment id
-  const [parentCommentId, setParentCommentId] = useState<number>();
 
   // set groove's comments
   const [commentsInGroove, setCommentsInGroove] = useState<Comment[]>(
     props.commentsForCurrentGroove,
   );
 
-  // const today = new Date(),
-  //   todayformat =
-  //     [today.getHours().toString, today.getMinutes().toString()].join(':') +
-  //     ' ' +
-  //     [
-  //       today.getDate().toString,
-  //       today.getMonth().toString() + 1,
-  //       today.getFullYear().toString(),
-  //     ].join('.');
-  // console.log('todayformat: ', todayformat);
-  // set the createdAt
+  // set the createdAt for comment
   const today = new Date();
   const hours = today.getHours().toString();
   console.log('hours: ', hours);
@@ -106,19 +101,8 @@ export default function EditGrooveForm(props: Props) {
   const month = today.getMonth().toString();
   const year = today.getFullYear().toString();
   const currentTime = `${hours}:${minutes} ${date}.${month}.${year}`;
-  // console.log('tyoe of datetime: ', typeof currentTime);
 
-  // const date =
-  //   today.getDate().toString() +
-  //   '-' +
-  //   today.getMonth().toString() +
-  //   '-' +
-  //   today.getFullYear().toString();
-  // const time =
-  //   today.getHours().toString() + ':' + today.getMinutes().toString();
-  // const currentTime = time + ' ' + date;
-  // console.log('currentTime: ', currentTime);
-
+  // handle the image upload
   const handleImageUpload = async (e: React.ChangeEvent<HTMLInputElement>) => {
     const image = e.target.files?.[0];
     if (image) {
@@ -286,32 +270,52 @@ export default function EditGrooveForm(props: Props) {
                 />
               </label>
             )}{' '}
+            <label>
+              Add missing ingredient:{' '}
+              <input
+                value={ingredient}
+                required
+                onChange={(e) => setIngredient(e.currentTarget.value)}
+              />{' '}
+            </label>
+            <button
+            // onClick={async() => {
+            //   const response = await fetch(`/dashboard/api/grooves/ingredients/${props.groove.id}`), {
+            // }}
+            >
+              Add
+            </button>
+            <button>+</button>
           </form>
 
           <h4>Participants:</h4>
           <ul>
             <li>
-              <img
-                src={grooveAdmin.profileImgUrl}
-                width="70"
-                height="70"
-                alt="Profile"
-                className={styles.profileImg}
-              />
-              <p>{grooveAdmin.username}</p>
-              <p>Admin</p>
+              <Link href={`/dashboard/profile/${grooveAdmin.id}`}>
+                <img
+                  src={grooveAdmin.profileImgUrl}
+                  width="70"
+                  height="70"
+                  alt="Profile"
+                  className={styles.profileImg}
+                />
+                <p>{grooveAdmin.username}</p>
+                <p>Admin</p>
+              </Link>
             </li>
             {usersProfilesParticipating.map((user) => {
               return (
                 <li key={user.id}>
-                  <img
-                    src={user.profileImgUrl}
-                    width="70"
-                    height="70"
-                    alt="Profile"
-                    className={styles.profileImg}
-                  />
-                  <p>{user.username}</p>
+                  <Link href={`/dashboard/profile/${user.id}`}>
+                    <img
+                      src={user.profileImgUrl}
+                      width="70"
+                      height="70"
+                      alt="Profile"
+                      className={styles.profileImg}
+                    />
+                    <p>{user.username}</p>
+                  </Link>
                 </li>
               );
             })}
@@ -374,6 +378,13 @@ export default function EditGrooveForm(props: Props) {
             )
           ) : (
             <div>
+              <button
+                onClick={() => {
+                  setIngredientOnEditMode(props.currentGroove.id);
+                }}
+              >
+                Add missing ingredient
+              </button>
               <button
                 onClick={() => {
                   setIdOnEditMode(props.currentGroove.id);
@@ -465,18 +476,20 @@ export default function EditGrooveForm(props: Props) {
                   console.log('commentedUser from html: ', commentedUser);
                   return (
                     <li key={comment.id}>
-                      <img
-                        className={styles.profileImg}
-                        src={commentedUser.profileImgUrl}
-                        alt="profile"
-                        width="50"
-                        height="50"
-                      />
-                      <div>
-                        <p> {comment.createdAt}</p>
-                        <p>{commentedUser.username}</p>
-                        <p>{comment.content}</p>
-                      </div>
+                      <Link href={`/dashboard/profile/${commentedUser.id}`}>
+                        <img
+                          className={styles.profileImg}
+                          src={commentedUser.profileImgUrl}
+                          alt="profile"
+                          width="50"
+                          height="50"
+                        />
+                        <div>
+                          <p> {comment.createdAt}</p>
+                          <p>{commentedUser.username}</p>
+                          <p>{comment.content}</p>
+                        </div>
+                      </Link>
                     </li>
                   );
                 })}

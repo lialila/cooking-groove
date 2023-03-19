@@ -55,8 +55,10 @@ SELECT * FROM grooves
 
 export const getGrooveById = cache(async (id: number) => {
   const [groove] = await sql<Groove[]>`
-  SELECT * FROM grooves
-  WHERE id = ${id}
+  SELECT * FROM
+    grooves
+  WHERE
+    id = ${id}
   `;
   return groove;
 });
@@ -67,7 +69,8 @@ export const deleteGrooveById = cache(async (id: number) => {
     grooves
   WHERE
     id = ${id}
-  RETURNING *
+  RETURNING
+    *
   `;
   return groove;
 });

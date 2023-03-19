@@ -3,9 +3,7 @@ import { z } from 'zod';
 import {
   createComment,
   deleteCommentById,
-  getCommentById,
   getCommentsByGrooveId,
-  getGrooveByCommentId,
 } from '../../../../../../../database/comments';
 
 const commentSchema = z.object({
