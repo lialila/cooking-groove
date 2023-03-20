@@ -8,6 +8,7 @@ import {
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
 import { useState } from 'react';
+import FadeIn from 'react-fade-in/lib/FadeIn';
 import { User } from '../../../../database/users';
 import styles from './page.module.scss';
 
@@ -82,8 +83,8 @@ export default function EditUserForm(props: Props) {
   };
 
   return (
-    <div className={styles.div}>
-      <div className={courierPrime.className}>
+    <div className={courierPrime.className}>
+      <FadeIn>
         <div className={styles.form}>
           {idOnEditMode !== props.user.id ? (
             <div>
@@ -130,37 +131,38 @@ export default function EditUserForm(props: Props) {
           {props.sessionUser &&
           props.sessionUser.id === props.user.id &&
           idOnEditMode !== props.user.id ? (
-            <div className={styles.profile}>
-              <button
-                className={courierPrime.className}
-                onClick={() => {
-                  setIdOnEditMode(props.user.id);
-                  setEditName(props.user.name);
-                  setEditUsername(props.user.username);
-                  setEditEmail(props.user.email);
-                  setEditProfileImgUrl(props.user.profileImgUrl || '');
-                  setEditEatingExperience(props.user.eatingExperience || '');
-                  setEditCookingExperience(props.user.cookingExperience || '');
-                  setEditFavouriteFood(props.user.favouriteFood || '');
-                  setEditLanguage(props.user.language || '');
-                }}
-              >
-                Edit
-              </button>{' '}
-            </div>
-          ) : (
-            <p></p>
-          )}
-          {props.sessionUser && props.sessionUser.id === props.user.id ? (
-            <div className={styles.profileMenu}>
-              <Link href="/dashboard/grooves/my-grooves">
-                <div className={courierPrime.className}>My grooves</div>
-              </Link>
-              <Link href="/dashboard/grooves/my-grooves">
-                <div className={courierPrime.className}>Participation</div>
-              </Link>
-            </div>
-          ) : (
+            <>
+              <div className={styles.profile}>
+                <button
+                  className={courierPrime.className}
+                  onClick={() => {
+                    setIdOnEditMode(props.user.id);
+                    setEditName(props.user.name);
+                    setEditUsername(props.user.username);
+                    setEditEmail(props.user.email);
+                    setEditProfileImgUrl(props.user.profileImgUrl || '');
+                    setEditEatingExperience(props.user.eatingExperience || '');
+                    setEditCookingExperience(
+                      props.user.cookingExperience || '',
+                    );
+                    setEditFavouriteFood(props.user.favouriteFood || '');
+                    setEditLanguage(props.user.language || '');
+                  }}
+                >
+                  Edit
+                </button>{' '}
+              </div>
+              <div className={styles.profileMenu}>
+                <Link href="/dashboard/grooves/my-grooves">
+                  <div className={courierPrime.className}>My grooves</div>
+                </Link>
+                <Link href="/dashboard/grooves/my-grooves">
+                  <div className={courierPrime.className}>Participation</div>
+                </Link>
+              </div>
+            </>
+          ) : null}
+          {props.sessionUser && props.sessionUser.id !== props.user.id ? (
             <div className={styles.profileMenu}>
               <Link href="/dashboard/grooves/my-grooves">
                 <div className={courierPrime.className}>
@@ -174,11 +176,9 @@ export default function EditUserForm(props: Props) {
                 </div>
               </Link>
             </div>
-          )}
+          ) : null}
 
-          {idOnEditMode !== props.user.id ? (
-            <p></p>
-          ) : (
+          {idOnEditMode !== props.user.id ? null : (
             <label>
               E-mail:
               <input
@@ -315,7 +315,7 @@ export default function EditUserForm(props: Props) {
             ) : null}
           </>
         ) : null}
-      </div>
+      </FadeIn>
     </div>
   );
 }

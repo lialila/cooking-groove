@@ -2,6 +2,7 @@
 import Image from 'next/image';
 import Link from 'next/link';
 import { useState } from 'react';
+import FadeIn from 'react-fade-in/lib/FadeIn';
 import { Groove } from '../../../database/grooves';
 import styles from './page.module.scss';
 
@@ -31,7 +32,7 @@ export default function SearchGroovesForm(props: Props) {
   // console.log('currentDate', currentDate);
 
   return (
-    <>
+    <FadeIn>
       <label htmlFor="search">
         <input
           placeholder="Search for a groove..."
@@ -73,6 +74,6 @@ export default function SearchGroovesForm(props: Props) {
             );
           })}
       </ul>
-    </>
+    </FadeIn>
   );
 }

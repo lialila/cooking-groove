@@ -31,7 +31,7 @@ export default async function LandingPage() {
         <h2 className={inter.className}>Cooking Groove</h2>
 
         <p className={courierPrime.className}>
-          groove <br />
+          <span>GROOVE</span> <br />
           [groov] noun <br />
           is rhythm in which one lives their life; <br />
           pattern of behavior.

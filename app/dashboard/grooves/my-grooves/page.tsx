@@ -6,6 +6,7 @@ import {
 } from '@next/font/google';
 import { cookies } from 'next/headers';
 import Link from 'next/link';
+import FadeIn from 'react-fade-in';
 import { getGrooves, Groove } from '../../../../database/grooves';
 import { getUserBySessionToken } from '../../../../database/users';
 import { getUsersgroovesByUserId } from '../../../../database/usersgrooves';

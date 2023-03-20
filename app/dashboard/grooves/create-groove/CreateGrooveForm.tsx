@@ -100,8 +100,8 @@ export default function CreateGrooveForm(props: Props) {
 
   return (
     <div className={courierPrime.className}>
-      <form className={styles.div} onSubmit={handleSubmit}>
-        <h3>Create Groove</h3>
+      <h3 className={montserratText.className}>Create Groove</h3>
+      <form className={styles.form} onSubmit={handleSubmit}>
         <br />
         <label>
           Groove name:

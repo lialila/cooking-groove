@@ -70,6 +70,7 @@ export default async function RootLayout(props: Props) {
                     // width="75"
                     // height="75"
                     alt="logo"
+                    className={styles.logo}
                   />
                 </Link>
               </li>

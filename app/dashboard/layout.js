@@ -26,8 +26,8 @@ export const dynamic = 'force-dynamic';
 export default function DashboardLayout({ children }) {
   return (
     <section className={styles.html}>
-      <nav className={MontserratText.className}>
-        {/* <ul>
+      {/* <nav className={MontserratText.className}> */}
+      {/* <ul>
           <li>
             <Link href="/">
               <Image
@@ -52,7 +52,7 @@ export default function DashboardLayout({ children }) {
             </Link>
           </li>
         </ul> */}
-      </nav>
+      {/* </nav> */}
       <div className={MontserratText.className}>{children}</div>
       {/* <footer className={MontserratText.className}>
         <ul>
