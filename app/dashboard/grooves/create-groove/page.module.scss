@@ -14,6 +14,20 @@
     font-weight: 600;
     font-size: 1.5rem;
   }
+  button {
+    background: rgba(185, 179, 179, 0.3);
+    border: solid rgba(255, 255, 255, 0.3) 1.2px;
+    border-radius: 8px;
+    padding: 7px;
+    margin: 7px;
+    width: 6rem;
+    color: white;
+    align-items: center;
+  }
+  button:hover {
+    background: rgba(2, 4, 32, 0.3);
+    // border: solid rgba(255, 255, 255, 0.3) 1.2px;
+  }
 }
 
 .form {
@@ -23,7 +37,7 @@
   font-weight: 500;
   font-size: 1rem;
   letter-spacing: 0.2vw;
-  border: 1px solid rgb(255, 255, 255);
+  // border: 1px solid rgb(255, 255, 255);
   padding: 15px 40px 10px;
 
   input {

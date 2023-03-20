@@ -1,4 +1,5 @@
 'use client';
+import { Ingredient } from '@C:/Program';
 import {
   Alternates,
   Courier_Prime,
@@ -10,6 +11,7 @@ import { useRouter } from 'next/navigation';
 import { useState } from 'react';
 import { Comment } from '../../../../database/comments';
 import { Groove } from '../../../../database/grooves';
+import { Ingredient } from '../../../../database/ingredients';
 import { User } from '../../../../database/users';
 import { Usersgroove } from '../../../../database/usersgrooves';
 import styles from './page.module.scss';
@@ -46,6 +48,7 @@ type Props = {
     language: string;
   }; // this is the user who is logged in
   users: User[];
+  ingredients: Ingredient[];
 };
 
 const courierPrime = Courier_Prime({
@@ -77,12 +80,11 @@ export default function EditGrooveForm(props: Props) {
 
   const [error, setError] = useState<string>();
 
+  const [ingredientsList, setIngredientsList] = useState<string[]>([]);
+
   // set ingredients
   const [ingredient, setIngredient] = useState<string>('');
   // const [updated, setUpdated] = useState(message);
-
-  // set ingredients on edit mode
-  const [ingredientOnEditMode, setIngredientOnEditMode] = useState('');
 
   // set comment on edit mode
   const [commentContent, setCommentContent] = useState<string>('');
@@ -145,6 +147,37 @@ export default function EditGrooveForm(props: Props) {
     (item) => item.id === props.currentGroove.userId,
   );
 
+  const handleIngredientAddition = async (
+    e: React.FormEvent<HTMLFormElement>,
+  ) => {
+    e.preventDefault();
+    const response = await fetch(
+      `/dashboard/api/grooves/${props.currentGroove.id}/ingredients`,
+      {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          ingredientName: ingredient,
+          grooveId: props.currentGroove.id,
+        }),
+      },
+    );
+
+    const data = await response.json();
+    console.log('data from handleIngredientAddition: ', data);
+
+    if (data.error) {
+      setError(data.error);
+      return;
+    }
+    setIngredientsList([...ingredientsList, data.ingredient]);
+
+    setIngredient('');
+    router.refresh();
+  };
+
   return (
     <div className={styles.main}>
       <div className={courierPrime.className}>
@@ -155,7 +188,7 @@ export default function EditGrooveForm(props: Props) {
                 {' '}
                 <img
                   src={props.currentGroove.imgUrl}
-                  width="150"
+                  width="300"
                   alt="Groove"
                 />
               </div>
@@ -195,7 +228,7 @@ export default function EditGrooveForm(props: Props) {
               <p>Offer: {props.currentGroove.offer}</p>
             ) : (
               <label>
-                Your offer:
+                Offer:
                 <input
                   value={editOffer}
                   onChange={(e) => setEditOffer(e.currentTarget.value)}
@@ -270,22 +303,47 @@ export default function EditGrooveForm(props: Props) {
                 />
               </label>
             )}{' '}
-            <label>
-              Add missing ingredient:{' '}
-              <input
-                value={ingredient}
-                required
-                onChange={(e) => setIngredient(e.currentTarget.value)}
-              />{' '}
-            </label>
-            <button
-            // onClick={async() => {
-            //   const response = await fetch(`/dashboard/api/grooves/ingredients/${props.groove.id}`), {
-            // }}
-            >
-              Add
-            </button>
-            <button>+</button>
+            {idOnEditMode !== props.currentGroove.id ? (
+              <>
+                Missing ingredients:
+                {props.ingredients.map((ingredient) => {
+                  return (
+                    <label
+                      key={`ingredient.${ingredient.id}`}
+                      className={styles.ingredients}
+                    >
+                      <input type="checkbox" value={ingredient} />
+                      {ingredient.ingredientName}
+                    </label>
+                  );
+                })}
+              </>
+            ) : (
+              <>
+                <label>
+                  Add missing ingredient:{' '}
+                  <input
+                    value={ingredient}
+                    required
+                    onChange={(e) => setIngredient(e.currentTarget.value)}
+                  />{' '}
+                  <button onClick={handleIngredientAddition}>Add</button>
+                </label>
+                <button>+</button>
+                <p> Missing ingredients:</p>
+                {props.ingredients.map((ingredient) => {
+                  return (
+                    <label
+                      key={`ingredient.${ingredient.id}`}
+                      className={styles.ingredients}
+                    >
+                      <input type="checkbox" value={ingredient} />
+                      {ingredient.ingredientName}
+                    </label>
+                  );
+                })}
+              </>
+            )}{' '}
           </form>
 
           <h4>Participants:</h4>
@@ -378,13 +436,13 @@ export default function EditGrooveForm(props: Props) {
             )
           ) : (
             <div>
-              <button
+              {/* <button
                 onClick={() => {
                   setIngredientOnEditMode(props.currentGroove.id);
                 }}
               >
                 Add missing ingredient
-              </button>
+              </button> */}
               <button
                 onClick={() => {
                   setIdOnEditMode(props.currentGroove.id);
@@ -504,7 +562,6 @@ export default function EditGrooveForm(props: Props) {
               <label>
                 <input
                   placeholder="What is in your mind..."
-                  type="text"
                   value={commentContent}
                   onChange={(e) => setCommentContent(e.currentTarget.value)}
                 />
@@ -539,9 +596,7 @@ export default function EditGrooveForm(props: Props) {
                 Add comment
               </button>
             </div>
-          ) : (
-            <div></div>
-          )}
+          ) : null}
         </div>
       </div>
     </div>

@@ -6,13 +6,14 @@ import {
   getIngredientByGrooveId,
   getIngredients,
   updateIngredientById,
-} from '../../../../../../../database/ingredients ';
+} from '../../../../../../../database/ingredients';
 
 const ingredientSchema = z.object({
   ingredientName: z.string(),
   grooveId: z.number(),
 });
 
+// get ingredients from data base
 export async function GET(
   request: NextRequest,
   { params }: { params: Record<string, string | string[]> },
@@ -32,6 +33,7 @@ export async function GET(
   return NextResponse.json({ ingredients: ingredients });
 }
 
+// create ingredient
 export async function POST(request: NextRequest) {
   const body = await request.json();
 

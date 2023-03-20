@@ -13,6 +13,10 @@ import {
   getCommentsByGrooveId,
 } from '../../../../database/comments';
 import { getGrooveById, getGrooves } from '../../../../database/grooves';
+import {
+  getIngredientByGrooveId,
+  getIngredients,
+} from '../../../../database/ingredients';
 import { getValidSessionByToken } from '../../../../database/sessions';
 import {
   getUserById,
@@ -51,8 +55,6 @@ export default async function GrooveIdPage(props: Props) {
     ? undefined
     : await getUserBySessionToken(sessionToken.value);
 
-  console.log('user.id from edit groove page', user?.id);
-
   const currentUserId = user?.id;
 
   if (!user) {
@@ -71,16 +73,13 @@ export default async function GrooveIdPage(props: Props) {
   const commentsForCurrentGroove = await getCommentsByGrooveId(
     parseInt(props.params.grooveId),
   );
-  console.log('props.params.grooveId: ', props.params.grooveId);
-  console.log('commentsForCurrentGroove: ', commentsForCurrentGroove);
 
   const usersgroovesParticipating = await getUsersgroovesByGrooveId(
     parseInt(props.params.grooveId),
   );
-  console.log('currentGroove.id from page.tsx: ', currentGroove.id);
 
-  console.log('usersgroovesParticipating: ', usersgroovesParticipating);
-  console.log('userId from page.tsx: ', currentUserId);
+  const ingredients = await getIngredients();
+  console.log('ingredients', ingredients);
   return (
     <section>
       <EditGrooveForm
@@ -91,6 +90,7 @@ export default async function GrooveIdPage(props: Props) {
         commentsForCurrentGroove={commentsForCurrentGroove}
         usersgroovesParticipating={usersgroovesParticipating}
         users={users}
+        ingredients={ingredients}
       />
     </section>
   );

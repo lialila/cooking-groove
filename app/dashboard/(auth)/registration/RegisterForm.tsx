@@ -7,6 +7,7 @@ import {
 } from '@next/font/google';
 import { useRouter } from 'next/navigation';
 import { useState } from 'react';
+import FadeIn from 'react-fade-in';
 import { number } from 'zod';
 import { User } from '../../../../database/users';
 import { getSafeReturnToPath } from '../../../../utils/validation';
@@ -77,11 +78,6 @@ export default function RegisterForm(props: { returnTo?: string | string[] }) {
 
       const data: RegisterResponseBody = await response.json();
 
-      // console.log('data in register form: ', data);
-      // console.log('data.errors in register form: ', data.errors);
-      // console.log('data.user in register form: ', data.user);
-      // console.log('data.user.id in register form: ', data.user.id);
-      // console.log('props.userId in register form: ', props.userId);
       if ('errors' in data) {
         setErrors(data.errors);
         return;
@@ -109,95 +105,97 @@ export default function RegisterForm(props: { returnTo?: string | string[] }) {
       {errors.map((error) => (
         <div key={`error-${error.message}`}>Error: {error.message}</div>
       ))}
-      <label htmlFor="username" className={courierPrime.className}>
-        Username:
+      <FadeIn>
+        <label htmlFor="username" className={courierPrime.className}>
+          Username:
+          <input
+            data-test-id="username"
+            value={username}
+            required
+            onChange={(e) => setUsername(e.currentTarget.value)}
+          />
+        </label>
+        <br />
+        <label htmlFor="name" className={courierPrime.className}>
+          Name:{' '}
+        </label>
         <input
-          data-test-id="username"
-          value={username}
+          data-test-id="name"
+          value={name}
           required
-          onChange={(e) => setUsername(e.currentTarget.value)}
+          onChange={(e) => setName(e.currentTarget.value)}
         />
-      </label>
-      <br />
-      <label htmlFor="name" className={courierPrime.className}>
-        Name:{' '}
-      </label>
-      <input
-        data-test-id="name"
-        value={name}
-        required
-        onChange={(e) => setName(e.currentTarget.value)}
-      />
-      <br />
-      <label htmlFor="email" className={courierPrime.className}>
-        E-mail:
-      </label>
-      <input
-        type="email"
-        data-test-id="email"
-        value={email}
-        required
-        onChange={(e) => setEmail(e.currentTarget.value)}
-      />
-      <br />
-      <label htmlFor="eatingExperience" className={courierPrime.className}>
-        Eating experience:
-      </label>
-      <input
-        data-test-id="eatingExperience"
-        value={eatingExperience}
-        required
-        onChange={(e) => setEatingExperience(e.currentTarget.value)}
-      />{' '}
-      <br />
-      <label htmlFor="cookingExperience" className={courierPrime.className}>
-        Cooking experience:
-      </label>
-      <input
-        data-test-id="cookingExperience"
-        value={cookingExperience}
-        required
-        onChange={(e) => setCookingExperience(e.currentTarget.value)}
-      />{' '}
-      <br />
-      <label htmlFor="favouriteFood" className={courierPrime.className}>
-        Favourite food:
-      </label>
-      <input
-        data-test-id="favouriteFood"
-        value={favouriteFood}
-        required
-        onChange={(e) => setFavouriteFood(e.currentTarget.value)}
-      />{' '}
-      <br />
-      <label htmlFor="language" className={courierPrime.className}>
-        Language:
-      </label>
-      <input
-        data-test-id="language"
-        value={language}
-        required
-        onChange={(e) => setLanguage(e.currentTarget.value)}
-      />{' '}
-      <label htmlFor="password" className={courierPrime.className}>
-        Password:
-      </label>
-      <input
-        data-test-id="password"
-        value={password}
-        required
-        onChange={(e) => setPassword(e.currentTarget.value)}
-      />
-      <br />
-      <label className={courierPrime.className}>
-        Upload image:
-        <input type="file" name="fileInput" />
-      </label>
-      <br />
-      <div className={styles.button}>
-        <button className={courierPrime.className}>Back </button>
-        <button className={courierPrime.className}>Sign up</button>
-      </div>
+        <br />
+        <label htmlFor="email" className={courierPrime.className}>
+          E-mail:
+        </label>
+        <input
+          type="email"
+          data-test-id="email"
+          value={email}
+          required
+          onChange={(e) => setEmail(e.currentTarget.value)}
+        />
+        <br />
+        <label htmlFor="eatingExperience" className={courierPrime.className}>
+          Eating experience:
+        </label>
+        <input
+          data-test-id="eatingExperience"
+          value={eatingExperience}
+          required
+          onChange={(e) => setEatingExperience(e.currentTarget.value)}
+        />{' '}
+        <br />
+        <label htmlFor="cookingExperience" className={courierPrime.className}>
+          Cooking experience:
+        </label>
+        <input
+          data-test-id="cookingExperience"
+          value={cookingExperience}
+          required
+          onChange={(e) => setCookingExperience(e.currentTarget.value)}
+        />{' '}
+        <br />
+        <label htmlFor="favouriteFood" className={courierPrime.className}>
+          Favourite food:
+        </label>
+        <input
+          data-test-id="favouriteFood"
+          value={favouriteFood}
+          required
+          onChange={(e) => setFavouriteFood(e.currentTarget.value)}
+        />{' '}
+        <br />
+        <label htmlFor="language" className={courierPrime.className}>
+          Language:
+        </label>
+        <input
+          data-test-id="language"
+          value={language}
+          required
+          onChange={(e) => setLanguage(e.currentTarget.value)}
+        />{' '}
+        <label htmlFor="password" className={courierPrime.className}>
+          Password:
+        </label>
+        <input
+          data-test-id="password"
+          value={password}
+          required
+          onChange={(e) => setPassword(e.currentTarget.value)}
+        />
+        <br />
+        <label className={courierPrime.className}>
+          Upload image:
+          <input type="file" name="fileInput" />
+        </label>
+        <br />
+        <div className={styles.button}>
+          <button className={courierPrime.className}>Back </button>
+          <button className={courierPrime.className}>Sign up</button>
+        </div>
+      </FadeIn>
     </form>
   );
 }

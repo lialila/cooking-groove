@@ -84,100 +84,93 @@ export default function EditUserForm(props: Props) {
 
   return (
     <div className={courierPrime.className}>
-      <FadeIn>
-        <div className={styles.form}>
-          {idOnEditMode !== props.user.id ? (
-            <div>
-              <img
-                src={props.user.profileImgUrl}
-                width="150"
-                alt="Profile"
-                className={styles.img}
-              />
-            </div>
-          ) : (
-            <label>
-              Image:{' '}
-              <input
-                type="file"
-                name="fileInput"
-                onChange={handleImageUpload}
-              />{' '}
-            </label>
-          )}
+      <div className={styles.form}>
+        {idOnEditMode !== props.user.id ? (
+          <div>
+            <img
+              src={props.user.profileImgUrl}
+              width="150"
+              alt="Profile"
+              className={styles.img}
+            />
+          </div>
+        ) : (
+          <label>
+            Image:{' '}
+            <input type="file" name="fileInput" onChange={handleImageUpload} />{' '}
+          </label>
+        )}
 
-          {idOnEditMode !== props.user.id ? (
-            <h3>{props.user.username}</h3>
-          ) : (
-            <label>
-              Username:
-              <input
-                value={editUsername}
-                onChange={(e) => setEditUsername(e.currentTarget.value)}
-              />{' '}
-            </label>
-          )}
-          {idOnEditMode !== props.user.id ? (
-            <p></p>
-          ) : (
-            <label>
-              Name:
-              <input
-                value={editName}
-                onChange={(e) => setEditName(e.currentTarget.value)}
-              />{' '}
-            </label>
-          )}
-          {props.sessionUser &&
-          props.sessionUser.id === props.user.id &&
-          idOnEditMode !== props.user.id ? (
-            <>
-              <div className={styles.profile}>
-                <button
-                  className={courierPrime.className}
-                  onClick={() => {
-                    setIdOnEditMode(props.user.id);
-                    setEditName(props.user.name);
-                    setEditUsername(props.user.username);
-                    setEditEmail(props.user.email);
-                    setEditProfileImgUrl(props.user.profileImgUrl || '');
-                    setEditEatingExperience(props.user.eatingExperience || '');
-                    setEditCookingExperience(
-                      props.user.cookingExperience || '',
-                    );
-                    setEditFavouriteFood(props.user.favouriteFood || '');
-                    setEditLanguage(props.user.language || '');
-                  }}
-                >
-                  Edit
-                </button>{' '}
-              </div>
-              <div className={styles.profileMenu}>
-                <Link href="/dashboard/grooves/my-grooves">
-                  <div className={courierPrime.className}>My grooves</div>
-                </Link>
-                <Link href="/dashboard/grooves/my-grooves">
-                  <div className={courierPrime.className}>Participation</div>
-                </Link>
-              </div>
-            </>
-          ) : null}
-          {props.sessionUser && props.sessionUser.id !== props.user.id ? (
+        {idOnEditMode !== props.user.id ? (
+          <h3>{props.user.username}</h3>
+        ) : (
+          <label>
+            Username:
+            <input
+              value={editUsername}
+              onChange={(e) => setEditUsername(e.currentTarget.value)}
+            />{' '}
+          </label>
+        )}
+        {idOnEditMode !== props.user.id ? (
+          <p></p>
+        ) : (
+          <label>
+            Name:
+            <input
+              value={editName}
+              onChange={(e) => setEditName(e.currentTarget.value)}
+            />{' '}
+          </label>
+        )}
+        {props.sessionUser &&
+        props.sessionUser.id === props.user.id &&
+        idOnEditMode !== props.user.id ? (
+          <>
+            <div className={styles.profile}>
+              <button
+                className={courierPrime.className}
+                onClick={() => {
+                  setIdOnEditMode(props.user.id);
+                  setEditName(props.user.name);
+                  setEditUsername(props.user.username);
+                  setEditEmail(props.user.email);
+                  setEditProfileImgUrl(props.user.profileImgUrl || '');
+                  setEditEatingExperience(props.user.eatingExperience || '');
+                  setEditCookingExperience(props.user.cookingExperience || '');
+                  setEditFavouriteFood(props.user.favouriteFood || '');
+                  setEditLanguage(props.user.language || '');
+                }}
+              >
+                Edit
+              </button>{' '}
+            </div>
             <div className={styles.profileMenu}>
               <Link href="/dashboard/grooves/my-grooves">
-                <div className={courierPrime.className}>
-                  {props.user.username} grooves
-                </div>
+                <div className={courierPrime.className}>My grooves</div>
               </Link>
               <Link href="/dashboard/grooves/my-grooves">
-                <div className={courierPrime.className}>
-                  {' '}
-                  {props.user.username} participation
-                </div>
+                <div className={courierPrime.className}>Participation</div>
               </Link>
             </div>
-          ) : null}
-
+          </>
+        ) : null}
+        {props.sessionUser && props.sessionUser.id !== props.user.id ? (
+          <div className={styles.profileMenu}>
+            <Link href="/dashboard/grooves/my-grooves">
+              <div className={courierPrime.className}>
+                {props.user.username} grooves
+              </div>
+            </Link>
+            <Link href="/dashboard/grooves/my-grooves">
+              <div className={courierPrime.className}>
+                {' '}
+                {props.user.username} participation
+              </div>
+            </Link>
+          </div>
+        ) : null}
+        <FadeIn>
           {idOnEditMode !== props.user.id ? null : (
             <label>
               E-mail:
@@ -233,89 +226,88 @@ export default function EditUserForm(props: Props) {
               />{' '}
             </label>
           )}
-        </div>
+        </FadeIn>
+      </div>
 
-        {props.sessionUser && props.sessionUser.id === props.user.id ? (
-          <>
-            <Link href="/logout" prefetch={false}>
-              <img
-                src="/nav-footer/logout.png"
-                width="25"
-                height="25"
-                alt="search"
-              />
-            </Link>
-            {idOnEditMode === props.user.id ? (
-              <>
-                <button
-                  className={courierPrime.className}
-                  onClick={async () => {
-                    const response = await fetch(
-                      `/dashboard/api/profile/${props.user.id}`,
-                      {
-                        method: 'PUT',
-                        headers: {
-                          'Content-type': 'application/json',
-                        },
-                        body: JSON.stringify({
-                          username: editUsername || props.user.username,
-                          name: editName || props.user.name,
-                          email: editEmail || props.user.email,
-                          profileImgUrl:
-                            editProfileImgUrl || props.user.profileImgUrl,
-                          eatingExperience:
-                            editEatingExperience || props.user.eatingExperience,
-                          cookingExperience:
-                            editCookingExperience ||
-                            props.user.cookingExperience,
-                          favouriteFood:
-                            editFavouriteFood || props.user.favouriteFood,
-                          language: editLanguage || props.user.language,
-                        }),
+      {props.sessionUser && props.sessionUser.id === props.user.id ? (
+        <>
+          <Link href="/logout" prefetch={false}>
+            <img
+              src="/nav-footer/logout.png"
+              width="25"
+              height="25"
+              alt="search"
+            />
+          </Link>
+          {idOnEditMode === props.user.id ? (
+            <>
+              <button
+                className={courierPrime.className}
+                onClick={async () => {
+                  const response = await fetch(
+                    `/dashboard/api/profile/${props.user.id}`,
+                    {
+                      method: 'PUT',
+                      headers: {
+                        'Content-type': 'application/json',
                       },
-                    );
+                      body: JSON.stringify({
+                        username: editUsername || props.user.username,
+                        name: editName || props.user.name,
+                        email: editEmail || props.user.email,
+                        profileImgUrl:
+                          editProfileImgUrl || props.user.profileImgUrl,
+                        eatingExperience:
+                          editEatingExperience || props.user.eatingExperience,
+                        cookingExperience:
+                          editCookingExperience || props.user.cookingExperience,
+                        favouriteFood:
+                          editFavouriteFood || props.user.favouriteFood,
+                        language: editLanguage || props.user.language,
+                      }),
+                    },
+                  );
 
-                    const data = await response.json();
+                  const data = await response.json();
 
-                    if (data.error) {
-                      setError(data.error);
-                      return;
-                    }
-                    setIdOnEditMode(undefined);
-                    setUsers([...users, data.user]);
-                    router.refresh();
-                  }}
-                >
-                  Save
-                </button>
-                <button
-                  className={courierPrime.className}
-                  onClick={async () => {
-                    const response = await fetch(
-                      `/dashboard/api/profile/${props.user.id}`,
-                      {
-                        method: 'DELETE',
-                      },
-                    );
-                    const data = await response.json();
-                    router.refresh();
+                  if (data.error) {
+                    setError(data.error);
+                    return;
+                  }
+                  setIdOnEditMode(undefined);
+                  setUsers([...users, data.user]);
+                  router.refresh();
+                }}
+              >
+                Save
+              </button>
+              <button
+                className={courierPrime.className}
+                onClick={async () => {
+                  const response = await fetch(
+                    `/dashboard/api/profile/${props.user.id}`,
+                    {
+                      method: 'DELETE',
+                    },
+                  );
+                  const data = await response.json();
+                  router.refresh();
 
-                    if (data.error) {
-                      setError(data.error);
-                      return;
-                    }
-                    router.push('/');
-                    setUsers([...users, data.users]);
-                    router.refresh();
-                  }}
-                >
-                  Delete profile
-                </button>
-              </>
-            ) : null}
-          </>
-        ) : null}
-      </FadeIn>
+                  if (data.error) {
+                    setError(data.error);
+                    return;
+                  }
+                  router.push('/');
+                  setUsers([...users, data.users]);
+                  router.refresh();
+                }}
+              >
+                Delete profile
+              </button>
+            </>
+          ) : null}
+        </>
+      ) : null}
     </div>
   );
 }

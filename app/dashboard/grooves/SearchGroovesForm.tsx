@@ -29,7 +29,6 @@ export default function SearchGroovesForm(props: Props) {
   // const month = today.getMonth().toString();
   // const year = today.getFullYear().toString();
   // const currentDate = `${year}.${month}.${date}`;
-  // console.log('currentDate', currentDate);
 
   return (
     <FadeIn>
@@ -44,7 +43,6 @@ export default function SearchGroovesForm(props: Props) {
 
       <ul>
         {props.allGrooves
-          // .filter((groove) => groove.date > currentDate)
           .filter((groove) =>
             keys.some((key) =>
               groove[key].toLowerCase().includes(grooveSearch.toLowerCase()),
@@ -65,7 +63,6 @@ export default function SearchGroovesForm(props: Props) {
 
                 <p>Offer: {groove.offer}</p>
                 <p>Looking for: {groove.lookingFor}</p>
-                {/* <p>{groove.description}</p> */}
                 <p>Location: {groove.location} </p>
                 <p>Time: {groove.time}</p>
                 <p>date: {groove.date}</p>
