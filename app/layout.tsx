@@ -53,6 +53,7 @@ export default async function RootLayout(props: Props) {
   // get all grooves
   const allGrooves = await getGrooves();
 
+  console.log('user in layout', user);
   return (
     <html lang="en" className={styles.html}>
       <body className={styles.body}>
@@ -72,58 +73,74 @@ export default async function RootLayout(props: Props) {
                   />
                 </Link>
               </li>
-              <li>
-                {/* <SearchForm allGrooves={allGrooves} /> */}
-                <Link href="/dashboard/grooves">
-                  <Image
-                    src="/nav-footer/search-white.png"
-                    width="32"
-                    height="30"
-                    alt="search"
-                  />{' '}
-                </Link>
-              </li>{' '}
-              <li></li>
             </ul>
           </nav>
         </header>
         {props.children}
         <footer className={MontserratText.className}>
-          <ul className={styles.footer}>
+          <ul>
             {user ? (
-              <>
-                <Link href="/dashboard/grooves/my-grooves" prefetch={false}>
+              <div className={styles.footer}>
+                {/* <Link href="/dashboard/grooves/my-grooves" prefetch={false}>
                   <Image
                     src="/icons-main/icon1.png"
                     width="45"
                     height="45"
                     alt="search"
                   />
-                </Link>
+                </Link> */}
+                <li>
+                  <Link href="/dashboard/grooves">
+                    <Image
+                      src="/nav-footer/searchclassic.png"
+                      width="32"
+                      height="30"
+                      alt="search"
+                    />{' '}
+                  </Link>
+                </li>{' '}
                 <li>
                   <Link href="/dashboard/grooves/create-groove">
                     <Image
                       src="/nav-footer/plusbutton.png"
-                      width="24"
-                      height="24"
+                      width="27"
+                      height="27"
                       alt="search"
                     />
                   </Link>{' '}
                 </li>{' '}
-                <Link href={`dashboard/profile/${user.id}`}>
-                  <img
-                    className={styles.profileImg}
-                    src={userObj.profileImgUrl}
-                    width="50"
-                    height="50"
-                    alt="Profile"
-                  />
-                </Link>
-              </>
+                <li>
+                  <Link href={`dashboard/profile/${user.id}`}>
+                    <img
+                      className={styles.profileImg}
+                      src={userObj.profileImgUrl}
+                      width="50"
+                      height="50"
+                      alt="Profile"
+                    />
+                  </Link>
+                </li>
+              </div>
             ) : (
-              <div>
-                {/* <Link href="/dashboard/registration">create account</Link>
-                <Link href="/dashboard/login">log in</Link> */}
+              <div className={CourierPrime.className}>
+                <div className={styles.footer}>
+                  <li>
+                    <Link href="/dashboard/grooves">
+                      <Image
+                        src="/nav-footer/searchclassic.png"
+                        width="32"
+                        height="30"
+                        alt="search"
+                      />{' '}
+                    </Link>
+                  </li>{' '}
+                  <li>
+                    <Link href="/dashboard/registration">Sign up</Link>
+                  </li>
+                  <li>
+                    <Link href="/dashboard/login">log in</Link>
+                  </li>
+                </div>
               </div>
             )}
           </ul>

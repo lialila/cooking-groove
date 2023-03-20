@@ -64,7 +64,7 @@ export default function Form(props: { returnTo?: string | string[] }) {
         <div key={`error-${error.message}`}>Error: {error.message}</div>
       ))}
       <label className={courierPrime.className}>
-        Username:
+        Username
         <input
           data-test-id="checkout-first-name"
           value={username}
@@ -73,7 +73,7 @@ export default function Form(props: { returnTo?: string | string[] }) {
       </label>
       <br />
       <label className={courierPrime.className}>
-        password:
+        Password
         <input
           type="password"
           data-test-id="checkout-password"
@@ -82,9 +82,11 @@ export default function Form(props: { returnTo?: string | string[] }) {
         />
       </label>
       <br />
-      <div>
-        <button className={courierPrime.className}>Log in</button>
-        <button className={courierPrime.className}>Create account</button>
+      <div className={courierPrime.className}>
+        <div className={styles.button}>
+          <button className={courierPrime.className}>Log in</button>
+          <button className={courierPrime.className}>Sign up</button>
+        </div>
       </div>
     </form>
   );

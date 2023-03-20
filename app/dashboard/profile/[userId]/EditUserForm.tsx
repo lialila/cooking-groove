@@ -84,10 +84,15 @@ export default function EditUserForm(props: Props) {
   return (
     <div className={styles.div}>
       <div className={courierPrime.className}>
-        <form className={styles.form}>
+        <div className={styles.form}>
           {idOnEditMode !== props.user.id ? (
             <div>
-              <img src={props.user.profileImgUrl} width="150" alt="Profile" />
+              <img
+                src={props.user.profileImgUrl}
+                width="150"
+                alt="Profile"
+                className={styles.img}
+              />
             </div>
           ) : (
             <label>
@@ -101,7 +106,7 @@ export default function EditUserForm(props: Props) {
           )}
 
           {idOnEditMode !== props.user.id ? (
-            <p> Username: {props.user.username}</p>
+            <h3>{props.user.username}</h3>
           ) : (
             <label>
               Username:
@@ -121,6 +126,54 @@ export default function EditUserForm(props: Props) {
                 onChange={(e) => setEditName(e.currentTarget.value)}
               />{' '}
             </label>
+          )}
+          {props.sessionUser &&
+          props.sessionUser.id === props.user.id &&
+          idOnEditMode !== props.user.id ? (
+            <div className={styles.profile}>
+              <button
+                className={courierPrime.className}
+                onClick={() => {
+                  setIdOnEditMode(props.user.id);
+                  setEditName(props.user.name);
+                  setEditUsername(props.user.username);
+                  setEditEmail(props.user.email);
+                  setEditProfileImgUrl(props.user.profileImgUrl || '');
+                  setEditEatingExperience(props.user.eatingExperience || '');
+                  setEditCookingExperience(props.user.cookingExperience || '');
+                  setEditFavouriteFood(props.user.favouriteFood || '');
+                  setEditLanguage(props.user.language || '');
+                }}
+              >
+                Edit
+              </button>{' '}
+            </div>
+          ) : (
+            <p></p>
+          )}
+          {props.sessionUser && props.sessionUser.id === props.user.id ? (
+            <div className={styles.profileMenu}>
+              <Link href="/dashboard/grooves/my-grooves">
+                <div className={courierPrime.className}>My grooves</div>
+              </Link>
+              <Link href="/dashboard/grooves/my-grooves">
+                <div className={courierPrime.className}>Participation</div>
+              </Link>
+            </div>
+          ) : (
+            <div className={styles.profileMenu}>
+              <Link href="/dashboard/grooves/my-grooves">
+                <div className={courierPrime.className}>
+                  {props.user.username} grooves
+                </div>
+              </Link>
+              <Link href="/dashboard/grooves/my-grooves">
+                <div className={courierPrime.className}>
+                  {' '}
+                  {props.user.username} participation
+                </div>
+              </Link>
+            </div>
           )}
 
           {idOnEditMode !== props.user.id ? (
@@ -180,44 +233,22 @@ export default function EditUserForm(props: Props) {
               />{' '}
             </label>
           )}
-        </form>
+        </div>
 
         {props.sessionUser && props.sessionUser.id === props.user.id ? (
           <>
-            <Link href="/dashboard/grooves/my-grooves">
-              <img
-                src="/icons-main/icon1.png"
-                width="50"
-                height="50"
-                alt="search"
-              />
-            </Link>
-            <button
-              onClick={() => {
-                setIdOnEditMode(props.user.id);
-                setEditName(props.user.name);
-                setEditUsername(props.user.username);
-                setEditEmail(props.user.email);
-                setEditProfileImgUrl(props.user.profileImgUrl || '');
-                setEditEatingExperience(props.user.eatingExperience || '');
-                setEditCookingExperience(props.user.cookingExperience || '');
-                setEditFavouriteFood(props.user.favouriteFood || '');
-                setEditLanguage(props.user.language || '');
-              }}
-            >
-              Edit
-            </button>
             <Link href="/logout" prefetch={false}>
               <img
                 src="/nav-footer/logout.png"
-                width="22"
-                height="22"
+                width="25"
+                height="25"
                 alt="search"
               />
             </Link>
             {idOnEditMode === props.user.id ? (
               <>
                 <button
+                  className={courierPrime.className}
                   onClick={async () => {
                     const response = await fetch(
                       `/dashboard/api/profile/${props.user.id}`,
@@ -258,6 +289,7 @@ export default function EditUserForm(props: Props) {
                   Save
                 </button>
                 <button
+                  className={courierPrime.className}
                   onClick={async () => {
                     const response = await fetch(
                       `/dashboard/api/profile/${props.user.id}`,
@@ -282,13 +314,7 @@ export default function EditUserForm(props: Props) {
               </>
             ) : null}
           </>
-        ) : (
-          <Link href="/dashboard/grooves">
-            <button className={courierPrime.className}>
-              {props.user.username} grooves
-            </button>
-          </Link>
-        )}
+        ) : null}
       </div>
     </div>
   );

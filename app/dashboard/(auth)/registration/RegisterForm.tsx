@@ -194,8 +194,10 @@ export default function RegisterForm(props: { returnTo?: string | string[] }) {
         <input type="file" name="fileInput" />
       </label>
       <br />
-      <button className={courierPrime.className}>Back </button>
-      <button className={courierPrime.className}>Sign up</button>
+      <div className={styles.button}>
+        <button className={courierPrime.className}>Back </button>
+        <button className={courierPrime.className}>Sign up</button>
+      </div>
     </form>
   );
 }

@@ -9,7 +9,6 @@
   background-repeat: no-repeat;
   background-size: cover;
   display: flex;
-  // flex-direction: column;
   align-items: center;
 
   a,
@@ -32,6 +31,7 @@
     list-style: none;
     padding: 0;
     text-transform: lowercase;
+    margin: 0;
   }
   nav {
     text-align: center;
@@ -44,50 +44,37 @@
 
     transition: all 0.3s ease-out;
   }
-  footer {
-    // position: absolute;
-
-    bottom: 0;
-    width: 100%;
-    padding: 10px 20px;
-    position: fixed;
-    // margin: 2rem;
-    // border-top: solid 1.2px white;
-    ul {
-      padding-top: 20px;
-      border-top: solid 1.2px rgb(255, 255, 255);
-    }
-  }
-  // input {
-  //   // color: white;
-  //   background: rgba(8, 6, 91, 0.1);
-  //   border: solid white 1.2px;
-  //   border-radius: 8px;
-  //   width: 80px;
-  //   height: 15px;
-  //   font-family: 'Montserrat', sans-serif;
-  // }
 }
 .profileImg {
   border-radius: 50%;
 }
-
-.searchInput {
-  width: 7rem;
-  height: 1.4rem;
-  padding: 0;
-  color: rgb(255, 255, 255);
-  line-height: 2rem;
-  text-transform: lowercase;
-  font-weight: 400;
-  font-size: 1rem;
-  letter-spacing: 0.2vw;
-  background: rgba(255, 255, 255, 0);
-  border-radius: 12px;
-  backdrop-filter: blur(18px);
-  -webkit-backdrop-filter: blur(18px);
-  border: 1px solid rgba(255, 253, 253, 1);
+.footer {
+  border-top: solid 1.2px rgb(255, 255, 255);
+  bottom: 0;
+  position: fixed;
+  width: 100%;
+  display: flex;
+  margin: 0;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0.7rem 1.2rem;
 }
+// .searchInput {
+//   width: 7rem;
+//   height: 1.4rem;
+//   padding: 0;
+//   color: rgb(255, 255, 255);
+//   line-height: 2rem;
+//   text-transform: lowercase;
+//   font-weight: 400;
+//   font-size: 1rem;
+//   letter-spacing: 0.2vw;
+//   background: rgba(255, 255, 255, 0);
+//   border-radius: 12px;
+//   backdrop-filter: blur(18px);
+//   -webkit-backdrop-filter: blur(18px);
+//   border: 1px solid rgba(255, 253, 253, 1);
+// }
 
 .searchButton {
   background: rgba(255, 255, 255, 0);
