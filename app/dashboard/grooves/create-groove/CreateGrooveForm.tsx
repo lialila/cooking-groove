@@ -12,6 +12,7 @@ type Props = {
   grooves: Groove[];
   userId: number;
   groove: Groove[];
+  csrfToken: string;
 };
 
 const courierPrime = Courier_Prime({
@@ -39,7 +40,7 @@ export default function CreateGrooveForm(props: Props) {
   const [language, setLanguage] = useState<string>('');
   const [error, setError] = useState<string>();
   const [imgUrl, setImgUrl] = useState<string>('');
-
+  const [ingredientName, setIngredientName] = useState<string>('');
   async function handleSubmit(event: React.FormEvent<HTMLFormElement>) {
     event.preventDefault();
     const file = event.target.elements.fileInput.files[0];
@@ -76,6 +77,8 @@ export default function CreateGrooveForm(props: Props) {
           time,
           date,
           language,
+          csrfToken: props.csrfToken,
+          ingredientName,
         }),
       });
       const apiData = await apiResponse.json();
@@ -84,9 +87,10 @@ export default function CreateGrooveForm(props: Props) {
         setError(apiData.error);
         return;
       }
+
       setGrooves([...grooves, apiData.groove]);
       console.log('apiData.groove.id: ', apiData.groove.id);
-      router.replace(`/dashboard/grooves/my-grooves`);
+      router.replace(`/dashboard/grooves/${apiData.groove.id}`);
       router.refresh();
     } catch (error) {
       console.error(error);
@@ -128,6 +132,14 @@ export default function CreateGrooveForm(props: Props) {
               value={lookingFor}
               required
               onChange={(e) => setLookingFor(e.currentTarget.value)}
+            />{' '}
+          </label>
+          <br />
+          <label>
+            Missing ingredient:{' '}
+            <input
+              value={ingredientName}
+              onChange={(e) => setIngredientName(e.currentTarget.value)}
             />{' '}
           </label>
           <br />

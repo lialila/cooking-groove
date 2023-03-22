@@ -58,8 +58,11 @@ export default async function GrooveIdPage(props: Props) {
   const currentUserId = user?.id;
 
   if (!user) {
-    return redirect('/login');
+    return redirect(
+      `/dashboard/login?returnTo=/dashboard/grooves/${props.params.grooveId}`,
+    );
   }
+
   const users = await getUsers();
   const currentUser = await getUserById(currentUserId);
 

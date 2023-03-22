@@ -1,5 +1,6 @@
 import { cookies } from 'next/headers';
-import { notFound } from 'next/navigation';
+import { notFound, redirect } from 'next/navigation';
+import { getValidSessionByToken } from '../../../../database/sessions';
 import {
   getUserById,
   getUserBySessionToken,
@@ -7,6 +8,7 @@ import {
   getUsers,
   User,
 } from '../../../../database/users';
+import { createTokenFromSecret } from '../../../../utils/csrf';
 import EditUserForm from './EditUserForm';
 import styles from './page.module.scss';
 
@@ -23,6 +25,7 @@ type Props = {
     language: string;
     password: string;
   };
+  csrfToken: string;
 };
 type SessionUser = {
   id: number;
@@ -39,6 +42,12 @@ type SessionUser = {
 type user = User[];
 
 export default async function UserIdProfile({ params }: Props) {
+  const sessionTokenCookie = cookies().get('sessionToken');
+
+  const session =
+    sessionTokenCookie &&
+    (await getValidSessionByToken(sessionTokenCookie.value));
+
   const user = await getUserById(params.userId);
 
   const users = await getUsers();
@@ -52,6 +61,11 @@ export default async function UserIdProfile({ params }: Props) {
   const sessionUser = !sessionToken?.value
     ? undefined
     : await getUserBySessionToken(sessionToken.value);
+
+  if (!sessionUser) {
+    return redirect(`/dashboard/login?returnTo=/dashboard/profile/${user.id}`);
+  }
+  console.log('session from user page', session);
 
   return (
     <section className={styles.main}>

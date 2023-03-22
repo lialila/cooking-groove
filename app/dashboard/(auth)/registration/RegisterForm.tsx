@@ -91,7 +91,7 @@ export default function RegisterForm(props: { returnTo?: string | string[] }) {
         router.push(returnTo);
         return;
       }
-      console.log('data.user.id in register form: ', data.user.id);
+
       router.replace(`/dashboard/profile/${data.user.id}`);
 
       router.refresh();

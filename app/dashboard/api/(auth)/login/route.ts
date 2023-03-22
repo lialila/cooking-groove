@@ -8,6 +8,7 @@ import {
   getUserByUsernameWithPasswordHash,
 } from '../../../../../database/users';
 import { createSerializedRegisterSessionTokenCookie } from '../../../../../utils/cookies';
+import { createCsrfSecret } from '../../../../../utils/csrf';
 
 const userSchema = z.object({
   username: z.string(),
@@ -81,9 +82,13 @@ export async function POST(request: NextRequest) {
   // - create a token
   const token = crypto.randomBytes(80).toString('base64');
   // base64 is an object created by node.js
-
+  const csrfSecret = createCsrfSecret();
   // - create a session
-  const session = await createSession(token, userWithPasswordHash.id);
+  const session = await createSession(
+    token,
+    userWithPasswordHash.id,
+    csrfSecret,
+  );
 
   // console.log(session);
   // - attach a new cookie

@@ -6,21 +6,23 @@ type Session = {
   token: string;
 };
 
-export const createSession = cache(async (token: string, userId: number) => {
-  const [session] = await sql<{ id: number; token: string }[]>`
+export const createSession = cache(
+  async (token: string, userId: number, csrfSecret: string) => {
+    const [session] = await sql<{ id: number; token: string }[]>`
      INSERT INTO sessions
-       (token, user_id)
+       (token, user_id, csrf_secret)
      VALUES
-       (${token}, ${userId})
+       (${token}, ${userId}, ${csrfSecret})
     RETURNING
        id,
        token
   `;
-  // clean up db
-  await deleteExpiredSessions();
+    // clean up db
+    await deleteExpiredSessions();
 
-  return session;
-});
+    return session;
+  },
+);
 
 export const deleteExpiredSessions = cache(async () => {
   await sql`
@@ -47,17 +49,17 @@ export const deleteSessionByToken = cache(async (token: string) => {
 
 export const getValidSessionByToken = cache(async (token: string) => {
   const [session] = await sql<Session[]>`
-
-  SELECT
-  sessions.id,
-  sessions.token
-  FROM
-    sessions
-  WHERE
-    sessions.token = ${token}
-  AND
-    sessions.expiry_timestamp > now()
-
+    SELECT
+      sessions.id,
+      sessions.token,
+      sessions.csrf_secret
+     FROM
+      sessions
+    WHERE
+      sessions.token = ${token}
+    AND
+      sessions.expiry_timestamp > now()
   `;
+
   return session;
 });

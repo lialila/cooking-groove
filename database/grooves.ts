@@ -29,6 +29,7 @@ export const createGroove = cache(
     time: string,
     date: string,
     language: string,
+    token: string,
   ) => {
     const [groove] = await sql<Groove[]>`
      INSERT INTO grooves
@@ -40,7 +41,7 @@ export const createGroove = cache(
      VALUES
   (${name}, ${offer}, ${lookingFor}, ${description}, ${location}, ${label}, ${imgUrl}, ${userId}, ${time}, ${date}, ${language})
  RETURNING
- name, offer, looking_for, description,  location, label, img_url, user_id, time, date, language
+ id, name, offer, looking_for, description,  location, label, img_url, user_id, time, date, language
   `;
     return groove;
   },
@@ -62,6 +63,27 @@ export const getGrooveById = cache(async (id: number) => {
   `;
   return groove;
 });
+
+// get a groove only if i have a valid session token
+export const getGrooveByIdAndSessionToken = cache(
+  async (id: number, token: string) => {
+    const [groove] = await sql<Groove[]>`
+  SELECT
+    grooves.*
+  FROM
+     grooves
+    -- return all from grooves table
+    INNER JOIN
+      sessions ON (
+        sessions.token = ${token} AND
+        sessions.expiry_timestamp > now()
+      )
+  WHERE
+    grooves.id = ${id}
+  `;
+    return groove;
+  },
+);
 
 export const deleteGrooveById = cache(async (id: number) => {
   const [groove] = await sql<Groove[]>`
@@ -107,15 +129,3 @@ export const updateGrooveById = cache(
     return groove;
   },
 );
-
-// INSERT INTO grooves
-//   (name, offer,
-//     looking_for,
-//     description,
-//      location, label,
-//     img_url, user_id, time, date, language)
-//      VALUES ('Lets asian', 'some cool bio tomatoes', 'some snacks and tequila', 'would love to organise thursday margarita and gaspacho session at my place', 'Wien Eichenstrasse 37', 'tequila, mexican', 'here will be an image', 8, '20', '5/09', 'spanish');
-
-// 1 | Grill and chill         | grill, huge terasse, bier           | some veggies or meat to grill                                            | i got recently a nice bbq and what like to try it with some nice company   | Wien 1080             | grill                 | here will be an image | 9       | 15:00 | 27.07.2023 | english, german
-//   2 | Bake with Ana           | flour, eggs and everything for the  | some sxtra ingri              looking_for                                |                                description                                 |       location        |         label         |dients for your favourite cookies, like chokolate or jam | would love to organise sunday baking session at my place                   | Wien Eichenstrasse 39 | cookies, bak---------------------------------------------------------+----------------------------------------------------------------------------+-----------------------+-----------------------+e, sweets | here will be an image | 8       | 12:00 | 27.05.2023 | english
-//   3 | Gaspahcho and margarita | some cool bio tomatoes              | some snacks and meat to grill                                            | i got recently a nice bbq and what like to try it with some nice company   | Wien 1080             | grill                 |tequila                                                  | would love to organise thursday margarita and gaspacho session at my place | Wien Eichenstrasse 37 | tequila, mexdients for your favourite cookies, like chokolate or jam | would love to organise sunday baking session at my place                   | Wien Eichenstrasse 39 | cookies, bake, sweets |ican      | here will be an image | 8       | 20:00 | 5.09.2023  | english, spanish

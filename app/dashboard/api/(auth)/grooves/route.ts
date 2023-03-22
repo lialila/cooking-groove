@@ -1,6 +1,10 @@
+import { cookies } from 'next/headers';
 import { NextRequest, NextResponse } from 'next/server';
 import { z } from 'zod';
 import { createGroove, getGrooves } from '../../../../../database/grooves';
+import { createIngredient } from '../../../../../database/ingredients';
+import { getUserBySessionToken } from '../../../../../database/users';
+import { validateTokenAgainstSecret } from '../../../../../utils/csrf';
 
 const grooveSchema = z.object({
   name: z.string(),
@@ -14,21 +18,23 @@ const grooveSchema = z.object({
   time: z.string(),
   date: z.string(),
   language: z.string(),
+  csrfToken: z.string(),
+  ingredientName: z.string(),
 });
 
-export async function GET(request: NextRequest, params) {
-  const { searchParams } = new URL(request.url);
-
-  const grooves = await getGrooves();
-
-  return NextResponse.json({ grooves: grooves });
-}
-
 export async function POST(request: NextRequest) {
+  const cookieStore = cookies();
+  const token = cookieStore.get('sessionToken');
+
+  const user = token && (await getUserBySessionToken(token.value));
+  if (!user) {
+    return NextResponse.json({ error: 'User not found' });
+  }
+
   const body = await request.json();
 
   const result = grooveSchema.safeParse(body);
-
+  console.log('result: ', result);
   if (!result.success) {
     return NextResponse.json(
       {
@@ -37,7 +43,16 @@ export async function POST(request: NextRequest) {
       { status: 400 },
     );
   }
-
+  console.log('result: ', result);
+  // validate csrf token to make sure it's the same as the one in the cookie
+  if (!validateTokenAgainstSecret(user.csrfSecret, result.data.csrfToken)) {
+    return NextResponse.json(
+      {
+        error: 'CSRF token is not valid',
+      },
+      { status: 400 },
+    );
+  }
   const newGroove = await createGroove(
     result.data.name,
     result.data.offer,
@@ -50,6 +65,7 @@ export async function POST(request: NextRequest) {
     result.data.time,
     result.data.date,
     result.data.language,
+    token.value,
   );
 
   if (!newGroove) {
@@ -60,5 +76,25 @@ export async function POST(request: NextRequest) {
       { status: 400 },
     );
   }
-  return NextResponse.json({ groove: newGroove });
+  console.log('newGroove: ', newGroove);
+  console.log('result.data.ingredientName: ', result.data.ingredientName);
+
+  if (!result.data.ingredientName) {
+    return NextResponse.json({
+      groove: newGroove,
+      id: newGroove.id,
+    });
+  }
+  //   // create ingredients
+
+  const newIngredient = await createIngredient(
+    result.data.ingredientName,
+    newGroove.id,
+  );
+
+  return NextResponse.json({
+    groove: newGroove,
+    id: newGroove.id,
+    ingredient: newIngredient,
+  });
 }

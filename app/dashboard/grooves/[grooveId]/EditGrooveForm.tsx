@@ -178,6 +178,11 @@ export default function EditGrooveForm(props: Props) {
     router.refresh();
   };
 
+  const groovesIngredients = props.ingredients.filter((item) => {
+    return item.grooveId === props.currentGroove.id;
+  });
+  console.log('groovesIngredients: ', groovesIngredients);
+
   return (
     <div className={styles.main}>
       <div className={courierPrime.className}>
@@ -306,7 +311,7 @@ export default function EditGrooveForm(props: Props) {
             {idOnEditMode !== props.currentGroove.id ? (
               <>
                 Missing ingredients:
-                {props.ingredients.map((ingredient) => {
+                {groovesIngredients.map((ingredient) => {
                   return (
                     <label
                       key={`ingredient.${ingredient.id}`}
@@ -436,13 +441,6 @@ export default function EditGrooveForm(props: Props) {
             )
           ) : (
             <div>
-              {/* <button
-                onClick={() => {
-                  setIngredientOnEditMode(props.currentGroove.id);
-                }}
-              >
-                Add missing ingredient
-              </button> */}
               <button
                 onClick={() => {
                   setIdOnEditMode(props.currentGroove.id);

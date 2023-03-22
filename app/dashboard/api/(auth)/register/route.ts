@@ -5,6 +5,7 @@ import { z } from 'zod';
 import { createSession } from '../../../../../database/sessions';
 import { createUser, getUserByUsername } from '../../../../../database/users';
 import { createSerializedRegisterSessionTokenCookie } from '../../../../../utils/cookies';
+import { createCsrfSecret } from '../../../../../utils/csrf';
 
 // zod is library for input validation
 const userSchema = z.object({
@@ -94,7 +95,9 @@ export async function POST(request: NextRequest) {
   // - create the token
   const token = crypto.randomBytes(80).toString('base64');
 
-  const session = await createSession(token, newUser.id);
+  const csrfSecret = createCsrfSecret();
+
+  const session = await createSession(token, newUser.id, csrfSecret);
 
   console.log('newUser: ', newUser);
   console.log('session: ', session);

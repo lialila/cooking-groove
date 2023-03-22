@@ -84,8 +84,8 @@ export default function Form(props: { returnTo?: string | string[] }) {
       <br />
       <div className={courierPrime.className}>
         <div className={styles.button}>
-          <button className={courierPrime.className}>Log in</button>
           <button className={courierPrime.className}>Sign up</button>
+          <button className={courierPrime.className}>Log in</button>
         </div>
       </div>
     </form>

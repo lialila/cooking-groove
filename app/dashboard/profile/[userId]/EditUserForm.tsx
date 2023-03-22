@@ -87,12 +87,14 @@ export default function EditUserForm(props: Props) {
       <div className={styles.form}>
         {idOnEditMode !== props.user.id ? (
           <div>
-            <img
-              src={props.user.profileImgUrl}
-              width="150"
-              alt="Profile"
-              className={styles.img}
-            />
+            {!props.user.profileImgUrl ? undefined : (
+              <img
+                src={props.user.profileImgUrl}
+                width="150"
+                alt="Profile"
+                className={styles.img}
+              />
+            )}
           </div>
         ) : (
           <label>

@@ -1,3 +1,4 @@
+import { cookies } from 'next/headers';
 import { NextRequest, NextResponse } from 'next/server';
 import { z } from 'zod';
 import {
@@ -5,6 +6,7 @@ import {
   deleteCommentById,
   getCommentsByGrooveId,
 } from '../../../../../../../database/comments';
+import { getUserBySessionToken } from '../../../../../../../database/users';
 
 const commentSchema = z.object({
   content: z.string(),
@@ -33,6 +35,14 @@ export async function GET(
 }
 
 export async function POST(request: NextRequest) {
+  const cookieStore = cookies();
+  const token = cookieStore.get('sessionToken');
+
+  const user = token && (await getUserBySessionToken(token.value));
+  if (!user) {
+    return NextResponse.json({ error: 'User not found' });
+  }
+
   const body = await request.json();
 
   const result = commentSchema.safeParse(body);
