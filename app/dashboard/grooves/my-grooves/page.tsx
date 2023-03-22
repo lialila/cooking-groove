@@ -6,10 +6,10 @@ import {
 } from '@next/font/google';
 import { cookies } from 'next/headers';
 import Link from 'next/link';
-import FadeIn from 'react-fade-in';
 import { getGrooves, Groove } from '../../../../database/grooves';
 import { getUserBySessionToken } from '../../../../database/users';
 import { getUsersgroovesByUserId } from '../../../../database/usersgrooves';
+import Courussel from './Courussel';
 import styles from './page.module.scss';
 
 export const dynamic = 'force-dynamic';
@@ -28,6 +28,13 @@ const montserrat = Montserrat({
   subsets: ['latin'],
 });
 type Grooves = Groove[];
+type User =
+  | {
+      id: string;
+      name: string;
+      csrfSecret: string;
+    }
+  | undefined;
 
 export default async function MyGrooves() {
   const grooves = await getGrooves();
@@ -43,7 +50,7 @@ export default async function MyGrooves() {
   const myGrooves = grooves.filter((groove) => groove.userId === user?.id);
 
   // array of object with userid with current user id
-  const usersgrooves = await getUsersgroovesByUserId(user?.id);
+  const usersgrooves = await getUsersgroovesByUserId(user.id);
   console.log('usersgrooves from my-grooves page', usersgrooves);
 
   // get the grooves i participate in, returns an array of objects
@@ -68,41 +75,14 @@ export default async function MyGrooves() {
             <>
               {' '}
               <h2>My Grooves</h2>
-              <ul>
-                {myGrooves.map((groove) => {
-                  return (
-                    <li key={`groove.${groove.id}`}>
-                      <Link
-                        href={`dashboard/grooves/${groove.id}`}
-                        data-test-id={`product-${groove.id}`}
-                      >
-                        <h3>{groove.name}</h3>{' '}
-                        <img src={groove.imgUrl} width="150" alt="Groove" />
-                        <p>Offer: {groove.offer}</p>
-                        <p>Looking for: {groove.lookingFor}</p>
-                        <p>{groove.description}</p>
-                        <p>Location: {groove.location} </p>
-                        <p>Time: {groove.time}</p>
-                        <p>date: {groove.date}</p>
-                        <p> #{groove.label}</p>
-                      </Link>
-                      <Link
-                        href={`dashboard/grooves/${groove.id}`}
-                        data-test-id={`product-${groove.id}`}
-                      >
-                        <button>View</button>
-                      </Link>
-                    </li>
-                  );
-                })}
-              </ul>
+              <Courussel myGrooves={myGrooves} />
             </>
           )}
           {!myParticipatingGrooves ? (
             <h2>You are not participating in any grooves</h2>
           ) : (
             <>
-              <h2>The Grooves I participate in:</h2>
+              <h2 id="sectionParticipating">The Grooves I participate in:</h2>
               <ul>
                 {myParticipatingGrooves.map((myParticipatingGroove) => {
                   return (

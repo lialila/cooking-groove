@@ -87,7 +87,14 @@ export default function EditUserForm(props: Props) {
       <div className={styles.form}>
         {idOnEditMode !== props.user.id ? (
           <div>
-            {!props.user.profileImgUrl ? undefined : (
+            {!props.user.profileImgUrl ? (
+              <img
+                src="/default-profile-picture/defult-profile.jpg"
+                width="150"
+                alt="Profile"
+                className={styles.img}
+              />
+            ) : (
               <img
                 src={props.user.profileImgUrl}
                 width="150"
@@ -114,9 +121,7 @@ export default function EditUserForm(props: Props) {
             />{' '}
           </label>
         )}
-        {idOnEditMode !== props.user.id ? (
-          <p></p>
-        ) : (
+        {idOnEditMode !== props.user.id ? null : (
           <label>
             Name:
             <input
@@ -151,7 +156,10 @@ export default function EditUserForm(props: Props) {
               <Link href="/dashboard/grooves/my-grooves">
                 <div className={courierPrime.className}>My grooves</div>
               </Link>
-              <Link href="/dashboard/grooves/my-grooves">
+              <Link
+                href="/dashboard/grooves/my-grooves#sectionParticipating"
+                as="/dashboard/grooves/my-grooves#sectionParticipating"
+              >
                 <div className={courierPrime.className}>Participation</div>
               </Link>
             </div>
@@ -172,7 +180,7 @@ export default function EditUserForm(props: Props) {
             </Link>
           </div>
         ) : null}
-        <FadeIn>
+        <FadeIn className={styles.fadeIn}>
           {idOnEditMode !== props.user.id ? null : (
             <label>
               E-mail:

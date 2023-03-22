@@ -51,7 +51,7 @@ export default async function RootLayout(props: Props) {
   const userObj = allUsers.find((oneUser) => oneUser.id === user?.id);
 
   // get all grooves
-  const allGrooves = await getGrooves();
+  // const allGrooves = await getGrooves();
 
   console.log('user in layout', user);
   return (
@@ -66,9 +66,6 @@ export default async function RootLayout(props: Props) {
                     src="/icons-main/icon8yellow.png"
                     width="72"
                     height="72"
-                    // src="/icons-main/icon5.png"
-                    // width="75"
-                    // height="75"
                     alt="logo"
                     className={styles.logo}
                   />
@@ -82,14 +79,6 @@ export default async function RootLayout(props: Props) {
           <ul>
             {user ? (
               <div className={styles.footer}>
-                {/* <Link href="/dashboard/grooves/my-grooves" prefetch={false}>
-                  <Image
-                    src="/icons-main/icon1.png"
-                    width="45"
-                    height="45"
-                    alt="search"
-                  />
-                </Link> */}
                 <li>
                   <Link href="/dashboard/grooves">
                     <Image
@@ -111,14 +100,24 @@ export default async function RootLayout(props: Props) {
                   </Link>{' '}
                 </li>{' '}
                 <li>
+                  {' '}
                   <Link href={`dashboard/profile/${user.id}`}>
-                    <img
-                      className={styles.profileImg}
-                      src={userObj.profileImgUrl}
-                      width="50"
-                      height="50"
-                      alt="Profile"
-                    />
+                    {!userObj.profileImgUrl ? (
+                      <img
+                        src="/default-profile-picture/defult-profile.jpg"
+                        width="50"
+                        alt="Profile"
+                        className={styles.img}
+                      />
+                    ) : (
+                      <img
+                        className={styles.profileImg}
+                        src={userObj.profileImgUrl}
+                        width="50"
+                        height="50"
+                        alt="Profile"
+                      />
+                    )}
                   </Link>
                 </li>
               </div>

@@ -60,6 +60,10 @@
   align-items: center;
   justify-content: space-between;
   padding: 0.7rem 1.2rem;
+
+  img {
+    border-radius: 50%;
+  }
 }
 // .searchInput {
 //   width: 7rem;
