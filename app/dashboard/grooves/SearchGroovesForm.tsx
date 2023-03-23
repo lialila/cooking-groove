@@ -24,11 +24,6 @@ export default function SearchGroovesForm(props: Props) {
     'date',
     'language',
   ];
-  // const today = new Date();
-  // const date = today.getDate().toString();
-  // const month = today.getMonth().toString();
-  // const year = today.getFullYear().toString();
-  // const currentDate = `${year}.${month}.${date}`;
 
   return (
     <FadeIn>
@@ -56,17 +51,26 @@ export default function SearchGroovesForm(props: Props) {
                   data-test-id={`product-${groove.id}`}
                 >
                   <div>
-                    <img src={groove.imgUrl} width="150" alt="Groove" />
+                    {!groove.imgUrl ? (
+                      <img
+                        src="/backgroundphoto3.jpg"
+                        width="150"
+                        alt="Groove"
+                      />
+                    ) : (
+                      <img src={groove.imgUrl} width="150" alt="Groove" />
+                    )}
                   </div>{' '}
                   <h3>{groove.name}</h3>{' '}
                 </Link>
 
                 <p>Offer: {groove.offer}</p>
-                <p>Looking for: {groove.lookingFor}</p>
-                <p>Location: {groove.location} </p>
-                <p>Time: {groove.time}</p>
-                <p>date: {groove.date}</p>
-                <p> #{groove.label}</p>
+                <p>Missing ingredient: {groove.lookingFor}</p>
+                <p> {groove.location} </p>
+                <p>
+                  {groove.date} at {groove.time}
+                </p>
+                {!groove.label ? null : <p># {groove.label}</p>}
               </li>
             );
           })}
