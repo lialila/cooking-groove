@@ -5,7 +5,6 @@ export type Groove = {
   id: number;
   name: string;
   offer: string;
-  lookingFor: string;
   description: string | null;
   location: string | null;
   label: string | null;
@@ -20,7 +19,6 @@ export const createGroove = cache(
   async (
     name: string,
     offer: string,
-    lookingFor: string,
     description: string,
     location: string,
     label: string,
@@ -34,14 +32,13 @@ export const createGroove = cache(
     const [groove] = await sql<Groove[]>`
      INSERT INTO grooves
   ( name, offer,
-    looking_for,
-    description,
+       description,
           location, label,
     img_url, user_id, time, date, language  )
      VALUES
-  (${name}, ${offer}, ${lookingFor}, ${description}, ${location}, ${label}, ${imgUrl}, ${userId}, ${time}, ${date}, ${language})
+  (${name}, ${offer}, ${description}, ${location}, ${label}, ${imgUrl}, ${userId}, ${time}, ${date}, ${language})
  RETURNING
- id, name, offer, looking_for, description,  location, label, img_url, user_id, time, date, language
+ id, name, offer, description,  location, label, img_url, user_id, time, date, language
   `;
     return groove;
   },
@@ -102,7 +99,6 @@ export const updateGrooveById = cache(
     id: number,
     name: string,
     offer: string,
-    lookingFor: string,
     description: string,
     location: string,
     label: string,
@@ -117,8 +113,7 @@ export const updateGrooveById = cache(
         grooves
       SET
       name=${name}, offer=${offer},
-    looking_for=${lookingFor},
-    description=${description},
+       description=${description},
     location=${location},  label=${label},
     img_url=${imgUrl}, user_id=${userId}, time=${time}, date=${date}, language=${language}
 
@@ -129,3 +124,32 @@ export const updateGrooveById = cache(
     return groove;
   },
 );
+
+// export const getGroovesWithIngredients = cache(async () => {
+//   const [groove] = await sql<
+//     {
+//       id: number;
+//       name: string;
+//       offer: string;
+//       description: string;
+//       location: string;
+//       label: string;
+//       imgUrl: string;
+//       userId: number;
+//       time: string;
+//       date: string;
+//       language: string;
+//     }[]
+//   >`
+//     SELECT
+//       *
+//     FROM
+//       grooves
+//     INNER JOIN
+//       ingredients ON (
+//         groove_id = ${groove.id}
+
+//       )
+//   `;
+//   return groove;
+// });

@@ -10,22 +10,6 @@ type Props = {
 };
 
 export default function SearchFrom(props: Props) {
-  // const [grooveSearch, setGrooveSearch] = useState('');
-
-  // console.log('grooveSearch', grooveSearch);
-  // function handleOnSubmit(e: React.FormEvent) {
-  //   e.preventDefault();
-  //   const search = e.currentTarget.value;
-  //   const filteredGrooves = props.allGrooves.filter(
-  //     (groove) => groove.name.toLowerCase().includes(search.toLowerCase()),
-  //     // ||
-  //     // groove.description.toLowerCase().includes(search.toLowerCase()) ||
-  //     // groove.language.toLowerCase().includes(search.toLowerCase()) ||
-  //     // groove.location.toLowerCase().includes(search.toLowerCase()),
-  //   );
-  //   console.log(filteredGrooves);
-  // }
-
   return (
     <>
       {' '}

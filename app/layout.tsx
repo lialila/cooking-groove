@@ -1,15 +1,10 @@
 import './globals.scss';
-import {
-  Alternates,
-  Courier_Prime,
-  Inter,
-  Montserrat,
-} from '@next/font/google';
+import { Courier_Prime, Montserrat } from '@next/font/google';
 // import { Inter } from 'next/font/google';
 import { cookies } from 'next/headers';
 import Image from 'next/image';
 import Link from 'next/link';
-import { getGrooves, Groove } from '../database/grooves';
+import { Groove } from '../database/grooves';
 import { getUserBySessionToken, getUsers } from '../database/users';
 import styles from './layout.module.scss';
 
@@ -22,12 +17,12 @@ export const metadata = {
   },
 };
 
-const CourierPrime = Courier_Prime({
+const courierPrime = Courier_Prime({
   weight: '400',
   subsets: ['latin'],
 });
 
-const MontserratText = Montserrat({
+const montserratText = Montserrat({
   weight: '400',
   subsets: ['latin'],
 });
@@ -53,12 +48,11 @@ export default async function RootLayout(props: Props) {
   // get all grooves
   // const allGrooves = await getGrooves();
 
-  console.log('user in layout', user);
   return (
     <html lang="en" className={styles.html}>
       <body className={styles.body}>
-        <header className={MontserratText.className}>
-          <nav className={MontserratText.className}>
+        <header className={montserratText.className}>
+          <nav className={montserratText.className}>
             <ul className={styles.nav}>
               <li>
                 <Link href="/">
@@ -75,7 +69,7 @@ export default async function RootLayout(props: Props) {
           </nav>
         </header>
         {props.children}
-        <footer className={MontserratText.className}>
+        <footer className={montserratText.className}>
           <ul>
             {user ? (
               <div className={styles.footer}>
@@ -102,7 +96,7 @@ export default async function RootLayout(props: Props) {
                 <li>
                   {' '}
                   <Link href={`dashboard/profile/${user.id}`}>
-                    {!userObj.profileImgUrl ? (
+                    {!userObj?.profileImgUrl ? (
                       <img
                         src="/default-profile-picture/defult-profile.jpg"
                         width="50"
@@ -122,23 +116,41 @@ export default async function RootLayout(props: Props) {
                 </li>
               </div>
             ) : (
-              <div className={CourierPrime.className}>
+              <div className={courierPrime.className}>
                 <div className={styles.footer}>
                   <li>
                     <Link href="/dashboard/grooves">
                       <Image
                         src="/nav-footer/searchclassic.png"
                         width="32"
-                        height="30"
+                        height="32"
                         alt="search"
                       />{' '}
                     </Link>
                   </li>{' '}
                   <li>
-                    <Link href="/dashboard/registration">Sign up</Link>
+                    <Link href="/dashboard/registration">
+                      <Image
+                        src="/nav-footer/sign-up.png"
+                        width="25"
+                        height="25"
+                        alt="search"
+                      />{' '}
+                    </Link>
                   </li>
                   <li>
-                    <Link href="/dashboard/login">log in</Link>
+                    <Link
+                      className={styles.defaultImgDiv}
+                      href="/dashboard/login"
+                    >
+                      <img
+                        alt="profile"
+                        src="/default-profile-picture/defult-profile.jpg"
+                        width="30"
+                        className={styles.img}
+                      />
+                      <p>log in</p>
+                    </Link>
                   </li>
                 </div>
               </div>

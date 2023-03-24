@@ -1,37 +1,11 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { z } from 'zod';
-import {
-  createIngredient,
-  deleteIngredientByGrooveId,
-  getIngredientByGrooveId,
-  getIngredients,
-  updateIngredientById,
-} from '../../../../../../../database/ingredients';
+import { createIngredient } from '../../../../../../../database/ingredients';
 
 const ingredientSchema = z.object({
   ingredientName: z.string(),
   grooveId: z.number(),
 });
-
-// get ingredients from data base
-export async function GET(
-  request: NextRequest,
-  { params }: { params: Record<string, string | string[]> },
-) {
-  const grooveId = Number(params.grooveId);
-  const ingredients = await getIngredientByGrooveId(grooveId);
-
-  if (!grooveId) {
-    return NextResponse.json(
-      {
-        errors: 'Request body is missing some properties',
-      },
-      { status: 400 },
-    );
-  }
-
-  return NextResponse.json({ ingredients: ingredients });
-}
 
 // create ingredient
 export async function POST(request: NextRequest) {
@@ -61,35 +35,4 @@ export async function POST(request: NextRequest) {
     );
   }
   return NextResponse.json({ ingredient: newIngredient });
-}
-
-// not sure that this is correct in meaning of getting the ingredientId this way
-export async function DELETE(
-  request: NextRequest,
-  { params }: { params: Record<string, string | string[]> },
-) {
-  const grooveId = Number(params.grooveId);
-
-  const ingredient = await getIngredientByGrooveId(grooveId);
-  const ingredientId = ingredient.id;
-
-  if (!ingredientId) {
-    return NextResponse.json(
-      {
-        errors: 'Request body is missing some properties',
-      },
-      { status: 400 },
-    );
-  }
-  const singleIngredient = await deleteIngredientByGrooveId(grooveId);
-
-  if (!singleIngredient) {
-    return NextResponse.json(
-      {
-        errors: 'Ingredient does not exist',
-      },
-      { status: 400 },
-    );
-  }
-  return NextResponse.json({ ingredient: singleIngredient });
 }

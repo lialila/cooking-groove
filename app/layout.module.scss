@@ -1,5 +1,4 @@
 .html {
-  // width: 100vw;
   height: 100vh;
   margin: 0px;
   background-image: url('/backgroundphoto16.jpg');
@@ -22,7 +21,9 @@
   h2 {
     color: white;
   }
-
+  p {
+    margin: 0;
+  }
   ul {
     color: white;
     display: flex;
@@ -66,7 +67,7 @@
   padding: 0.7rem 1.2rem;
 
   img {
-    border-radius: 50%;
+    // border-radius: 50%;
   }
 }
 // .searchInput {
@@ -99,3 +100,9 @@
 //for ipad
 // @media only screen (min-width: 768px)
 //for laptop @media only screen (min-width: 1100px);
+.defaultImgDiv {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}

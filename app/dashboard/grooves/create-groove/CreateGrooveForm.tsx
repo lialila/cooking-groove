@@ -1,8 +1,8 @@
 'use client';
 import { Courier_Prime, Montserrat } from '@next/font/google';
-import { v2 as cloudinary } from 'cloudinary';
+// import { v2 as cloudinary } from 'cloudinary';
 import { useRouter } from 'next/navigation';
-import { useRef, useState } from 'react';
+import { useState } from 'react';
 import FadeIn from 'react-fade-in/lib/FadeIn';
 // import DatePicker from 'react-date-picker';
 import { Groove } from '../../../../database/grooves';
@@ -11,7 +11,7 @@ import styles from './page.module.scss';
 type Props = {
   grooves: Groove[];
   userId: number;
-  groove: Groove[];
+  // groove: Groove[];
   csrfToken: string;
 };
 
@@ -31,7 +31,6 @@ export default function CreateGrooveForm(props: Props) {
   const [grooves, setGrooves] = useState<Groove[]>(props.grooves);
   const [name, setName] = useState<string>('');
   const [offer, setOffer] = useState<string>('');
-  const [lookingFor, setLookingFor] = useState<string>('');
   const [description, setDescription] = useState<string>('');
   const [location, setLocation] = useState<string>('');
   const [label, setLabel] = useState<string>('');
@@ -57,6 +56,11 @@ export default function CreateGrooveForm(props: Props) {
         },
       );
       const cloudinaryData = await cloudinaryResponse.json();
+      if (!cloudinaryData.secure_url) {
+        setImgUrl(
+          'https://res.cloudinary.com/drjnxvwj6/image/upload/v1679593543/my-uploads/de5z82cg7qcahlobdqdt.jpg',
+        );
+      }
       const imgUrl1 = cloudinaryData.secure_url;
 
       setImgUrl(imgUrl1);
@@ -68,7 +72,6 @@ export default function CreateGrooveForm(props: Props) {
         body: JSON.stringify({
           name,
           offer,
-          lookingFor,
           description,
           location,
           label,
@@ -82,27 +85,23 @@ export default function CreateGrooveForm(props: Props) {
         }),
       });
       const apiData = await apiResponse.json();
-      console.log('apiData: ', apiData);
+
       if (apiData.error) {
         setError(apiData.error);
         return;
       }
 
       setGrooves([...grooves, apiData.groove]);
-      console.log('apiData.groove.id: ', apiData.groove.id);
+
       router.replace(`/dashboard/grooves/${apiData.groove.id}`);
       router.refresh();
     } catch (error) {
       console.error(error);
     }
-    // setGrooves([...grooves, data.groove]);
-    // router.push('/dashboard/grooves');
   }
 
-  console.log('userId from CreateGrooveForm: ', props.userId);
-
   return (
-    <div className={courierPrime.className}>
+    <div className={`${courierPrime.className} ${styles.div}`}>
       <h3 className={montserratText.className}>Create Groove</h3>
       <form className={styles.form} onSubmit={handleSubmit}>
         <br />
@@ -126,17 +125,9 @@ export default function CreateGrooveForm(props: Props) {
             />
           </label>
           <br />
-          <label>
-            Missing ingredients:{' '}
-            <input
-              value={lookingFor}
-              required
-              onChange={(e) => setLookingFor(e.currentTarget.value)}
-            />{' '}
-          </label>
           <br />
           <label>
-            Missing ingredient:{' '}
+            Add missing ingredient:{' '}
             <input
               value={ingredientName}
               onChange={(e) => setIngredientName(e.currentTarget.value)}
@@ -212,18 +203,7 @@ export default function CreateGrooveForm(props: Props) {
             Upload image:
             <input type="file" name="fileInput" />
           </label>
-          {/* <img src={imgUrl} alt="here will be your file" width="120" /> */}
-          {/* {imgUrl && !uploadData && (
-          <p>
-            <button>Upload pictures</button>
-          </p>
-        )}
-        {uploadData && (
-          <code>
-            <pre>{JSON.stringify(uploadData, null, 2)}</pre>
-          </code>
-        )}{' '}  */}
-          <button onSubmit={handleSubmit}>Create</button>
+          <button onSubmit={() => handleSubmit}>Create</button>
           {typeof error === 'string' && (
             <div style={{ color: 'red' }}>{error}</div>
           )}

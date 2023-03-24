@@ -24,8 +24,6 @@ const montserratText = Montserrat({
   subsets: ['latin'],
 });
 
-// type Props = { userId: number; user: User[] };
-
 export default function RegisterForm(props: { returnTo?: string | string[] }) {
   const [username, setUsername] = useState('');
   const [name, setName] = useState('');
@@ -42,7 +40,7 @@ export default function RegisterForm(props: { returnTo?: string | string[] }) {
 
   async function handleSubmit(event: React.FormEvent<HTMLFormElement>) {
     event.preventDefault();
-    const file = event.target.elements.fileInput.files[0];
+    const file = (event.target as HTMLFormElement).elements.fileInput.files[0];
     const formData = new FormData();
     formData.append('file', file);
     formData.append('upload_preset', 'my-uploads');
@@ -56,9 +54,16 @@ export default function RegisterForm(props: { returnTo?: string | string[] }) {
         },
       );
       const cloudinaryData = await cloudinaryResponse.json();
+      if (!cloudinaryData.secure_url) {
+        setProfileImgUrl(
+          'https://res.cloudinary.com/drjnxvwj6/image/upload/v1679592460/my-uploads/f7neudo8pvtw3n8rthio.jpg',
+        );
+      }
+
       const profileImgUrl1 = cloudinaryData.secure_url;
 
       setProfileImgUrl(profileImgUrl1);
+
       event.preventDefault();
 
       const response = await fetch('/dashboard/api/register', {

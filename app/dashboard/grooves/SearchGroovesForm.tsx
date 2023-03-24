@@ -1,13 +1,26 @@
 'use client';
-import Image from 'next/image';
 import Link from 'next/link';
 import { useState } from 'react';
 import FadeIn from 'react-fade-in/lib/FadeIn';
-import { Groove } from '../../../database/grooves';
+import { Ingredient } from '../../../database/ingredients';
 import styles from './page.module.scss';
 
 type Props = {
-  allGrooves: Groove[];
+  allGrooves: {
+    [key: string]: string;
+    id: number;
+    name: string;
+    description: string;
+    offer: string;
+    location: string;
+    label: string;
+    time: string;
+    date: string;
+    language: string;
+    imgUrl: string;
+  }[];
+
+  allIngredients: Ingredient[];
 };
 
 export default function SearchGroovesForm(props: Props) {
@@ -17,7 +30,6 @@ export default function SearchGroovesForm(props: Props) {
     'name',
     'description',
     'offer',
-    'lookingFor',
     'location',
     'label',
     'time',
@@ -26,7 +38,7 @@ export default function SearchGroovesForm(props: Props) {
   ];
 
   return (
-    <FadeIn>
+    <FadeIn className={styles.div}>
       <label htmlFor="search">
         <input
           placeholder="Search for a groove..."
@@ -39,38 +51,57 @@ export default function SearchGroovesForm(props: Props) {
       <ul>
         {props.allGrooves
           .filter((groove) =>
-            keys.some((key) =>
-              groove[key].toLowerCase().includes(grooveSearch.toLowerCase()),
+            keys.some(
+              (key: string) =>
+                typeof groove[key] === 'string' &&
+                groove[key].toLowerCase().includes(grooveSearch.toLowerCase()),
             ),
           )
           .map((groove) => {
+            const ingredients = props.allIngredients.filter(
+              (ingredient) => ingredient.grooveId === groove.id,
+            );
+
             return (
               <li className={styles.div} key={`groove.${groove.id}`}>
                 <Link
                   href={`dashboard/grooves/${groove.id}`}
                   data-test-id={`product-${groove.id}`}
                 >
-                  <div>
-                    {!groove.imgUrl ? (
-                      <img
-                        src="/backgroundphoto3.jpg"
-                        width="150"
-                        alt="Groove"
-                      />
-                    ) : (
-                      <img src={groove.imgUrl} width="150" alt="Groove" />
-                    )}
-                  </div>{' '}
                   <h3>{groove.name}</h3>{' '}
                 </Link>
-
-                <p>Offer: {groove.offer}</p>
-                <p>Missing ingredient: {groove.lookingFor}</p>
-                <p> {groove.location} </p>
                 <p>
                   {groove.date} at {groove.time}
                 </p>
+                <p>Offer: {groove.offer}</p>
+                {ingredients.length > 1 ? (
+                  <p>Missing ingredients:</p>
+                ) : (
+                  <p>Missing ingredient:</p>
+                )}
+                {ingredients.map((ingredient) => {
+                  return (
+                    <p key={`ingredient.${ingredient.id}`}>
+                      {ingredient.ingredientName}
+                    </p>
+                  );
+                })}
+                <p> {groove.location} </p>
                 {!groove.label ? null : <p># {groove.label}</p>}
+                <div>
+                  {!groove.imgUrl ? (
+                    <img src="/groove-default.jpeg" width="150" alt="Groove" />
+                  ) : (
+                    <img src={groove.imgUrl} width="150" alt="Groove" />
+                  )}
+                </div>{' '}
+                <Link
+                  className={styles.linkView}
+                  href={`dashboard/grooves/${groove.id}`}
+                  data-test-id={`product-${groove.id}`}
+                >
+                  View
+                </Link>
               </li>
             );
           })}

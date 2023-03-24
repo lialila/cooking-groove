@@ -65,7 +65,6 @@ export default async function UserIdProfile({ params }: Props) {
   if (!sessionUser) {
     return redirect(`/dashboard/login?returnTo=/dashboard/profile/${user.id}`);
   }
-  console.log('session from user page', session);
 
   return (
     <section className={styles.main}>

@@ -1,6 +1,6 @@
 import { cookies } from 'next/headers';
 import { redirect } from 'next/navigation';
-import { getGrooves } from '../../../../database/grooves';
+import { getGrooves, Groove } from '../../../../database/grooves';
 import { getValidSessionByToken } from '../../../../database/sessions';
 import { getUserBySessionToken } from '../../../../database/users';
 import { createTokenFromSecret } from '../../../../utils/csrf';
@@ -28,7 +28,6 @@ export default async function CreateGroove() {
   const user = !sessionToken?.value
     ? undefined
     : await getUserBySessionToken(sessionToken.value);
-  console.log('user from create groove page', user);
 
   if (!session) {
     return redirect(`/dashboard/login?returnTo=/dashboard/profile/${user.id}`);
@@ -37,13 +36,12 @@ export default async function CreateGroove() {
   if (!user) {
     redirect('/dashboard/login');
   }
-  console.log('user.id: ', user.id);
+
   if (!user.id) {
     redirect('/dashboard/login');
   }
   const userId = user.id;
   const grooves = await getGrooves();
-  console.log('userId from create groove page: ', userId);
 
   const groove = grooves.find((groove) => groove.userId === userId);
 
@@ -54,7 +52,6 @@ export default async function CreateGroove() {
       <CreateGrooveForm
         grooves={grooves}
         userId={userId}
-        className={styles.div}
         groove={groove}
         csrfToken={csrfToken}
       />

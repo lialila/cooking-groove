@@ -3,10 +3,7 @@ import bcrypt from 'bcrypt';
 import { NextRequest, NextResponse } from 'next/server';
 import { z } from 'zod';
 import { createSession } from '../../../../../database/sessions';
-import {
-  getUserByUserIdWithPasswordHash,
-  getUserByUsernameWithPasswordHash,
-} from '../../../../../database/users';
+import { getUserByUsernameWithPasswordHash } from '../../../../../database/users';
 import { createSerializedRegisterSessionTokenCookie } from '../../../../../utils/cookies';
 import { createCsrfSecret } from '../../../../../utils/csrf';
 
@@ -32,7 +29,6 @@ export async function POST(request: NextRequest) {
 
   if (!result.success) {
     // Inside of result.error.issues you are going to have more granular information about what is failing allowing you to create more specific error massages
-    // console.log(result.error.issues);
 
     return NextResponse.json(
       {
@@ -54,7 +50,6 @@ export async function POST(request: NextRequest) {
   const userWithPasswordHash = await getUserByUsernameWithPasswordHash(
     result.data.username,
   );
-  console.log('userWithPasswordHash: ', userWithPasswordHash);
 
   if (!userWithPasswordHash) {
     // consider using the same output for user or password not valid
@@ -90,7 +85,6 @@ export async function POST(request: NextRequest) {
     csrfSecret,
   );
 
-  // console.log(session);
   // - attach a new cookie
   // serialize to the header of the response
   if (!session) {

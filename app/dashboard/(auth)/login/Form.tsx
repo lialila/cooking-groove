@@ -10,11 +10,6 @@ const courierPrime = Courier_Prime({
   subsets: ['latin'],
 });
 
-const montserratText = Montserrat({
-  weight: '400',
-  subsets: ['latin'],
-});
-
 export default function Form(props: { returnTo?: string | string[] }) {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
@@ -36,7 +31,6 @@ export default function Form(props: { returnTo?: string | string[] }) {
         });
 
         const data: RegisterResponseBody = await response.json();
-        console.log('data from login', data);
 
         if ('errors' in data) {
           setErrors(data.errors);
@@ -54,8 +48,6 @@ export default function Form(props: { returnTo?: string | string[] }) {
           return;
         }
         router.push(`/dashboard/profile/${data.user.id}`);
-        console.log('data.user.id', data.user.id);
-        console.log('user.data', data.user);
 
         router.refresh();
       }}

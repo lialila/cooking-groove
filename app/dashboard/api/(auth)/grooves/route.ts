@@ -1,7 +1,7 @@
 import { cookies } from 'next/headers';
 import { NextRequest, NextResponse } from 'next/server';
 import { z } from 'zod';
-import { createGroove, getGrooves } from '../../../../../database/grooves';
+import { createGroove } from '../../../../../database/grooves';
 import { createIngredient } from '../../../../../database/ingredients';
 import { getUserBySessionToken } from '../../../../../database/users';
 import { validateTokenAgainstSecret } from '../../../../../utils/csrf';
@@ -9,7 +9,6 @@ import { validateTokenAgainstSecret } from '../../../../../utils/csrf';
 const grooveSchema = z.object({
   name: z.string(),
   offer: z.string(),
-  lookingFor: z.string(),
   description: z.string(),
   location: z.string(),
   label: z.string(),
@@ -34,7 +33,7 @@ export async function POST(request: NextRequest) {
   const body = await request.json();
 
   const result = grooveSchema.safeParse(body);
-  console.log('result: ', result);
+
   if (!result.success) {
     return NextResponse.json(
       {
@@ -43,7 +42,7 @@ export async function POST(request: NextRequest) {
       { status: 400 },
     );
   }
-  console.log('result: ', result);
+
   // validate csrf token to make sure it's the same as the one in the cookie
   if (!validateTokenAgainstSecret(user.csrfSecret, result.data.csrfToken)) {
     return NextResponse.json(
@@ -56,7 +55,6 @@ export async function POST(request: NextRequest) {
   const newGroove = await createGroove(
     result.data.name,
     result.data.offer,
-    result.data.lookingFor,
     result.data.description,
     result.data.location,
     result.data.label,
@@ -76,8 +74,6 @@ export async function POST(request: NextRequest) {
       { status: 400 },
     );
   }
-  console.log('newGroove: ', newGroove);
-  console.log('result.data.ingredientName: ', result.data.ingredientName);
 
   if (!result.data.ingredientName) {
     return NextResponse.json({

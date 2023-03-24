@@ -99,8 +99,7 @@ export async function POST(request: NextRequest) {
 
   const session = await createSession(token, newUser.id, csrfSecret);
 
-  console.log('newUser: ', newUser);
-  console.log('session: ', session);
+
   if (!session) {
     return NextResponse.json(
       { errors: [{ message: 'session creation failed' }] },

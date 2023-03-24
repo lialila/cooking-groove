@@ -1,12 +1,8 @@
-import crypto from 'node:crypto';
-import bcrypt from 'bcrypt';
-import { cookies } from 'next/headers';
 import { NextRequest, NextResponse } from 'next/server';
 import { z } from 'zod';
 import {
   deleteUserById,
   getUserById,
-  getUserByUsername,
   updateUserById,
 } from '../../../../../../database/users';
 
@@ -26,7 +22,6 @@ export async function GET(
   { params }: { params: Record<string, string | string[]> },
 ) {
   const userId = Number(params.userId);
-  console.log('userId from route: ', userId);
 
   if (!userId) {
     return NextResponse.json(
@@ -74,11 +69,7 @@ export async function PUT(
   { params }: { params: Record<string, string | string[]> },
 ) {
   const userId = Number(params.userId);
-  console.log('params.username : ', params.userId);
 
-  console.log('params: ', params);
-  console.log('userId: ', userId);
-  console.log('params.username: ', params.username);
 
   if (!userId) {
     return NextResponse.json(
@@ -90,11 +81,9 @@ export async function PUT(
   }
   const body = await request.json();
 
-  console.log('body: ', body);
+    const result = userSchema.safeParse(body);
 
-  const result = userSchema.safeParse(body);
 
-  console.log('result: ', result);
 
   if (!result.success) {
     return NextResponse.json(
@@ -105,8 +94,6 @@ export async function PUT(
     );
   }
 
-  //  const passwordHash = await bcrypt.hash(result.data.password, 12);
-  // console.log('passwordHash: ', passwordHash);
   const newUser = await updateUserById(
     userId,
     result.data.username,
@@ -119,7 +106,6 @@ export async function PUT(
     result.data.language,
   );
 
-  console.log('newUser: ', newUser);
 
   if (!newUser) {
     return NextResponse.json(

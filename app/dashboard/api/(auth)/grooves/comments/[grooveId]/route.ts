@@ -72,41 +72,6 @@ export async function POST(request: NextRequest) {
   }
   return NextResponse.json({ comment: newComment });
 }
-// export async function PUT(
-//   request: NextRequest,
-//   { params }: { params: Record<string, string | string[]> },
-// ) {
-//   const grooveId = Number(params.grooveId);
-//   if (!grooveId) {
-//     return NextResponse.json(
-//       {
-//         errors: 'Request body is missing some properties',
-//       },
-//       { status: 400 },
-//     );
-//   }
-//   const singleComment = await getCommentById(commentId);
-//   if (!singleComment) {
-//     return NextResponse.json(
-//       {
-//         errors: 'Comment does not exist',
-//       },
-//       { status: 400 },
-//     );
-//   }
-
-//   const body = await request.json();
-//   const result = commentSchema.parse(body);
-
-//   if (!result.success) {
-//     return NextResponse.json(
-//       {
-//         errors: 'Request body is missing some properties',
-//       },
-//       { status: 400 },
-//     );
-//   }
-// }
 
 export async function DELETE(
   request: NextRequest,

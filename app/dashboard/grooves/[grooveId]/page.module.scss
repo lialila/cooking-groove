@@ -1,19 +1,15 @@
 .main {
   display: flex;
-  flex-direction: row;
+  flex-direction: column;
   align-items: center;
   text-align: center;
-  padding: 2rem;
-  width: 100vw;
-
-  img {
-  }
+  width: 96vw;
 
   p {
     font-size: 0.8rem;
     line-height: 0.8rem;
     margin: auto;
-    color: black;
+    text-align: left;
   }
   h3 {
     font-size: 1rem;
@@ -23,17 +19,21 @@
     margin: auto;
     font-size: 1.8rem;
   }
+  h1 {
+    padding-bottom: 1rem;
+    border-bottom: solid white 1.2px;
+    font-size: 1.8rem;
+    text-transform: uppercase;
+    letter-spacing: 0.1rem;
+    margin-bottom: 0.7rem;
+  }
 }
 .div {
-  margin: 7rem 0rem;
+  margin: 3rem 0 4rem 0;
   display: flex;
   flex-direction: column;
   padding: 1.5rem;
-  color: black;
-  backdrop-filter: blur(18.2px);
-  -webkit-backdrop-filter: blur(18.2px);
-  background: rgba(255, 255, 255, 0.5);
-  border-radius: 7px;
+  color: white;
 }
 .profileImg {
   border-radius: 50%;
@@ -49,5 +49,128 @@
     -webkit-backdrop-filter: blur(18.2px);
     background: rgba(255, 255, 255, 0.5);
     border-radius: 7px;
+  }
+}
+.hosted {
+  display: flex;
+  text-align: left;
+  justify-content: space-between;
+  font-size: 0.8rem;
+  letter-spacing: 0.1rem;
+  margin: 1rem 0;
+  padding: 0 3rem;
+
+  p {
+    text-align: left;
+    margin-left: 0.8rem;
+  }
+}
+.time {
+  display: flex;
+  text-align: left;
+  padding: 0.3rem;
+  p {
+    text-align: left;
+    margin-left: 0.8rem;
+  }
+  img {
+    width: 1.2rem;
+    height: 1.2rem;
+  }
+}
+.location {
+  display: flex;
+  padding: 0.3rem;
+  p {
+    text-align: left;
+    margin-left: 0.8rem;
+  }
+  img {
+    width: 1.2rem;
+    height: 1.2rem;
+  }
+}
+.grooveImg {
+  border-radius: 12px;
+}
+.offer {
+  margin: 1rem 0;
+  display: flex;
+  justify-content: space-between;
+  padding: 0 3rem;
+  font-size: 0.8rem;
+  letter-spacing: 0.1rem;
+  p {
+    text-align: left;
+    margin-left: 0.6rem;
+  }
+}
+.datetimelocation {
+  border-bottom: solid white 1.2px;
+  padding: 0 3rem 1rem 3rem;
+  font-size: 0.8rem;
+  letter-spacing: 0.1rem;
+}
+.missing {
+  letter-spacing: 0.1rem;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  color: white;
+  padding: 0 3rem 1rem 3rem;
+  font-size: 0.8rem;
+  border-bottom: solid white 1.2px;
+
+  img {
+    width: 2rem;
+    height: 2rem;
+    // margin: 0.3rem;
+    // margin-left: -0.3rem;
+  }
+}
+.list {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  text-align: left;
+  label {
+    margin: 0.2rem;
+  }
+}
+.missingOnEdit {
+  text-align: left;
+  background-color: rgba(185, 179, 179, 0);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+
+  font-size: 1rem;
+  label {
+    margin: 0.2rem;
+  }
+  input {
+    border-top: none;
+    border-left: none;
+    border-right: none;
+    border-bottom: solid white 1.2px;
+    color: white;
+    background-color: rgba(185, 179, 179, 0);
+  }
+}
+.onEdit {
+  margin-top: 0.5rem;
+  width: 100%;
+  text-align: left;
+  font-size: 1rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  input {
+    border-top: none;
+    border-left: none;
+    border-right: none;
+    border-bottom: solid white 1.2px;
+    color: white;
+    background-color: rgba(185, 179, 179, 0);
   }
 }

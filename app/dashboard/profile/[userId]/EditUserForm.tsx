@@ -1,10 +1,5 @@
 'use client';
-import {
-  Alternates,
-  Courier_Prime,
-  Inter,
-  Montserrat,
-} from '@next/font/google';
+import { Courier_Prime } from '@next/font/google';
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
 import { useState } from 'react';
@@ -77,7 +72,7 @@ export default function EditUserForm(props: Props) {
         const data = await response.json();
         setEditProfileImgUrl(data.secure_url);
       } else {
-        setError('Failed to upload image');
+        setError(error);
       }
     }
   };
@@ -130,8 +125,8 @@ export default function EditUserForm(props: Props) {
             />{' '}
           </label>
         )}
-        {props.sessionUser &&
-        props.sessionUser.id === props.user.id &&
+
+        {props.sessionUser.id === props.user.id &&
         idOnEditMode !== props.user.id ? (
           <>
             <div className={styles.profile}>
@@ -156,26 +151,17 @@ export default function EditUserForm(props: Props) {
               <Link href="/dashboard/grooves/my-grooves">
                 <div className={courierPrime.className}>My grooves</div>
               </Link>
-              <Link
-                href="/dashboard/grooves/my-grooves#sectionParticipating"
-                as="/dashboard/grooves/my-grooves#sectionParticipating"
-              >
+              <Link href="/dashboard/grooves/participation-grooves">
                 <div className={courierPrime.className}>Participation</div>
               </Link>
             </div>
           </>
         ) : null}
-        {props.sessionUser && props.sessionUser.id !== props.user.id ? (
+        {props.sessionUser.id !== props.user.id ? (
           <div className={styles.profileMenu}>
-            <Link href="/dashboard/grooves/my-grooves">
+            <Link href={`/dashboard/grooves/users-grooves/${props.user.id}`}>
               <div className={courierPrime.className}>
                 {props.user.username} grooves
-              </div>
-            </Link>
-            <Link href="/dashboard/grooves/my-grooves">
-              <div className={courierPrime.className}>
-                {' '}
-                {props.user.username} participation
               </div>
             </Link>
           </div>
@@ -239,7 +225,7 @@ export default function EditUserForm(props: Props) {
         </FadeIn>
       </div>
 
-      {props.sessionUser && props.sessionUser.id === props.user.id ? (
+      {props.sessionUser.id === props.user.id ? (
         <>
           <Link href="/logout" prefetch={false}>
             <img
@@ -317,7 +303,11 @@ export default function EditUserForm(props: Props) {
             </>
           ) : null}
         </>
-      ) : null}
+      ) : (
+        <Link href="/">
+          <img src="/additional/chat1.png" width="40" alt="chat" />
+        </Link>
+      )}
     </div>
   );
 }

@@ -9,7 +9,6 @@ import {
 const grooveSchema = z.object({
   name: z.string(),
   offer: z.string(),
-  lookingFor: z.string(),
   description: z.string(),
   location: z.string(),
   label: z.string(),
@@ -25,8 +24,7 @@ export async function GET(
   { params }: { params: Record<string, string | string[]> },
 ) {
   const grooveId = Number(params.grooveId);
-  console.log('grooveId: ', grooveId);
-  console.log('params from grooveID page: ', params);
+
   if (!grooveId) {
     return NextResponse.json(
       {
@@ -99,7 +97,6 @@ export async function PUT(
     grooveId,
     result.data.name,
     result.data.offer,
-    result.data.lookingFor,
     result.data.description,
     result.data.location,
     result.data.label,

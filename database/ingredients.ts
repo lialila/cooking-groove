@@ -60,3 +60,14 @@ export const deleteIngredientByGrooveId = cache(async (grooveId: number) => {
   `;
   return ingredient;
 });
+
+export const deleteIngredientById = cache(async (id: number) => {
+  const [ingredient] = await sql<Ingredient[]>`
+  DELETE FROM
+    ingredients
+  WHERE
+   id = ${id}
+  RETURNING *
+  `;
+  return ingredient;
+});

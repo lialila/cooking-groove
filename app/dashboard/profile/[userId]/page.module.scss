@@ -16,7 +16,7 @@
   .fadeIn:last-of-type {
     border-bottom: solid white 1.2px;
     padding-bottom: 1rem;
-    margin-bottom: 1rem;
+    margin: 1rem;
   }
   h3 {
     margin: 0.3rem;
@@ -80,30 +80,12 @@
     color: white;
     align-items: center;
 
-    // background: hsla(24, 50%, 49%, 1);
-    // background: linear-gradient(
-    //   0deg,
-    //   hsla(24, 100%, 49%, 1) 0%,
-    //   hsla(43, 100%, 51%, 1) 50%
-    // );
-
-    // background: -moz-linear-gradient(
-    //   0deg,
-    //   hsla(24, 100%, 49%, 1) 0%,
-    //   hsla(43, 100%, 51%, 1) 50%
-    // );
-
-    // background: -webkit-linear-gradient(
-    //   0deg,
-    //   hsla(24, 100%, 49%, 1) 0%,
-    //   hsla(43, 100%, 51%, 1) 100%
-    // );
     background: hsla(285, 76%, 36%, 1);
 
     background: linear-gradient(
       180deg,
       hsla(285, 76%, 36%, 1) 0%,
-      hsla(346, 100%, 65%, 1) 100%
+      hsl(346, 100%, 65%) 100%
     );
 
     background: -moz-linear-gradient(

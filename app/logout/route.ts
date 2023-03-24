@@ -7,11 +7,9 @@ export async function GET() {
   const cookieStore = cookies();
   const token = cookieStore.get('sessionToken');
 
-  console.log(token);
   if (token) {
     await deleteSessionByToken(token.value);
   }
-  console.log('token', token);
 
   return new NextResponse(null, {
     status: 307,

@@ -2,7 +2,6 @@ import { NextRequest, NextResponse } from 'next/server';
 import { z } from 'zod';
 import {
   createUsersgrooves,
-  deleteUsersgroovesByGrooveId,
   getUsersgrooves,
 } from '../../../../../../database/usersgrooves';
 

@@ -38,7 +38,10 @@
     "app/page.tsx",
     "app/dashboard/(auth)/registration/RegisterForm.tsx",
     "app/dashboard/grooves/[grooveId]/page.tsx",
-    "app/dashboard/grooves/[grooveId]/EditGrooveForm.tsx"
+    "app/dashboard/grooves/[grooveId]/EditGrooveForm.tsx",
+    "app/dashboard/grooves/SearchGroovesForm.tsx",
+    "app/dashboard/grooves/page.tsx",
+    "app/dashboard/grooves/users-grooves/[userId]/page.jsx"
   ],
   "exclude": ["node_modules"]
 }
