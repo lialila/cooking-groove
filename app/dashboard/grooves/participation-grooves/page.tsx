@@ -53,8 +53,8 @@ export default async function MyGroovesPage() {
     <div className={courierPrime.className}>
       <div className={styles.main}>
         <MyGroovesParticipation
-          myGrooves={myGrooves}
-          myParticipatingGrooves={myParticipatingGrooves}
+          myGrooves: Groove[]={myGrooves}
+          myParticipatingGrooves: Groove[]={myParticipatingGrooves}
           user={user}
         />
       </div>

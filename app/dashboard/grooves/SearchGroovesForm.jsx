@@ -2,28 +2,28 @@
 import Link from 'next/link';
 import { useState } from 'react';
 import FadeIn from 'react-fade-in/lib/FadeIn';
-import { Ingredient } from '../../../database/ingredients';
+// import { Ingredient } from '../../../database/ingredients';
 import styles from './page.module.scss';
 
-type Props = {
-  allGrooves: {
-    [key: string]: string;
-    id: number;
-    name: string;
-    description: string;
-    offer: string;
-    location: string;
-    label: string;
-    time: string;
-    date: string;
-    language: string;
-    imgUrl: string;
-  }[];
+// type Props = {
+//   allGrooves: {
+//     [key: string]: string;
+//     id: number;
+//     name: string;
+//     description: string;
+//     offer: string;
+//     location: string;
+//     label: string;
+//     time: string;
+//     date: string;
+//     language: string;
+//     imgUrl: string;
+//   }[];
 
-  allIngredients: Ingredient[];
-};
+//   allIngredients: Ingredient[];
+// };
 
-export default function SearchGroovesForm(props: Props) {
+export default function SearchGroovesForm(props) {
   const [grooveSearch, setGrooveSearch] = useState('');
 
   const keys = [
@@ -52,7 +52,7 @@ export default function SearchGroovesForm(props: Props) {
         {props.allGrooves
           .filter((groove) =>
             keys.some(
-              (key: string) =>
+              (key) =>
                 typeof groove[key] === 'string' &&
                 groove[key].toLowerCase().includes(grooveSearch.toLowerCase()),
             ),

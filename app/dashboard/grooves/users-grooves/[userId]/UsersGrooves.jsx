@@ -1,27 +1,9 @@
 'use client';
 import Link from 'next/link';
 import FadeIn from 'react-fade-in/lib/FadeIn';
-import { Groove } from '../../../../../database/grooves';
-import { User } from '../../../../../database/users';
-import { Usersgroove } from '../../../../../database/usersgrooves';
 import styles from './page.module.scss';
 
-type Props = {
-  usersGroovesConnection: Usersgroove[];
-  user: User[];
-  sessionUser: {
-    id: number;
-    name: string;
-    email: string;
-    password: string;
-    sessionToken: string;
-  };
-  userId: number;
-  grooves: Groove[];
-  groovesUserHosts: Groove[];
-};
-
-export default function UsersGrooves(props: Props) {
+export default function UsersGrooves(props) {
   console.log('user', props.user);
   return (
     <FadeIn>

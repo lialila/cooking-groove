@@ -1,14 +1,11 @@
 import './globals.scss';
 import { Courier_Prime, Montserrat } from '@next/font/google';
-// import { Inter } from 'next/font/google';
 import { cookies } from 'next/headers';
 import Image from 'next/image';
 import Link from 'next/link';
 import { Groove } from '../database/grooves';
 import { getUserBySessionToken, getUsers } from '../database/users';
 import styles from './layout.module.scss';
-
-// import SearchForm from './SearchForm';
 
 export const metadata = {
   title: {
@@ -44,9 +41,6 @@ export default async function RootLayout(props: Props) {
   // get all users
   const allUsers = await getUsers();
   const userObj = allUsers.find((oneUser) => oneUser.id === user?.id);
-
-  // get all grooves
-  // const allGrooves = await getGrooves();
 
   return (
     <html lang="en" className={styles.html}>

@@ -6,6 +6,7 @@
   text-align: center;
   margin-top: 10rem;
   justify-content: center;
+  // width: 100%;
   width: 100vw;
 }
 
@@ -15,7 +16,7 @@
   font-size: 0.8rem;
   border-radius: 8px;
   padding: 6px 3px;
-  margin: 7px;
+  // margin: 7px;
   width: 9rem;
   height: 2.7rem;
   color: white;
@@ -88,7 +89,6 @@
 
     li {
       width: 65vw;
-
       margin: 0.5rem 0;
       text-align: center;
       padding: 1.2rem 1.2rem;
@@ -133,7 +133,7 @@
   text-align: center;
   border-bottom: solid 1.2px white;
   padding: 1rem;
-  margin: -4rem 2rem 1rem;
+  margin: -4rem 0rem 1rem;
   h4 {
     margin: 0;
   }

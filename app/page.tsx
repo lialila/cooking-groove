@@ -36,13 +36,11 @@ export default async function LandingPage() {
           is rhythm in which one lives their life; <br />
           pattern of behavior.
         </p>
-        {/* {user ? (
-          <div></div>
-        ) : (
+        {user ? null : (
           <Link href="/dashboard/login">
             <button className={courierPrime.className}>Let's go!</button>
           </Link>
-        )} */}
+        )}
       </div>
     </section>
   );

@@ -1,15 +1,13 @@
 'use client';
 import Image from 'next/image';
 import Link from 'next/link';
-import { useState } from 'react';
-import { Groove } from '../database/grooves';
 import styles from './layout.module.scss';
 
-type Props = {
-  allGrooves: Groove[];
-};
+// type Props = {
+//   allGrooves: Groove[];
+// };
 
-export default function SearchFrom(props: Props) {
+export default function SearchFrom() {
   return (
     <>
       {' '}
