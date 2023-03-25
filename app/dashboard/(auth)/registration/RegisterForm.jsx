@@ -1,17 +1,12 @@
 'use client';
-import {
-  Alternates,
-  Courier_Prime,
-  Inter,
-  Montserrat,
-} from '@next/font/google';
+import { Courier_Prime } from '@next/font/google';
 import { useRouter } from 'next/navigation';
 import { useState } from 'react';
 import FadeIn from 'react-fade-in';
-import { number } from 'zod';
-import { User } from '../../../../database/users';
+// import { number } from 'zod';
+// import { User } from '../../../../database/users';
 import { getSafeReturnToPath } from '../../../../utils/validation';
-import { RegisterResponseBody } from '../../api/(auth)/register/route';
+// import { RegisterResponseBody } from '../../api/(auth)/register/route';
 import styles from './page.module.scss';
 
 const courierPrime = Courier_Prime({
@@ -19,28 +14,28 @@ const courierPrime = Courier_Prime({
   subsets: ['latin'],
 });
 
-const montserratText = Montserrat({
-  weight: '400',
-  subsets: ['latin'],
-});
+// const montserratText = Montserrat({
+//   weight: '400',
+//   subsets: ['latin'],
+// });
 
-export default function RegisterForm(props: { returnTo?: string | string[] }) {
+export default function RegisterForm(props) {
   const [username, setUsername] = useState('');
   const [name, setName] = useState('');
   const [email, setEmail] = useState('');
-  const [profileImgUrl, setProfileImgUrl] = useState<string>('');
+  const [profileImgUrl, setProfileImgUrl] = useState('');
   const [eatingExperience, setEatingExperience] = useState('');
   const [cookingExperience, setCookingExperience] = useState('');
   const [favouriteFood, setFavouriteFood] = useState('');
   const [language, setLanguage] = useState('');
   const [password, setPassword] = useState('');
-  const [errors, setErrors] = useState<{ message: string }[]>([]);
+  const [errors, setErrors] = useState([]);
 
   const router = useRouter();
 
-  async function handleSubmit(event: React.FormEvent<HTMLFormElement>) {
+  async function handleSubmit(event) {
     event.preventDefault();
-    const file = (event.target as HTMLFormElement).elements.fileInput.files[0];
+    const file = event.target.elements.fileInput.files[0];
     const formData = new FormData();
     formData.append('file', file);
     formData.append('upload_preset', 'my-uploads');
@@ -81,7 +76,7 @@ export default function RegisterForm(props: { returnTo?: string | string[] }) {
         }),
       });
 
-      const data: RegisterResponseBody = await response.json();
+      const data = await response.json();
 
       if ('errors' in data) {
         setErrors(data.errors);

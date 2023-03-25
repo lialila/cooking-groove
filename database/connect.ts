@@ -3,13 +3,6 @@ import postgres from 'postgres';
 
 config();
 
-// export const sql = postgres({
-//   transform: {
-//     ...postgres.camel,
-//     undefined: null,
-//   },
-// });
-
 // Type needed for the connection funtion below
 declare module globalThis {
   let postgresSqlClient: ReturnType<typeof postgres> | undefined;

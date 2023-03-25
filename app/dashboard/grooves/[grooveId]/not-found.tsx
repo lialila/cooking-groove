@@ -1,4 +1,4 @@
-// import styles from '../../page.module.scss';
+import styles from './page.module.scss';
 
 export const grooveNotFoundMetadata = {
   title: 'Groove Not Found',
@@ -7,9 +7,7 @@ export const grooveNotFoundMetadata = {
 
 export default function GrooveNotFound() {
   return (
-    <section
-    // className={styles.main}
-    >
+    <section className={styles.main}>
       <div
       // </section>className={styles.div}
       >

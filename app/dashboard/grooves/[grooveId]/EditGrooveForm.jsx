@@ -1,88 +1,54 @@
 'use client';
-import { Courier_Prime, Montserrat } from '@next/font/google';
+import { Montserrat } from '@next/font/google';
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
 import { useState } from 'react';
-import { Comment } from '../../../../database/comments';
-import { Groove } from '../../../../database/grooves';
-import { Ingredient } from '../../../../database/ingredients';
-import { User } from '../../../../database/users';
-import { Usersgroove } from '../../../../database/usersgrooves';
+// import { Comment } from '../../../../database/comments';
+// import { Groove } from '../../../../database/grooves';
+// import { Ingredient } from '../../../../database/ingredients';
+// import { User } from '../../../../database/users';
+// import { Usersgroove } from '../../../../database/usersgrooves';
 import styles from './page.module.scss';
 
-type Props = {
-  currentGroove: {
-    id: number;
-    name: string;
-    offer: string;
-    description: string;
-    location: string;
-    label: string;
-    time: string;
-    date: string;
-    language: string;
-    imgUrl: string;
-    userId: number;
-  };
-  commentsForCurrentGroove: Comment[];
-  currentUserId: number;
-  grooves: Groove[];
-  usersgroovesParticipating: Usersgroove[]; // connection table between users and grooves who participates
-
-  currentUser: {
-    id: number;
-    username: string;
-    name: string;
-    email: string;
-    profileImgUrl: string;
-    eatingExperience: string | null;
-    cookingExperience: string | null;
-    favouriteFood: string | null;
-    language: string;
-  }; // this is the user who is logged in
-  users: User[];
-  ingredients: Ingredient[];
-};
-
-const courierPrime = Courier_Prime({
-  weight: '400',
-  subsets: ['latin'],
-});
+// const courierPrime = Courier_Prime({
+//   weight: '400',
+//   subsets: ['latin'],
+// });
 
 const montserrat = Montserrat({
   weight: '400',
   subsets: ['latin'],
 });
 
-export default function EditGrooveForm(props: Props) {
+export default function EditGrooveForm(props) {
   const router = useRouter();
 
-  const [grooves, setGrooves] = useState<Groove[]>(props.grooves);
+  const [grooves, setGrooves] = useState(props.grooves);
 
-  const [idOnEditMode, setIdOnEditMode] = useState<number>();
+  const [idOnEditMode, setIdOnEditMode] = useState();
   const [editName, setEditName] = useState('');
-  const [editOffer, setEditOffer] = useState<string>('');
-  const [editDescription, setEditDescription] = useState<string>('');
-  const [editLocation, setEditLocation] = useState<string>('');
-  const [editLabel, setEditLabel] = useState<string>('');
-  const [editTime, setEditTime] = useState<string>('');
-  const [editDate, setEditDate] = useState<string>('');
-  const [editLanguage, setEditLanguage] = useState<string>('');
-  const [editImgUrl, setEditImgUrl] = useState<string>('');
+  const [editOffer, setEditOffer] = useState('');
+  const [editDescription, setEditDescription] = useState('');
+  const [editLocation, setEditLocation] = useState('');
+  const [editLabel, setEditLabel] = useState('');
+  const [editTime, setEditTime] = useState('');
+  const [editDate, setEditDate] = useState('');
+  const [editLanguage, setEditLanguage] = useState('');
+  const [editImgUrl, setEditImgUrl] = useState('');
 
-  const [error, setError] = useState<string>();
+  const [error, setError] = useState();
 
-  const [ingredientsList, setIngredientsList] = useState<string[]>([]);
+  const [ingredientsList, setIngredientsList] = useState([]);
 
   // set ingredients
-  const [ingredient, setIngredient] = useState<string>('');
+  const [ingredient, setIngredient] = useState('');
   // const [updated, setUpdated] = useState(message);
 
   // set comment on edit mode
-  const [commentContent, setCommentContent] = useState<string>('');
+  const [commentContent, setCommentContent] = useState('');
 
   // set groove's comments
-  const [commentsInGroove, setCommentsInGroove] = useState<Comment[]>(
+  const [commentsInGroove, setCommentsInGroove] = useState(
     props.commentsForCurrentGroove,
   );
 
@@ -97,7 +63,7 @@ export default function EditGrooveForm(props: Props) {
   const currentTime = `${hours}:${minutes} ${date}.${month}.${year}`;
 
   // handle the image upload
-  const handleImageUpload = async (e: React.ChangeEvent<HTMLInputElement>) => {
+  const handleImageUpload = async (e) => {
     const image = e.target.files?.[0];
     if (image) {
       const formData = new FormData();
@@ -147,9 +113,7 @@ export default function EditGrooveForm(props: Props) {
   //   return item.id === ingredient.id;
   // });
 
-  const handleIngredientAddition = async (
-    e: React.FormEvent<HTMLFormElement>,
-  ) => {
+  const handleIngredientAddition = async (e) => {
     e.preventDefault();
     const response = await fetch(
       `/dashboard/api/grooves/${props.currentGroove.id}/ingredients/`,
@@ -177,7 +141,7 @@ export default function EditGrooveForm(props: Props) {
     router.refresh();
   };
 
-  const handleIngredientDelete = async (id: number) => {
+  const handleIngredientDelete = async (id) => {
     const response = await fetch(
       `/dashboard/api/grooves/${props.currentGroove.id}/ingredients/${id}`,
       {
@@ -280,12 +244,6 @@ export default function EditGrooveForm(props: Props) {
                       width="60"
                     />
                   </div>
-                  {/* {groovesIngredients.length ===
-                0 ? null : groovesIngredients.length > 1 ? (
-                  <p>Missing ingredients:</p>
-                ) : (
-                  <p>Missing ingredient:</p>
-                )} */}
                   <div className={styles.list}>
                     {groovesIngredients.map((oneIngredient) => {
                       return (

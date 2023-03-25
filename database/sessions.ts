@@ -1,7 +1,7 @@
 import { cache } from 'react';
 import { sql } from './connect';
 
-type Session = {
+export type Session = {
   id: number;
   token: string;
 };

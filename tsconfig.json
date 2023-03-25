@@ -36,14 +36,19 @@
     "app/dashboard/layout.js",
     "app/layout.tsx",
     "app/page.tsx",
-    "app/dashboard/(auth)/registration/RegisterForm.tsx",
-    "app/dashboard/grooves/[grooveId]/page.tsx",
-    "app/dashboard/grooves/[grooveId]/EditGrooveForm.tsx",
+    "app/dashboard/(auth)/registration/RegisterForm.jsx",
+    "app/dashboard/grooves/[grooveId]/page.jsx",
+    "app/dashboard/grooves/[grooveId]/EditGrooveForm.jsx",
     "app/dashboard/grooves/SearchGroovesForm.jsx",
     "app/dashboard/grooves/page.jsx",
     "app/dashboard/grooves/users-grooves/[userId]/page.jsx",
     "app/dashboard/grooves/users-grooves/[userId]/UsersGrooves.jsx",
-    "app/dashboard/profile/[userId]/page.jsx"
+    "app/dashboard/profile/[userId]/page.jsx",
+    "app/dashboard/grooves/participation-grooves/page.jsx",
+    "app/dashboard/grooves/my-grooves/page.jsx",
+    "app/dashboard/grooves/my-grooves/MyGrooves.jsx",
+    "app/dashboard/grooves/create-groove/page.jsx",
+    "app/dashboard/grooves/create-groove/CreateGrooveForm.jsx"
   ],
   "exclude": ["node_modules"]
 }

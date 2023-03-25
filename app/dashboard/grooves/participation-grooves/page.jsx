@@ -8,13 +8,7 @@ import styles from './page.module.scss';
 
 export const dynamic = 'force-dynamic';
 
-interface Metadata {
-  title: {
-    default: string;
-  };
-}
-
-export const metadata: Metadata = {
+export const metadata = {
   title: {
     default: 'My Grooves',
   },
@@ -37,7 +31,6 @@ export default async function MyGroovesPage() {
   if (!user) {
     return;
   }
-  const myGrooves = grooves.filter((groove) => groove.userId === user.id);
 
   // array of object with userid with current user id
   const usersgrooves = await getUsersgroovesByUserId(user.id);
@@ -50,14 +43,8 @@ export default async function MyGroovesPage() {
   });
 
   return (
-    <div className={courierPrime.className}>
-      <div className={styles.main}>
-        <MyGroovesParticipation
-          myGrooves: Groove[]={myGrooves}
-          myParticipatingGrooves: Groove[]={myParticipatingGrooves}
-          user={user}
-        />
-      </div>
+    <div className={`${courierPrime.className} ${styles.main}`}>
+      <MyGroovesParticipation myParticipatingGrooves={myParticipatingGrooves} />
     </div>
   );
 }

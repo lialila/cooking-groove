@@ -1,12 +1,7 @@
-import { Metadata } from 'next';
 import { cookies } from 'next/headers';
 import { notFound, redirect } from 'next/navigation';
 import { getCommentsByGrooveId } from '../../../../database/comments';
-import {
-  getGrooveById,
-  getGrooves,
-  Groove,
-} from '../../../../database/grooves';
+import { getGrooveById, getGrooves } from '../../../../database/grooves';
 import { getIngredients } from '../../../../database/ingredients';
 import {
   getUserById,
@@ -18,14 +13,8 @@ import EditGrooveForm from './EditGrooveForm';
 import { grooveNotFoundMetadata } from './not-found';
 
 export const dynamic = 'force-dynamic';
-type Props = {
-  params: {
-    grooveId: number;
-    userId: number;
-    currentGroove: Groove[];
-  };
-};
-export async function generateMetadata(props: Props): Promise<Metadata> {
+
+export async function generateMetadata(props) {
   const groove = await getGrooveById(parseInt(props.params.grooveId));
 
   if (!groove) {
@@ -37,7 +26,7 @@ export async function generateMetadata(props: Props): Promise<Metadata> {
   };
 }
 
-export default async function GrooveIdPage(props: Props) {
+export default async function GrooveIdPage(props) {
   const cookieStore = cookies();
   const sessionToken = cookieStore.get('sessionToken');
   const user = !sessionToken?.value
@@ -60,9 +49,7 @@ export default async function GrooveIdPage(props: Props) {
   const users = await getUsers();
   const currentUser = await getUserById(currentUserId);
 
-  const currentGroove: Groove = await getGrooveById(
-    parseInt(props.params.grooveId),
-  );
+  const currentGroove = await getGrooveById(parseInt(props.params.grooveId));
 
   if (!currentGroove) {
     notFound();

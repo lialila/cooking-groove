@@ -11,8 +11,8 @@ const usersgrooveSchema = z.object({
   grooveId: z.number(),
 });
 
-export async function GET(request: NextRequest) {
-  const { searchParams } = new URL(request.url);
+export async function GET() {
+  // const { searchParams } = new URL(request.url);
 
   const usersgrooves = await getUsersgrooves();
 
@@ -37,13 +37,13 @@ export async function POST(request: NextRequest) {
     result.data.userId,
     result.data.grooveId,
   );
-  if (!newUsersgroove) {
-    return NextResponse.json(
-      {
-        error: [{ message: 'user creation failed' }],
-      },
-      { status: 500 },
-    );
-  }
+  // if (!newUsersgroove) {
+  //   return NextResponse.json(
+  //     {
+  //       error: [{ message: 'user creation failed' }],
+  //     },
+  //     { status: 500 },
+  //   );
+  // }
   return NextResponse.json({ usersgrooves: newUsersgroove });
 }

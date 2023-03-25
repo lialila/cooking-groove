@@ -12,7 +12,7 @@ const usersgrooveSchema = z.object({
 });
 
 export async function GET(request: NextRequest) {
-  const { searchParams } = new URL(request.url);
+  // const { searchParams } = new URL(request.url);
 
   const usersgrooves = await getUsersgrooves();
 
@@ -37,14 +37,14 @@ export async function POST(request: NextRequest) {
     result.data.userId,
     result.data.grooveId,
   );
-  if (!newUsersgroove) {
-    return NextResponse.json(
-      {
-        error: [{ message: 'user creation failed' }],
-      },
-      { status: 500 },
-    );
-  }
+  // if (!newUsersgroove) {
+  //   return NextResponse.json(
+  //     {
+  //       error: [{ message: 'user creation failed' }],
+  //     },
+  //     { status: 500 },
+  //   );
+  // }
   return NextResponse.json({ usersgroove: newUsersgroove });
 }
 
@@ -64,14 +64,14 @@ export async function DELETE(
   }
   const singleUsersgroove = await deleteUsersgroovesByGrooveId(grooveId);
 
-  if (!singleUsersgroove) {
-    return NextResponse.json(
-      {
-        error: 'User not found',
-      },
-      { status: 404 },
-    );
-  }
+  // if (!singleUsersgroove) {
+  //   return NextResponse.json(
+  //     {
+  //       error: 'User not found',
+  //     },
+  //     { status: 404 },
+  //   );
+  // }
 
   return NextResponse.json({ usersgroove: singleUsersgroove });
 }

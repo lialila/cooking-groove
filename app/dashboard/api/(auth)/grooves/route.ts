@@ -63,17 +63,17 @@ export async function POST(request: NextRequest) {
     result.data.time,
     result.data.date,
     result.data.language,
-    token.value,
+    // token.value,
   );
 
-  if (!newGroove) {
-    return NextResponse.json(
-      {
-        error: 'Groove creation failed',
-      },
-      { status: 400 },
-    );
-  }
+  // if (!newGroove) {
+  //   return NextResponse.json(
+  //     {
+  //       error: 'Groove creation failed',
+  //     },
+  //     { status: 400 },
+  //   );
+  // }
 
   if (!result.data.ingredientName) {
     return NextResponse.json({

@@ -2,19 +2,12 @@ import { Courier_Prime } from '@next/font/google';
 import { cookies } from 'next/headers';
 import { getGrooves } from '../../../../database/grooves';
 import { getUserBySessionToken } from '../../../../database/users';
-import { getUsersgroovesByUserId } from '../../../../database/usersgrooves';
 import MyGrooves from './MyGrooves';
 import styles from './page.module.scss';
 
 export const dynamic = 'force-dynamic';
 
-interface Metadata {
-  title: {
-    default: string;
-  };
-}
-
-export const metadata: Metadata = {
+export const metadata = {
   title: {
     default: 'My Grooves',
   },
@@ -39,12 +32,8 @@ export default async function MyGroovesPage() {
   }
   const myGrooves = grooves.filter((groove) => groove.userId === user.id);
 
-  // array of object with userid with current user id
-  const usersgrooves = await getUsersgroovesByUserId(user.id);
-
   return (
-    <div className={courierPrime.className}>
-      <div className={styles.main}></div>
+    <div className={`${courierPrime.className} ${styles.main}`}>
       <MyGrooves myGrooves={myGrooves} user={user} />
     </div>
   );

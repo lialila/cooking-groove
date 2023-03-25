@@ -27,7 +27,6 @@ export const createGroove = cache(
     time: string,
     date: string,
     language: string,
-    token: string,
   ) => {
     const [groove] = await sql<Groove[]>`
      INSERT INTO grooves
@@ -124,32 +123,3 @@ export const updateGrooveById = cache(
     return groove;
   },
 );
-
-// export const getGroovesWithIngredients = cache(async () => {
-//   const [groove] = await sql<
-//     {
-//       id: number;
-//       name: string;
-//       offer: string;
-//       description: string;
-//       location: string;
-//       label: string;
-//       imgUrl: string;
-//       userId: number;
-//       time: string;
-//       date: string;
-//       language: string;
-//     }[]
-//   >`
-//     SELECT
-//       *
-//     FROM
-//       grooves
-//     INNER JOIN
-//       ingredients ON (
-//         groove_id = ${groove.id}
-
-//       )
-//   `;
-//   return groove;
-// });

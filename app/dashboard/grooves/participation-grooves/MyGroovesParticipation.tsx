@@ -14,29 +14,12 @@ type Props = {
     date: string;
     imgUrl: string;
   }[];
-  myGrooves: {
-    id: number;
-    name: string;
-    offer: string;
-    location: string;
-    label: string;
-    time: string;
-    date: string;
-    imgUrl: string;
-  }[];
-  user: {
-    id: number;
-    name: string;
-    email: string;
-    password: string;
-    sessionToken: string;
-  };
 };
 
 export default function MyGroovesParticipation(props: Props) {
   return (
     <FadeIn>
-      {!props.user && <h2>Log in to view your participations</h2>}
+      {/* {!props.user && <h2>Log in to view your participations</h2>} */}
       {!props.myParticipatingGrooves.length ? (
         <div className={styles.div}>
           <div className={styles.text}>

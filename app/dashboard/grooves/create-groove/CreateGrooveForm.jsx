@@ -5,15 +5,7 @@ import { useRouter } from 'next/navigation';
 import { useState } from 'react';
 import FadeIn from 'react-fade-in/lib/FadeIn';
 // import DatePicker from 'react-date-picker';
-import { Groove } from '../../../../database/grooves';
 import styles from './page.module.scss';
-
-type Props = {
-  grooves: Groove[];
-  userId: number;
-  // groove: Groove[];
-  csrfToken: string;
-};
 
 const courierPrime = Courier_Prime({
   weight: '400',
@@ -25,22 +17,22 @@ const montserratText = Montserrat({
   subsets: ['latin'],
 });
 
-export default function CreateGrooveForm(props: Props) {
+export default function CreateGrooveForm(props) {
   const router = useRouter();
 
-  const [grooves, setGrooves] = useState<Groove[]>(props.grooves);
-  const [name, setName] = useState<string>('');
-  const [offer, setOffer] = useState<string>('');
-  const [description, setDescription] = useState<string>('');
-  const [location, setLocation] = useState<string>('');
-  const [label, setLabel] = useState<string>('');
-  const [time, setTime] = useState<string>('');
-  const [date, setDate] = useState<string>('');
-  const [language, setLanguage] = useState<string>('');
-  const [error, setError] = useState<string>();
-  const [imgUrl, setImgUrl] = useState<string>('');
-  const [ingredientName, setIngredientName] = useState<string>('');
-  async function handleSubmit(event: React.FormEvent<HTMLFormElement>) {
+  const [grooves, setGrooves] = useState(props.grooves);
+  const [name, setName] = useState('');
+  const [offer, setOffer] = useState('');
+  const [description, setDescription] = useState('');
+  const [location, setLocation] = useState('');
+  const [label, setLabel] = useState('');
+  const [time, setTime] = useState('');
+  const [date, setDate] = useState('');
+  const [language, setLanguage] = useState('');
+  const [error, setError] = useState();
+  const [imgUrl, setImgUrl] = useState('');
+  const [ingredientName, setIngredientName] = useState('');
+  async function handleSubmit(event) {
     event.preventDefault();
     const file = event.target.elements.fileInput.files[0];
     const formData = new FormData();
@@ -95,7 +87,7 @@ export default function CreateGrooveForm(props: Props) {
 
       router.replace(`/dashboard/grooves/${apiData.groove.id}`);
       router.refresh();
-    } catch (error) {
+    } catch (Error) {
       console.error(error);
     }
   }

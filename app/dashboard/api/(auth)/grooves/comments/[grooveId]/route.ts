@@ -62,14 +62,14 @@ export async function POST(request: NextRequest) {
     result.data.grooveId,
     result.data.createdAt,
   );
-  if (!newComment) {
-    return NextResponse.json(
-      {
-        error: [{ message: 'comment creation failed' }],
-      },
-      { status: 500 },
-    );
-  }
+  // if (!newComment) {
+  //   return NextResponse.json(
+  //     {
+  //       error: [{ message: 'comment creation failed' }],
+  //     },
+  //     { status: 500 },
+  //   );
+  // }
   return NextResponse.json({ comment: newComment });
 }
 
@@ -87,13 +87,13 @@ export async function DELETE(
     );
   }
   const singleComment = await deleteCommentById(commentId);
-  if (!singleComment) {
-    return NextResponse.json(
-      {
-        errors: 'Comment does not exist',
-      },
-      { status: 400 },
-    );
-  }
+  // if (!singleComment) {
+  //   return NextResponse.json(
+  //     {
+  //       errors: 'Comment does not exist',
+  //     },
+  //     { status: 400 },
+  //   );
+  // }
   return NextResponse.json({ comment: singleComment });
 }

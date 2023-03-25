@@ -3,27 +3,7 @@ import Link from 'next/link';
 import FadeIn from 'react-fade-in/lib/FadeIn';
 import styles from './page.module.scss';
 
-type Props = {
-  myGrooves: {
-    id: number;
-    name: string;
-    offer: string;
-    location: string;
-    label: string;
-    time: string;
-    date: string;
-    imgUrl: string;
-  }[];
-  user: {
-    id: number;
-    name: string;
-    email: string;
-    password: string;
-    sessionToken: string;
-  };
-};
-
-export default function MyGrooves(props: Props) {
+export default function MyGrooves(props) {
   return (
     <FadeIn>
       {!props.user && <h2>Log in to view your grooves</h2>}
