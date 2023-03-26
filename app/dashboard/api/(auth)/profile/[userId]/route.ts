@@ -4,6 +4,7 @@ import {
   deleteUserById,
   getUserById,
   updateUserById,
+  User,
 } from '../../../../../../database/users';
 
 const userSchema = z.object({
@@ -17,10 +18,34 @@ const userSchema = z.object({
   language: z.string(),
 });
 
+export type ProfileResponseBodyGet =
+  | {
+      error: string;
+    }
+  | {
+      users: User[];
+    };
+
+export type ProfileResponseBodyDelete =
+  | {
+      error: string;
+    }
+  | {
+      user: User;
+    };
+
+export type ProfileResponseBodyPut =
+  | {
+      error: string;
+    }
+  | {
+      user: User;
+    };
+
 export async function GET(
   request: NextRequest,
   { params }: { params: Record<string, string | string[]> },
-) {
+): Promise<NextResponse<ProfileResponseBodyGet>> {
   const userId = Number(params.userId);
 
   if (!userId) {
@@ -39,7 +64,7 @@ export async function GET(
 export async function DELETE(
   request: NextRequest,
   { params }: { params: Record<string, string | string[]> },
-) {
+): Promise<NextResponse<ProfileResponseBodyDelete>> {
   const userId = Number(params.userId);
 
   if (!userId) {
@@ -67,9 +92,8 @@ export async function DELETE(
 export async function PUT(
   request: NextRequest,
   { params }: { params: Record<string, string | string[]> },
-) {
+): Promise<NextResponse<ProfileResponseBodyPut>> {
   const userId = Number(params.userId);
-
 
   if (!userId) {
     return NextResponse.json(
@@ -81,9 +105,7 @@ export async function PUT(
   }
   const body = await request.json();
 
-    const result = userSchema.safeParse(body);
-
-
+  const result = userSchema.safeParse(body);
 
   if (!result.success) {
     return NextResponse.json(
@@ -105,7 +127,6 @@ export async function PUT(
     result.data.favouriteFood,
     result.data.language,
   );
-
 
   if (!newUser) {
     return NextResponse.json(

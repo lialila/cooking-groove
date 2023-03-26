@@ -10,8 +10,23 @@ const usersgrooveSchema = z.object({
   userId: z.number(),
   grooveId: z.number(),
 });
+export type UsersgrooveResponseBodyGet =
+  | {
+      error: string;
+    }
+  | {
+      usersgrooves: Usersgroove;
+    };
 
-export async function GET() {
+export type UsersgrooveResponseBodyPost =
+  | {
+      error: string;
+    }
+  | {
+      usersgroove: Usersgroove;
+    };
+
+export async function GET(): Promise<NextResponse<UsersgrooveResponseBodyGet>> {
   // const { searchParams } = new URL(request.url);
 
   const usersgrooves = await getUsersgrooves();
@@ -19,7 +34,9 @@ export async function GET() {
   return NextResponse.json({ usersgrooves: usersgrooves });
 }
 
-export async function POST(request: NextRequest) {
+export async function POST(
+  request: NextRequest,
+): Promise<NextResponse<UsersgrooveResponseBodyPost>> {
   const body = await request.json();
 
   const result = usersgrooveSchema.safeParse(body);

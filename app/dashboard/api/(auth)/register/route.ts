@@ -29,7 +29,9 @@ export type RegisterResponseBody =
       };
     };
 
-export async function POST(request: NextRequest) {
+export async function POST(
+  request: NextRequest,
+): Promise<NextResponse<RegisterResponseBody>> {
   // 1. check if the data is correct: validate the data
   const body = await request.json();
 
@@ -82,14 +84,14 @@ export async function POST(request: NextRequest) {
     passwordHash,
   );
 
-  // if (!newUser) {
-  //   return NextResponse.json(
-  //     {
-  //       errors: [{ message: 'user creation failed' }],
-  //     },
-  //     { status: 500 },
-  //   );
-  // }
+  if (!newUser) {
+    return NextResponse.json(
+      {
+        errors: [{ message: 'user creation failed' }],
+      },
+      { status: 500 },
+    );
+  }
 
   // 5. create a session (in the next chapter)
   // - create the token
@@ -99,12 +101,12 @@ export async function POST(request: NextRequest) {
 
   const session = await createSession(token, newUser.id, csrfSecret);
 
-  // if (!session) {
-  //   return NextResponse.json(
-  //     { errors: [{ message: 'session creation failed' }] },
-  //     { status: 500 },
-  //   );
-  // }
+  if (!session) {
+    return NextResponse.json(
+      { errors: [{ message: 'session creation failed' }] },
+      { status: 500 },
+    );
+  }
 
   const serializedCookie = createSerializedRegisterSessionTokenCookie(
     session.token,

@@ -2,6 +2,7 @@ import { cookies } from 'next/headers';
 import { NextRequest, NextResponse } from 'next/server';
 import { z } from 'zod';
 import {
+  Comment,
   createComment,
   deleteCommentById,
   getCommentsByGrooveId,
@@ -15,10 +16,34 @@ const commentSchema = z.object({
   createdAt: z.string(),
 });
 
+export type CommentResponseBodyGet =
+  | {
+      error: string;
+    }
+  | {
+      comments: Comment;
+    };
+
+export type CommentResponseBodyPost =
+  | {
+      error: string;
+    }
+  | {
+      comment: Comment;
+    };
+
+export type CommentResponseBodyDelete =
+  | {
+      error: string;
+    }
+  | {
+      comment: Comment;
+    };
+
 export async function GET(
   request: NextRequest,
   { params }: { params: Record<string, string | string[]> },
-) {
+): Promise<NextResponse<CommentResponseBodyGet>> {
   const grooveId = Number(params.grooveId);
   const comments = await getCommentsByGrooveId(grooveId);
 
@@ -34,7 +59,9 @@ export async function GET(
   return NextResponse.json({ comments: comments });
 }
 
-export async function POST(request: NextRequest) {
+export async function POST(
+  request: NextRequest,
+): Promise<NextResponse<CommentResponseBodyPost>> {
   const cookieStore = cookies();
   const token = cookieStore.get('sessionToken');
 
@@ -62,21 +89,21 @@ export async function POST(request: NextRequest) {
     result.data.grooveId,
     result.data.createdAt,
   );
-  // if (!newComment) {
-  //   return NextResponse.json(
-  //     {
-  //       error: [{ message: 'comment creation failed' }],
-  //     },
-  //     { status: 500 },
-  //   );
-  // }
+  if (!newComment) {
+    return NextResponse.json(
+      {
+        error: [{ message: 'comment creation failed' }],
+      },
+      { status: 500 },
+    );
+  }
   return NextResponse.json({ comment: newComment });
 }
 
 export async function DELETE(
   request: NextRequest,
   { params }: { params: Record<string, string | string[]> },
-) {
+): Promise<NextResponse<CommentResponseBodyDelete>> {
   const commentId = Number(params.commentId);
   if (!commentId) {
     return NextResponse.json(
@@ -87,13 +114,13 @@ export async function DELETE(
     );
   }
   const singleComment = await deleteCommentById(commentId);
-  // if (!singleComment) {
-  //   return NextResponse.json(
-  //     {
-  //       errors: 'Comment does not exist',
-  //     },
-  //     { status: 400 },
-  //   );
-  // }
+  if (!singleComment) {
+    return NextResponse.json(
+      {
+        errors: 'Comment does not exist',
+      },
+      { status: 400 },
+    );
+  }
   return NextResponse.json({ comment: singleComment });
 }

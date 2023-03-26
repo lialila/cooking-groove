@@ -4,6 +4,7 @@ import {
   createIngredient,
   deleteIngredientById,
   getIngredientByGrooveId,
+  Ingredient,
 } from '../../../../../../../../database/ingredients';
 
 const ingredientSchema = z.object({
@@ -11,11 +12,35 @@ const ingredientSchema = z.object({
   grooveId: z.number(),
 });
 
+export type IngredientResponseBodyGet =
+  | {
+      error: string;
+    }
+  | {
+      ingredients: Ingredient;
+    };
+
+export type IngredientResponseBodyPost =
+  | {
+      error: string;
+    }
+  | {
+      ingredient: Ingredient;
+    };
+
+export type IngredientResponseBodyDelete =
+  | {
+      error: string;
+    }
+  | {
+      ingredient: Ingredient;
+    };
+
 // get ingredients from data base
 export async function GET(
   request: NextRequest,
   { params }: { params: Record<string, string | string[]> },
-) {
+): Promise<NextResponse<IngredientResponseBodyGet>> {
   const grooveId = Number(params.grooveId);
   const ingredients = await getIngredientByGrooveId(grooveId);
 
@@ -32,7 +57,9 @@ export async function GET(
 }
 
 // create ingredient
-export async function POST(request: NextRequest) {
+export async function POST(
+  request: NextRequest,
+): Promise<NextResponse<IngredientResponseBodyPost>> {
   const body = await request.json();
 
   const result = ingredientSchema.safeParse(body);
@@ -65,7 +92,7 @@ export async function POST(request: NextRequest) {
 export async function DELETE(
   request: NextRequest,
   { params }: { params: Record<string, string | string[]> },
-) {
+): Promise<NextResponse<IngredientResponseBodyDelete>> {
   // const grooveId = Number(params.grooveId);
   const ingredientId = Number(params.id);
   const singleIngredient = await deleteIngredientById(ingredientId);
@@ -81,13 +108,13 @@ export async function DELETE(
     );
   }
 
-  // if (!singleIngredient) {
-  //   return NextResponse.json(
-  //     {
-  //       errors: 'Ingredient does not exist',
-  //     },
-  //     { status: 400 },
-  //   );
-  // }
+  if (!singleIngredient) {
+    return NextResponse.json(
+      {
+        errors: 'Ingredient does not exist',
+      },
+      { status: 400 },
+    );
+  }
   return NextResponse.json({ ingredient: singleIngredient });
 }

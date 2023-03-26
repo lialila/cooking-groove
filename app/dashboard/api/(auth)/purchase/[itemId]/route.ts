@@ -11,7 +11,7 @@ export type PurchaseResponseBodyPost =
       user: User;
     };
 
-export async function POST() {
+export async function POST(): Promise<NextResponse<PurchaseResponseBodyPost>> {
   const cookieStore = cookies();
   const token = cookieStore.get('sessionToken');
 

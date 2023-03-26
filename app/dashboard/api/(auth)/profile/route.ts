@@ -1,10 +1,18 @@
 import { cookies } from 'next/headers';
 import { useRouter } from 'next/navigation';
-import { NextRequest, NextResponse } from 'next/server';
-import { getUserBySessionToken } from '../../../../../database/users';
+import { NextResponse } from 'next/server';
+import { getUserBySessionToken, User } from '../../../../../database/users';
 
-export async function GET(request: NextRequest, params) {
-  const { searchParams } = new URL(request.url);
+export type ProfileResponseBodyGet =
+  | {
+      error: string;
+    }
+  | {
+      user: User;
+    };
+
+export async function GET(): Promise<NextResponse<ProfileResponseBodyGet>> {
+  // const { searchParams } = new URL(request.url);
   const router = useRouter();
 
   const cookieStore = cookies();

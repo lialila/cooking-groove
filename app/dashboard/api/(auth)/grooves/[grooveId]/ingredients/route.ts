@@ -7,8 +7,17 @@ const ingredientSchema = z.object({
   grooveId: z.number(),
 });
 
+export type IngredientResponseBodyPost =
+  | {
+      error: string;
+    }
+  | {
+      ingredient: Ingredient;
+    };
+
 // create ingredient
-export async function POST(request: NextRequest) {
+export async function POST(request: NextRequest):
+Promise<NextResponse<IngredientResponseBodyPost>> {
   const body = await request.json();
 
   const result = ingredientSchema.safeParse(body);

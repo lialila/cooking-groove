@@ -3,6 +3,7 @@ import { z } from 'zod';
 import {
   deleteGrooveById,
   getGrooveById,
+  Groove,
   updateGrooveById,
 } from '../../../../../../database/grooves';
 
@@ -19,10 +20,34 @@ const grooveSchema = z.object({
   language: z.string(),
 });
 
+export type GrooveResponseBodyGet =
+  | {
+      error: string;
+    }
+  | {
+      groove: Groove;
+    };
+
+export type GrooveResponseBodyDelete =
+  | {
+      error: string;
+    }
+  | {
+      groove: Groove;
+    };
+
+export type GrooveResponseBodyPut =
+  | {
+      error: string;
+    }
+  | {
+      groove: Groove;
+    };
+
 export async function GET(
   request: NextRequest,
   { params }: { params: Record<string, string | string[]> },
-) {
+): Promise<NextResponse<GrooveResponseBodyGet>> {
   const grooveId = Number(params.grooveId);
 
   if (!grooveId) {
@@ -41,7 +66,7 @@ export async function GET(
 export async function DELETE(
   request: NextRequest,
   { params }: { params: Record<string, string | string[]> },
-) {
+): Promise<NextResponse<GrooveResponseBodyDelete>> {
   const grooveId = Number(params.grooveId);
 
   if (!grooveId) {
@@ -69,7 +94,7 @@ export async function DELETE(
 export async function PUT(
   request: NextRequest,
   { params }: { params: Record<string, string | string[]> },
-) {
+): Promise<NextResponse<GrooveResponseBodyPut>> {
   const grooveId = Number(params.grooveId);
 
   if (!grooveId) {

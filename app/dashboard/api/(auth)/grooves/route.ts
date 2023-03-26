@@ -1,7 +1,7 @@
 import { cookies } from 'next/headers';
 import { NextRequest, NextResponse } from 'next/server';
 import { z } from 'zod';
-import { createGroove } from '../../../../../database/grooves';
+import { createGroove, Groove } from '../../../../../database/grooves';
 import { createIngredient } from '../../../../../database/ingredients';
 import { getUserBySessionToken } from '../../../../../database/users';
 import { validateTokenAgainstSecret } from '../../../../../utils/csrf';
@@ -21,7 +21,17 @@ const grooveSchema = z.object({
   ingredientName: z.string(),
 });
 
-export async function POST(request: NextRequest) {
+export type GrooveResponseBodyPost =
+  | {
+      error: string;
+    }
+  | {
+      groove: Groove;
+    };
+
+export async function POST(
+  request: NextRequest,
+): Promise<NextResponse<GrooveResponseBodyPost>> {
   const cookieStore = cookies();
   const token = cookieStore.get('sessionToken');
 
@@ -66,14 +76,14 @@ export async function POST(request: NextRequest) {
     // token.value,
   );
 
-  // if (!newGroove) {
-  //   return NextResponse.json(
-  //     {
-  //       error: 'Groove creation failed',
-  //     },
-  //     { status: 400 },
-  //   );
-  // }
+  if (!newGroove) {
+    return NextResponse.json(
+      {
+        error: 'Groove creation failed',
+      },
+      { status: 400 },
+    );
+  }
 
   if (!result.data.ingredientName) {
     return NextResponse.json({
