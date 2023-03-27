@@ -2,6 +2,8 @@
   height: 100vh;
   margin: 0px;
   background-image: url('/backgroundphoto16.jpg');
+  // background-color: rgba(5, 12, 32, 0.8);
+
   background-position: center;
   -webkit-background-size: cover;
   -moz-background-size: cover;
@@ -70,22 +72,6 @@
     // border-radius: 50%;
   }
 }
-// .searchInput {
-//   width: 7rem;
-//   height: 1.4rem;
-//   padding: 0;
-//   color: rgb(255, 255, 255);
-//   line-height: 2rem;
-//   text-transform: lowercase;
-//   font-weight: 400;
-//   font-size: 1rem;
-//   letter-spacing: 0.2vw;
-//   background: rgba(255, 255, 255, 0);
-//   border-radius: 12px;
-//   backdrop-filter: blur(18px);
-//   -webkit-backdrop-filter: blur(18px);
-//   border: 1px solid rgba(255, 253, 253, 1);
-// }
 
 .searchButton {
   background: rgba(255, 255, 255, 0);

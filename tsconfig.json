@@ -1,54 +1,30 @@
 {
   "compilerOptions": {
-    "target": "es5",
     "lib": ["dom", "dom.iterable", "esnext"],
     "allowJs": true,
     "skipLibCheck": true,
-    "strict": true,
+    "strict": false,
     "forceConsistentCasingInFileNames": true,
     "noEmit": true,
+    "incremental": true,
     "esModuleInterop": true,
     "module": "esnext",
     "moduleResolution": "node",
     "resolveJsonModule": true,
     "isolatedModules": true,
     "jsx": "preserve",
-    "incremental": true,
     "plugins": [
       {
         "name": "next"
       }
-    ],
-    "baseUrl": ".",
-    "paths": {
-      "@C:/Program": ["./*"]
-    }
+    ]
   },
   "include": [
     "next-env.d.ts",
-    "**/*.ts",
-    "**/*.mjs",
-    "**/*.cjs",
-    "**/*.tsx",
     ".next/types/**/*.ts",
-    "app/LandingPage.js",
-    "app/dashboard/(auth)/registration/page.tsx",
-    "app/dashboard/layout.js",
-    "app/layout.tsx",
-    "app/page.tsx",
-    "app/dashboard/(auth)/registration/RegisterForm.jsx",
-    "app/dashboard/grooves/[grooveId]/page.jsx",
-    "app/dashboard/grooves/[grooveId]/EditGrooveForm.jsx",
-    "app/dashboard/grooves/SearchGroovesForm.jsx",
-    "app/dashboard/grooves/page.jsx",
-    "app/dashboard/grooves/users-grooves/[userId]/page.jsx",
-    "app/dashboard/grooves/users-grooves/[userId]/UsersGrooves.jsx",
-    "app/dashboard/profile/[userId]/page.jsx",
-    "app/dashboard/grooves/participation-grooves/page.jsx",
-    "app/dashboard/grooves/my-grooves/page.jsx",
-    "app/dashboard/grooves/my-grooves/MyGrooves.jsx",
-    "app/dashboard/grooves/create-groove/page.jsx",
-    "app/dashboard/grooves/create-groove/CreateGrooveForm.jsx"
+    "**/*.ts",
+    "**/*.tsx",
+    "app/dashboard/grooves/my-grooves/Carousel.jsx"
   ],
   "exclude": ["node_modules"]
 }

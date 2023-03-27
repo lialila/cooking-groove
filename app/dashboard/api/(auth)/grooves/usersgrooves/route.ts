@@ -3,6 +3,7 @@ import { z } from 'zod';
 import {
   createUsersgrooves,
   getUsersgrooves,
+  Usersgroove,
 } from '../../../../../../database/usersgrooves';
 
 const usersgrooveSchema = z.object({
@@ -54,13 +55,13 @@ export async function POST(
     result.data.userId,
     result.data.grooveId,
   );
-  // if (!newUsersgroove) {
-  //   return NextResponse.json(
-  //     {
-  //       error: [{ message: 'user creation failed' }],
-  //     },
-  //     { status: 500 },
-  //   );
-  // }
+  if (!newUsersgroove) {
+    return NextResponse.json(
+      {
+        error: [{ message: 'user creation failed' }],
+      },
+      { status: 500 },
+    );
+  }
   return NextResponse.json({ usersgrooves: newUsersgroove });
 }

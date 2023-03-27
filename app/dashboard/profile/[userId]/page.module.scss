@@ -3,12 +3,13 @@
   flex-direction: column;
   align-items: center;
   text-align: center;
-  margin-top: 6rem;
+  margin: 6rem 0;
   width: 100vw;
   font-weight: 400;
   font-size: 1rem;
   letter-spacing: 0.2vw;
   color: white;
+  background-color: rgba(5, 12, 32, 0.3);
 
   p {
     margin: 0;
@@ -18,11 +19,7 @@
     padding-bottom: 1rem;
     margin: 1rem;
   }
-  h3 {
-    margin: 0.3rem;
-    font-size: 1.2rem;
-    margin-bottom: 0;
-  }
+
   button {
     background: rgba(185, 179, 179, 0.1);
     border: solid rgba(255, 255, 255, 0.3) 1.2px;
@@ -39,23 +36,42 @@
   }
 }
 
+// .card {
+//   backdrop-filter: blur(8.4px);
+//   -webkit-backdrop-filter: blur(8.4px);
+//   background-color: rgba(5, 12, 32, 0.3);
+// }
+
 .form {
   margin: auto;
-  line-height: 2rem;
+  line-height: 1.5rem;
   font-weight: 400;
   font-size: 1rem;
   letter-spacing: 0.2vw;
-
-  input {
-    color: white;
-    width: 100%;
-    margin: auto;
-    text-align: left;
-    background-color: rgba(185, 179, 179, 0);
-    border-bottom: solid 1.2px white;
-    border-top: none;
-    border-right: none;
+  backdrop-filter: blur(8.4px);
+  -webkit-backdrop-filter: blur(8.4px);
+  background-color: rgba(5, 12, 32, 0.3);
+}
+.profileTitel {
+  margin: 0;
+  line-height: 0.8rem;
+  h3 {
+    margin: 0.3rem;
+    font-size: 1.2rem;
+    margin-bottom: -0.9rem;
+    padding-bottom: 0;
   }
+}
+
+.input {
+  color: white;
+  width: 60vw;
+  margin: auto;
+  text-align: left;
+  background-color: rgba(185, 179, 179, 0);
+  border-bottom: solid 1.2px white;
+  border-top: none;
+  border-right: none;
 }
 .img {
   border-radius: 50%;

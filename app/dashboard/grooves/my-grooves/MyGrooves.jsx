@@ -1,6 +1,8 @@
 'use client';
+
 import Link from 'next/link';
 import FadeIn from 'react-fade-in/lib/FadeIn';
+// import Carousel from './Carousel';
 import styles from './page.module.scss';
 
 export default function MyGrooves(props) {
@@ -32,6 +34,7 @@ export default function MyGrooves(props) {
         <div className={styles.div}>
           {' '}
           <h2 className={styles.textForList}>My Grooves</h2>
+          {/* <Carousel myGrooves={props.myGrooves} /> */}
           <ul>
             {props.myGrooves.map((groove) => {
               return (

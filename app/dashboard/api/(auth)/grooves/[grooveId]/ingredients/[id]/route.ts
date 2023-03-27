@@ -77,14 +77,14 @@ export async function POST(
     result.data.ingredientName,
     result.data.grooveId,
   );
-  // if (!newIngredient) {
-  //   return NextResponse.json(
-  //     {
-  //       error: [{ message: 'comment creation failed' }],
-  //     },
-  //     { status: 500 },
-  //   );
-  // }
+  if (!newIngredient) {
+    return NextResponse.json(
+      {
+        error: [{ message: 'comment creation failed' }],
+      },
+      { status: 500 },
+    );
+  }
   return NextResponse.json({ ingredient: newIngredient });
 }
 

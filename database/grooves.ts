@@ -123,3 +123,17 @@ export const updateGrooveById = cache(
     return groove;
   },
 );
+
+export const getGroovesWithIngredients = cache(async () => {
+  const grooves = await sql<Groove[]>`
+SELECT
+ *
+FROM
+  grooves
+INNER JOIN
+  ingredients ON
+    ingredients.groove_id = grooves.id
+
+  `;
+  return grooves;
+});

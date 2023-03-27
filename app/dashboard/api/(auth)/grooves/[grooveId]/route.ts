@@ -79,14 +79,14 @@ export async function DELETE(
   }
   const singleGroove = await deleteGrooveById(grooveId);
 
-  // if (!singleGroove) {
-  //   return NextResponse.json(
-  //     {
-  //       error: 'Groove not found',
-  //     },
-  //     { status: 404 },
-  //   );
-  // }
+  if (!singleGroove) {
+    return NextResponse.json(
+      {
+        error: 'Groove not found',
+      },
+      { status: 404 },
+    );
+  }
 
   return NextResponse.json({ groove: singleGroove });
 }
@@ -132,13 +132,13 @@ export async function PUT(
     result.data.language,
   );
 
-  // if (!newGroove) {
-  //   return NextResponse.json(
-  //     {
-  //       error: 'Groove not found',
-  //     },
-  //     { status: 404 },
-  //   );
-  // }
+  if (!newGroove) {
+    return NextResponse.json(
+      {
+        error: 'Groove not found',
+      },
+      { status: 404 },
+    );
+  }
   return NextResponse.json({ groove: newGroove });
 }

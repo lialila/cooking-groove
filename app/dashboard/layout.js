@@ -16,7 +16,9 @@ export const dynamic = 'force-dynamic';
 export default function DashboardLayout({ children }) {
   return (
     <section className={styles.html}>
-      <div className={montserratText.className}>{children}</div>
+      <div className={`${montserratText.className} ${styles.body}`}>
+        {children}
+      </div>
     </section>
   );
 }

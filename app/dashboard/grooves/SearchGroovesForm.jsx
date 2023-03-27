@@ -5,27 +5,9 @@ import FadeIn from 'react-fade-in/lib/FadeIn';
 // import { Ingredient } from '../../../database/ingredients';
 import styles from './page.module.scss';
 
-// type Props = {
-//   allGrooves: {
-//     [key: string]: string;
-//     id: number;
-//     name: string;
-//     description: string;
-//     offer: string;
-//     location: string;
-//     label: string;
-//     time: string;
-//     date: string;
-//     language: string;
-//     imgUrl: string;
-//   }[];
-
-//   allIngredients: Ingredient[];
-// };
-
 export default function SearchGroovesForm(props) {
   const [grooveSearch, setGrooveSearch] = useState('');
-
+  const [ingredientSearch, setIngredientSearch] = useState('');
   const keys = [
     'name',
     'description',
@@ -35,7 +17,17 @@ export default function SearchGroovesForm(props) {
     'time',
     'date',
     'language',
+    'ingredientName',
   ];
+  const ingredientKeys = ['ingredientName'];
+  console.log('groovesWithIngredients', props.groovesWithIngredients);
+
+  // const groovesFiltered = props.groovesWithIngredients.filter(
+  //   (groove) =>
+  //     groove.id ===
+  //     props.allIngredients.map((ingredient) => ingredient.grooveId),
+  // );
+  // console.log('groovesFiltered', groovesFiltered);
 
   return (
     <FadeIn className={styles.div}>
@@ -47,9 +39,34 @@ export default function SearchGroovesForm(props) {
           onChange={(e) => setGrooveSearch(e.currentTarget.value)}
         />
       </label>
-
+      {/* <label htmlFor="search">
+        <input
+          placeholder="Search for ingredient..."
+          value={ingredientSearch}
+          className={styles.searchInput}
+          onChange={(e) => setIngredientSearch(e.currentTarget.value)}
+        />
+      </label>
       <ul>
-        {props.allGrooves
+        {props.allIngredients
+          .filter((igredient1) =>
+            igredient1.ingredientName
+              .toLowerCase()
+              .includes(ingredientSearch.toLowerCase()),
+          )
+          .map((ingredient) => {
+            return groovesFiltered.map((groove) => {
+              return (
+                <li className={styles.div} key={`groove.${groove.id}`}>
+                  <p>{groove.name}</p>
+                  <p>{groove.ingredient}</p>
+                </li>
+              );
+            });
+          })}
+      </ul> */}
+      <ul>
+        {props.groovesWithIngredients
           .filter((groove) =>
             keys.some(
               (key) =>
@@ -57,6 +74,7 @@ export default function SearchGroovesForm(props) {
                 groove[key].toLowerCase().includes(grooveSearch.toLowerCase()),
             ),
           )
+
           .map((groove) => {
             const ingredients = props.allIngredients.filter(
               (ingredient) => ingredient.grooveId === groove.id,
@@ -78,7 +96,7 @@ export default function SearchGroovesForm(props) {
                   <p>Missing ingredients:</p>
                 ) : (
                   <p>Missing ingredient:</p>
-                )}
+                )}{' '}
                 {ingredients.map((ingredient) => {
                   return (
                     <p key={`ingredient.${ingredient.id}`}>

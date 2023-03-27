@@ -28,7 +28,7 @@ export default async function LandingPage() {
   return (
     <section className={styles.main}>
       <div className={styles.div}>
-        <h2 className={inter.className}>Cooking Groove</h2>
+        <h2 className={courierPrime.className}>Cooking Groove</h2>
 
         <p className={courierPrime.className}>
           <span>GROOVE</span> <br />
