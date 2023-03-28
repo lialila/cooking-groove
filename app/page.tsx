@@ -1,4 +1,4 @@
-import { Courier_Prime, Montserrat } from '@next/font/google';
+import { Courier_Prime, Inter, Montserrat } from '@next/font/google';
 import { cookies } from 'next/headers';
 import Link from 'next/link';
 import { getUserBySessionToken } from '../database/users';
@@ -9,11 +9,14 @@ const courierPrime = Courier_Prime({
   subsets: ['latin'],
 });
 
-const inter = Montserrat({
+const montserrat = Montserrat({
   weight: '400',
   subsets: ['latin'],
 });
-
+const inter = Inter({
+  weight: '400',
+  subsets: ['latin'],
+});
 export const metadata = {
   title: 'Cooking Groove',
   description: 'Cooking together',
@@ -28,7 +31,7 @@ export default async function LandingPage() {
   return (
     <section className={styles.main}>
       <div className={styles.div}>
-        <h2 className={courierPrime.className}>Cooking Groove</h2>
+        <h2 className={inter.className}>Cooking Groove</h2>
 
         <p className={courierPrime.className}>
           <span>GROOVE</span> <br />

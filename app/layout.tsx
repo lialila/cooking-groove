@@ -1,5 +1,5 @@
 import './globals.scss';
-import { Courier_Prime, Montserrat } from '@next/font/google';
+import { Courier_Prime, Inter, Montserrat } from '@next/font/google';
 import { cookies } from 'next/headers';
 import Image from 'next/image';
 import Link from 'next/link';
@@ -18,7 +18,10 @@ const courierPrime = Courier_Prime({
   weight: '400',
   subsets: ['latin'],
 });
-
+const inter = Inter({
+  weight: '400',
+  subsets: ['latin'],
+});
 const montserratText = Montserrat({
   weight: '400',
   subsets: ['latin'],
@@ -62,7 +65,7 @@ export default async function RootLayout(props: Props) {
             </ul>
           </nav>
         </header>
-        {props.children}
+        <div className={styles.children}>{props.children}</div>
         <footer className={montserratText.className}>
           <ul>
             {user ? (
@@ -101,8 +104,8 @@ export default async function RootLayout(props: Props) {
                       <img
                         className={styles.profileImg}
                         src={userObj.profileImgUrl}
-                        width="50"
-                        height="50"
+                        width="40"
+                        // height="50"
                         alt="Profile"
                       />
                     )}
@@ -116,20 +119,24 @@ export default async function RootLayout(props: Props) {
                     <Link href="/dashboard/grooves">
                       <Image
                         src="/nav-footer/searchclassic.png"
-                        width="32"
-                        height="32"
+                        width="25"
+                        height="25"
                         alt="search"
                       />{' '}
                     </Link>
                   </li>{' '}
                   <li>
-                    <Link href="/dashboard/registration">
+                    <Link
+                      className={styles.defaultImgDiv}
+                      href="/dashboard/registration"
+                    >
                       <Image
                         src="/nav-footer/sign-up.png"
-                        width="25"
-                        height="25"
+                        width="20"
+                        height="20"
                         alt="search"
                       />{' '}
+                      <p> sign up</p>
                     </Link>
                   </li>
                   <li>
@@ -140,7 +147,7 @@ export default async function RootLayout(props: Props) {
                       <img
                         alt="profile"
                         src="/default-profile-picture/defult-profile.jpg"
-                        width="30"
+                        width="25"
                         className={styles.img}
                       />
                       <p>log in</p>

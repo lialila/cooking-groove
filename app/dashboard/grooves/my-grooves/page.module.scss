@@ -7,6 +7,7 @@
   margin-top: 10rem;
   justify-content: center;
   width: 96vw;
+  margin-bottom: 8rem;
 }
 
 .link {
@@ -87,6 +88,8 @@
     flex-direction: column;
 
     li {
+      max-width: 300px;
+
       box-shadow: 0 4px 30px rgba(243, 235, 235, 0.3);
       backdrop-filter: blur(8.4px);
       -webkit-backdrop-filter: blur(8.4px);
@@ -109,6 +112,7 @@
       img {
         border-radius: 10px;
         width: 40vw;
+        max-width: 250px;
       }
     }
   }
@@ -147,30 +151,40 @@
 
 .carousel {
   overflow: hidden;
-  width: 700px;
+  width: 400px;
+  // height: 800px;
   display: flex;
   flex-direction: column;
   justify-content: center;
+  padding: 0 2rem 2rem;
+  // margin: 2rem;
+  border: solid 1.2px white;
+  background: rgba(2, 4, 32, 0.4);
+  backdrop-filter: blur(8.4px);
+  -webkit-backdrop-filter: blur(8.4px);
+  box-shadow: 0 4px 30px rgba(243, 235, 235, 0.3);
 }
 
 .inner {
+  //margin: 2rem;
   white-space: nowrap;
-  transition: transform 0.3s;
-  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+  transition: transform 0.4s;
+  margin-bottom: 0;
 }
 .carouselItem {
-  display: inline-flex;
+  display: flex;
+  flex-direction: column;
   align-items: center;
   justify-content: center;
   height: 30rem;
   img {
-    padding: 0 20px;
+    padding: 0 40px;
   }
 }
-.arrow {
+.buttonArrow {
   background: none;
 
-  //  background-color: rgba(0, 0, 0, 0);
+  background-color: rgba(0, 0, 0, 0);
   border: none;
   cursor: pointer;
   margin-top: 1rem;

@@ -2,6 +2,7 @@ import { Courier_Prime } from '@next/font/google';
 import { cookies } from 'next/headers';
 import { getGrooves } from '../../../../database/grooves';
 import { getUserBySessionToken } from '../../../../database/users';
+import Carousel from './Carousel';
 import MyGrooves from './MyGrooves';
 import styles from './page.module.scss';
 
@@ -35,6 +36,7 @@ export default async function MyGroovesPage() {
   return (
     <div className={`${courierPrime.className} ${styles.main}`}>
       <MyGrooves myGrooves={myGrooves} user={user} />
+      {/* <Carousel myGrooves={myGrooves} /> */}
     </div>
   );
 }

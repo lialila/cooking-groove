@@ -195,7 +195,12 @@ export default function CreateGrooveForm(props) {
             Upload image:
             <input type="file" name="fileInput" />
           </label>
-          <button onSubmit={() => handleSubmit}>Create</button>
+          <button
+            onSubmit={() => handleSubmit}
+            className={courierPrime.className}
+          >
+            Create
+          </button>
           {typeof error === 'string' && (
             <div style={{ color: 'red' }}>{error}</div>
           )}

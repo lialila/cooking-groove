@@ -1,11 +1,13 @@
 .main {
   display: flex;
   flex-direction: row;
+  justify-content: center;
   align-items: center;
   text-align: center;
-  margin: 4rem 0;
-  padding: 1rem;
-  // width: 100vw;
+  margin-top: 8rem;
+  margin-bottom: 10rem;
+  padding: 1.2rem;
+  width: 98vw;
   color: white;
 
   h3 {
@@ -15,30 +17,57 @@
     font-size: 1.5rem;
   }
   button {
-    background: rgba(185, 179, 179, 0.3);
-    border: solid rgba(255, 255, 255, 0.3) 1.2px;
+    margin: 1.8rem 0 1rem;
+    background: hsla(285, 76%, 36%, 1);
+
+    background: linear-gradient(
+      180deg,
+      hsla(285, 76%, 36%, 1) 0%,
+      hsl(346, 100%, 65%) 100%
+    );
+
+    background: -moz-linear-gradient(
+      180deg,
+      hsla(285, 76%, 36%, 1) 0%,
+      hsla(346, 100%, 65%, 1) 100%
+    );
+
+    background: -webkit-linear-gradient(
+      180deg,
+      hsla(285, 76%, 36%, 1) 0%,
+      hsla(346, 100%, 65%, 1) 100%
+    );
+    border: none;
     border-radius: 8px;
-    padding: 7px;
-    margin: 7px;
-    width: 6rem;
+    padding: 0.4rem;
+    width: 7rem;
+    height: 2.2rem;
+    font-size: 14px;
+    box-shadow: 0 4px 30px rgba(243, 235, 235, 0.3);
     color: white;
     align-items: center;
   }
   button:hover {
-    background: rgba(2, 4, 32, 0.3);
+    background-color: rgb(114, 4, 151);
+
     // border: solid rgba(255, 255, 255, 0.3) 1.2px;
   }
 }
 
 .form {
+  width: 70vw;
   color: white;
   display: inline-block;
-  margin: 0 1rem 1rem;
+  margin-top: 1rem;
   font-weight: 500;
   font-size: 1rem;
   letter-spacing: 0.2vw;
   // border: 1px solid rgb(255, 255, 255);
   padding: 15px 40px 10px;
+  box-shadow: 0 4px 30px rgba(243, 235, 235, 0.3);
+  backdrop-filter: blur(8.4px);
+  -webkit-backdrop-filter: blur(8.4px);
+  background-color: rgba(23, 34, 65, 0.3);
 
   input {
     width: 100%;

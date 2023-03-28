@@ -1,5 +1,6 @@
 'use client';
 import { Courier_Prime } from '@next/font/google';
+import Link from 'next/link';
 import { useRouter } from 'next/navigation';
 import { useState } from 'react';
 import { RegisterResponseBody } from '../../api/(auth)/register/route';
@@ -76,7 +77,9 @@ export default function Form(props: { returnTo?: string | string[] }) {
       <br />
       <div className={courierPrime.className}>
         <div className={styles.button}>
-          <button className={courierPrime.className}>Sign up</button>
+          <Link href="/dashboard/registration">
+            <button className={courierPrime.className}>Sign up</button>
+          </Link>
           <button className={courierPrime.className}>Log in</button>
         </div>
       </div>

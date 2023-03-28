@@ -86,14 +86,14 @@ export default function EditUserForm(props: Props) {
               {!props.user.profileImgUrl ? (
                 <img
                   src="/default-profile-picture/defult-profile.jpg"
-                  width="150"
+                  width="130"
                   alt="Profile"
                   className={styles.img}
                 />
               ) : (
                 <img
                   src={props.user.profileImgUrl}
-                  width="150"
+                  width="130"
                   alt="Profile"
                   className={styles.img}
                 />
@@ -312,6 +312,7 @@ export default function EditUserForm(props: Props) {
         ) : (
           <Link href="/logout" prefetch={false}>
             <img
+              className={styles.logout}
               src="/nav-footer/logout.png"
               width="25"
               height="25"

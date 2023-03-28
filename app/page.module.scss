@@ -40,20 +40,41 @@
     line-height: 1.6rem;
   }
   button {
-    background-color: rgba(255, 255, 255, 0.7);
-    // #ffdc69;
-    color: black;
-    border: solid 1.2px rgba(255, 255, 255, 0.3);
-    padding: 5px 7px;
+    // background: hsla(285, 76%, 36%, 1);
+
+    // background: linear-gradient(
+    //   180deg,
+    //   hsla(285, 76%, 36%, 1) 0%,
+    //   hsl(346, 100%, 65%) 100%
+    // );
+
+    // background: -moz-linear-gradient(
+    //   180deg,
+    //   hsla(285, 76%, 36%, 1) 0%,
+    //   hsla(346, 100%, 65%, 1) 100%
+    // );
+
+    // background: -webkit-linear-gradient(
+    //   180deg,
+    //   hsla(285, 76%, 36%, 1) 0%,
+    //   hsla(346, 100%, 65%, 1) 100%
+    // );
+    background-color: rgba(5, 12, 32, 0);
+    color: white;
+    // border: solid 1.2px rgba(5, 12, 32, 0.7);
+    padding: 7px;
     text-align: center;
     text-decoration: none;
     display: inline-block;
     font-size: 16px;
     margin: 4px 2px;
     cursor: pointer;
-    border-radius: 5px;
+    border-radius: 8px;
     // font-weight: 600;
     // letter-spacing: 1.5px;
-    text-transform: lowercase;
+    // text-transform: lowercase;
+  }
+  button:hover {
+    background-color: rgba(5, 12, 32, 0.4);
   }
 }
