@@ -79,11 +79,16 @@
   align-items: center;
   justify-content: center;
   ul {
+    margin-top: 2rem;
     display: flex;
-    flex-direction: column;
+    justify-content: space-evenly;
+    align-items: flex-start;
+    flex-wrap: wrap;
 
     li {
-      max-width: 300px;
+      align-items: center;
+      height: 400px;
+      max-width: 250px;
       box-shadow: 0 4px 30px rgba(243, 235, 235, 0.3);
       backdrop-filter: blur(8.4px);
       -webkit-backdrop-filter: blur(8.4px);
@@ -99,8 +104,8 @@
     }
     img {
       border-radius: 10px;
-      width: 50vw;
-      max-width: 250px;
+      max-height: 50vw;
+      max-width: 200px;
     }
     h3 {
       text-transform: uppercase;

@@ -160,195 +160,224 @@ export default function EditGrooveForm(props) {
   };
 
   return (
-    <div className={styles.main}>
-      <div className={montserrat.className}>
-        <div key={props.currentGroove.id} className={styles.div}>
-          <form>
-            {idOnEditMode !== props.currentGroove.id ? (
+    <div className={` ${montserrat.className}`}>
+      <div key={props.currentGroove.id} className={styles.div}>
+        <form>
+          {' '}
+          {idOnEditMode !== props.currentGroove.id ? (
+            <div className={styles.h1}>
               <h1>{props.currentGroove.name}</h1>
-            ) : (
-              <label className={styles.onEdit}>
-                Groove name:
-                <input
-                  value={editName}
-                  onChange={(e) => setEditName(e.currentTarget.value)}
-                />
-              </label>
-            )}{' '}
-            <div className={styles.datetimelocation}>
-              {idOnEditMode !== props.currentGroove.id ? (
-                <div className={styles.time}>
-                  <img src="/groove/time1.png" alt="time" width="20" />
-                  <p>
-                    {props.currentGroove.date} at {props.currentGroove.time}
-                  </p>
-                </div>
-              ) : (
-                <>
-                  <label className={styles.onEdit}>
-                    Time:
-                    <input
-                      type="time"
-                      value={editTime}
-                      onChange={(e) => setEditTime(e.currentTarget.value)}
-                    />
-                  </label>
-                  <label className={styles.onEdit}>
-                    Date:
-                    <input
-                      type="date"
-                      value={editDate}
-                      onChange={(e) => setEditDate(e.currentTarget.value)}
-                    />
-                  </label>
-                </>
-              )}{' '}
-              {idOnEditMode !== props.currentGroove.id ? (
-                <div className={styles.location}>
-                  <img src="/groove/place1.png" alt="location" width="20" />
-                  <p>{props.currentGroove.location}</p>
-                </div>
-              ) : (
-                <label className={styles.onEdit}>
-                  Location:
-                  <input
-                    value={editLocation || ''}
-                    onChange={(e) => setEditLocation(e.currentTarget.value)}
-                  />{' '}
-                </label>
-              )}{' '}
+              {props.currentGroove.userId !== props.currentUserId ? (
+                findUserId ? (
+                  <p className={styles.going}>You are going!</p>
+                ) : null
+              ) : null}
+              {props.currentGroove.userId === props.currentUserId ? (
+                <button
+                  onClick={() => {
+                    setIdOnEditMode(props.currentGroove.id);
+                    setEditName(props.currentGroove.name);
+                    setEditOffer(props.currentGroove.offer);
+                    setEditDescription(props.currentGroove.description || '');
+                    setEditLocation(props.currentGroove.location || '');
+                    setEditLabel(props.currentGroove.label || '');
+                    setEditTime(props.currentGroove.time);
+                    setEditDate(props.currentGroove.date);
+                    setEditLanguage(props.currentGroove.language);
+                  }}
+                >
+                  Edit
+                </button>
+              ) : null}
             </div>
+          ) : (
+            <label className={styles.onEdit}>
+              Groove name:
+              <input
+                value={editName}
+                onChange={(e) => setEditName(e.currentTarget.value)}
+              />
+            </label>
+          )}{' '}
+          <div className={styles.datetimelocation}>
             {idOnEditMode !== props.currentGroove.id ? (
-              <div className={styles.offer}>
-                {' '}
-                <img src="/groove/donerose.png" alt="done" width="30" />
-                <p>{props.currentGroove.offer}</p>
+              <div className={styles.time}>
+                <img src="/groove/time1.png" alt="time" width="20" />
+                <p>
+                  {props.currentGroove.date} at {props.currentGroove.time}
+                </p>
+              </div>
+            ) : (
+              <>
+                <label className={styles.onEdit}>
+                  Time:
+                  <input
+                    type="time"
+                    value={editTime}
+                    onChange={(e) => setEditTime(e.currentTarget.value)}
+                  />
+                </label>
+                <label className={styles.onEdit}>
+                  Date:
+                  <input
+                    type="date"
+                    value={editDate}
+                    onChange={(e) => setEditDate(e.currentTarget.value)}
+                  />
+                </label>
+              </>
+            )}{' '}
+            {idOnEditMode !== props.currentGroove.id ? (
+              <div className={styles.location}>
+                <img src="/groove/place1.png" alt="location" width="20" />
+                <p>{props.currentGroove.location}</p>
               </div>
             ) : (
               <label className={styles.onEdit}>
-                Offer:
+                Location:
                 <input
-                  value={editOffer}
-                  onChange={(e) => setEditOffer(e.currentTarget.value)}
+                  value={editLocation || ''}
+                  onChange={(e) => setEditLocation(e.currentTarget.value)}
                 />{' '}
               </label>
             )}{' '}
-            <div className={styles.missing}>
-              {idOnEditMode !== props.currentGroove.id ? (
-                <>
-                  {' '}
-                  <div>
-                    <img
-                      src="/groove/questionrose.png"
-                      alt="missing"
-                      width="60"
-                    />
-                  </div>
-                  <div className={styles.list}>
-                    {groovesIngredients.map((oneIngredient) => {
-                      return (
-                        <label
-                          key={`ingredient.${oneIngredient.id}`}
-                          className={styles.ingredients}
-                        >
-                          <input type="checkbox" />
-                          {oneIngredient.ingredientName}
-                        </label>
-                      );
-                    })}
-                  </div>
-                </>
-              ) : (
-                <div className={styles.missingOnEdit}>
-                  <label>
-                    Add missing ingredient:{' '}
-                    <input
-                      value={ingredient}
-                      onChange={(e) => setIngredient(e.currentTarget.value)}
-                    />{' '}
-                  </label>
-                  <button onClick={handleIngredientAddition}>+</button>
-                  {groovesIngredients.length ===
-                  0 ? null : groovesIngredients.length > 1 ? (
-                    <p>Missing ingredients:</p>
-                  ) : (
-                    <p>Missing ingredient:</p>
-                  )}
-                  {groovesIngredients.map((singleIngredient) => {
+          </div>
+          {idOnEditMode !== props.currentGroove.id ? (
+            <div className={styles.offer}>
+              {' '}
+              <img src="/groove/donerose.png" alt="done" width="30" />
+              <p>{props.currentGroove.offer}</p>
+            </div>
+          ) : (
+            <label className={styles.onEdit}>
+              Offer:
+              <input
+                value={editOffer}
+                onChange={(e) => setEditOffer(e.currentTarget.value)}
+              />{' '}
+            </label>
+          )}{' '}
+          <div className={styles.missing}>
+            {idOnEditMode !== props.currentGroove.id ? (
+              <>
+                {' '}
+                <div>
+                  <img
+                    src="/groove/questionrose.png"
+                    alt="missing"
+                    width="60"
+                  />
+                </div>
+                <div className={styles.list}>
+                  {groovesIngredients.map((oneIngredient) => {
                     return (
-                      <li key={`ingredient.${singleIngredient.id}`}>
-                        <label className={styles.ingredients}>
-                          {' '}
-                          {singleIngredient.ingredientName}
-                          <input type="checkbox" />{' '}
-                          <button
-                            type="button"
-                            onClick={() =>
-                              handleIngredientDelete(singleIngredient.id)
-                            }
-                          >
-                            X
-                          </button>
-                        </label>
-                      </li>
+                      <label
+                        key={`ingredient.${oneIngredient.id}`}
+                        className={styles.ingredients}
+                      >
+                        <input type="checkbox" />
+                        {oneIngredient.ingredientName}
+                      </label>
                     );
                   })}
                 </div>
-              )}{' '}
-            </div>
-            {idOnEditMode !== props.currentGroove.id ? (
-              <div className={styles.hosted}>
-                <Link href={`/dashboard/profile/${grooveAdmin.id}`}>
-                  <img
-                    src={grooveAdmin.profileImgUrl}
-                    width="40"
-                    height="40"
-                    alt="Profile"
-                    className={styles.profileImg}
-                  />
-                </Link>{' '}
-                <p>Hosted by {grooveAdmin.username}</p>
-              </div>
-            ) : null}
-            {idOnEditMode !== props.currentGroove.id ? (
-              !props.currentGroove.imgUrl ? undefined : ( // <img src="/groove-default.jpeg" width="150" alt="Groove" />
-                <div>
-                  {' '}
-                  <img
-                    className={styles.grooveImg}
-                    src={props.currentGroove.imgUrl}
-                    width="300"
-                    alt="Groove"
-                  />
-                </div>
-              )
-            ) : (
-              <label>
-                Image:{' '}
-                <input
-                  type="file"
-                  name="fileInput"
-                  onChange={handleImageUpload}
-                />{' '}
-              </label>
-            )}
-            {idOnEditMode !== props.currentGroove.id ? (
-              <>
-                <h4>About:</h4>
-                {idOnEditMode !== props.currentGroove.id ? (
-                  <p>#{props.currentGroove.label}</p>
-                ) : (
-                  <label>
-                    Add labels
-                    <input
-                      value={editLabel || ''}
-                      onChange={(e) => setEditLabel(e.currentTarget.value)}
-                    />
-                  </label>
-                )}{' '}
-                <p>{props.currentGroove.description}</p>
               </>
             ) : (
+              <div className={styles.missingOnEdit}>
+                <label>
+                  Add missing ingredient:{' '}
+                  <input
+                    value={ingredient}
+                    onChange={(e) => setIngredient(e.currentTarget.value)}
+                  />{' '}
+                </label>
+                <button onClick={handleIngredientAddition}>+</button>
+                {groovesIngredients.length ===
+                0 ? null : groovesIngredients.length > 1 ? (
+                  <p>Missing ingredients:</p>
+                ) : (
+                  <p>Missing ingredient:</p>
+                )}
+                {groovesIngredients.map((singleIngredient) => {
+                  return (
+                    <li key={`ingredient.${singleIngredient.id}`}>
+                      <label className={styles.ingredients}>
+                        {' '}
+                        {singleIngredient.ingredientName}
+                        <input type="checkbox" />{' '}
+                        <button
+                          type="button"
+                          onClick={() =>
+                            handleIngredientDelete(singleIngredient.id)
+                          }
+                        >
+                          X
+                        </button>
+                      </label>
+                    </li>
+                  );
+                })}
+              </div>
+            )}{' '}
+          </div>
+          {idOnEditMode !== props.currentGroove.id ? (
+            <div className={styles.hosted}>
+              <Link href={`/dashboard/profile/${grooveAdmin.id}`}>
+                <img
+                  src={grooveAdmin.profileImgUrl}
+                  width="40"
+                  height="40"
+                  alt="Profile"
+                  className={styles.profileImg}
+                />
+              </Link>{' '}
+              <p>Hosted by {grooveAdmin.username}</p>
+            </div>
+          ) : null}
+          {idOnEditMode !== props.currentGroove.id ? (
+            !props.currentGroove.imgUrl ? undefined : ( // <img src="/groove-default.jpeg" width="150" alt="Groove" />
+              <div>
+                {' '}
+                <img
+                  className={styles.grooveImg}
+                  src={props.currentGroove.imgUrl}
+                  width="300"
+                  alt="Groove"
+                />
+              </div>
+            )
+          ) : (
+            <label>
+              Image:{' '}
+              <input
+                type="file"
+                name="fileInput"
+                onChange={handleImageUpload}
+              />{' '}
+            </label>
+          )}
+          {idOnEditMode !== props.currentGroove.id ? (
+            <>
+              <h4>About</h4>
+              {idOnEditMode !== props.currentGroove.id ? (
+                <div className={styles.label}>
+                  {' '}
+                  <img src="/groove/hashtag.png" alt="hashtag" width="20" />
+                  <p>{props.currentGroove.label}</p>
+                </div>
+              ) : (
+                <label>
+                  Add labels
+                  <input
+                    value={editLabel || ''}
+                    onChange={(e) => setEditLabel(e.currentTarget.value)}
+                  />
+                </label>
+              )}{' '}
+              <p>{props.currentGroove.description}</p>
+            </>
+          ) : (
+            <>
               <label className={styles.onEdit}>
                 Description:
                 <input
@@ -356,258 +385,267 @@ export default function EditGrooveForm(props) {
                   onChange={(e) => setEditDescription(e.currentTarget.value)}
                 />
               </label>
-            )}{' '}
-            {idOnEditMode !== props.currentGroove.id ? (
-              <p>Languages: {props.currentGroove.language}</p>
+
+              <p>Choose a label</p>
+              <select
+                className={styles.onEditLabel}
+                placeholder="Your label"
+                value={editLabel || ''}
+                onChange={(e) => setEditLabel(e.currentTarget.value)}
+              >
+                <option defaultValue="Choose the label">
+                  Choose the label
+                </option>
+
+                <option>Vegeterian</option>
+                <option>Vegan</option>
+                <option>Gluten free</option>
+                <option>Diabetic</option>
+                <option>Pescatarian</option>
+                <option>Carnivore</option>
+                <option>Kosher</option>
+                <option>Halal</option>
+                <option>Raw</option>
+                <option>Organic</option>
+              </select>
+              <br />
+            </>
+          )}{' '}
+          {idOnEditMode !== props.currentGroove.id ? (
+            <p>Languages: {props.currentGroove.language}</p>
+          ) : (
+            <label className={styles.onEdit}>
+              Language:
+              <input
+                value={editLanguage}
+                onChange={(e) => setEditLanguage(e.currentTarget.value)}
+              />
+            </label>
+          )}{' '}
+        </form>
+        {usersProfilesParticipating.length === 0 ? (
+          <h4>No attendees yet</h4>
+        ) : idOnEditMode !== props.currentGroove.id ? (
+          <>
+            {usersProfilesParticipating.length === 1 ? (
+              <h4>Attendee</h4>
             ) : (
-              <label className={styles.onEdit}>
-                Language:
-                <input
-                  value={editLanguage}
-                  onChange={(e) => setEditLanguage(e.currentTarget.value)}
-                />
-              </label>
-            )}{' '}
-          </form>
-          {usersProfilesParticipating.length === 0 ? (
-            <h4>No participants yet</h4>
-          ) : idOnEditMode !== props.currentGroove.id ? (
-            <>
-              {usersProfilesParticipating.length === 1 ? (
-                <h4>Participant</h4>
-              ) : (
-                <h4>Participant</h4>
-              )}
+              <h4>Attendees ({usersProfilesParticipating.length})</h4>
+            )}
+            <ul>
+              {usersProfilesParticipating.map((user) => {
+                return (
+                  <li key={user.id}>
+                    <Link href={`/dashboard/profile/${user.id}`}>
+                      <img
+                        src={user.profileImgUrl}
+                        width="70"
+                        height="70"
+                        alt="Profile"
+                        className={styles.profileImg}
+                      />
+                      <p>{user.username}</p>
+                    </Link>
+                  </li>
+                );
+              })}
+            </ul>
+          </>
+        ) : null}
+        {idOnEditMode === props.currentGroove.id ? (
+          <div>
+            <button
+              onClick={async () => {
+                const response = await fetch(
+                  `/dashboard/api/grooves/${props.currentGroove.id}`,
+                  {
+                    method: 'DELETE',
+                  },
+                );
+                const data = await response.json();
+                router.refresh();
+
+                if (data.error) {
+                  setError(data.error);
+                  return;
+                }
+                router.push('/dashboard/grooves/my-grooves');
+                // setGrooves([...grooves, data.groove]);
+                router.refresh();
+              }}
+            >
+              Delete
+            </button>
+            <button
+              onClick={async () => {
+                const response = await fetch(
+                  `/dashboard/api/grooves/${props.currentGroove.id}`,
+                  {
+                    method: 'PUT',
+                    headers: {
+                      'Content-type': 'application/json',
+                    },
+                    body: JSON.stringify({
+                      name: editName || props.currentGroove.name,
+                      offer: editOffer || props.currentGroove.offer,
+                      description:
+                        editDescription || props.currentGroove.description,
+                      location: editLocation || props.currentGroove.location,
+                      label: editLabel || props.currentGroove.label,
+                      imgUrl: editImgUrl || props.currentGroove.imgUrl,
+                      userId: props.currentUserId || props.currentGroove.userId,
+                      time: editTime || props.currentGroove.time,
+                      date: editDate || props.currentGroove.date,
+                      language: editLanguage || props.currentGroove.language,
+                    }),
+                  },
+                );
+                const data = await response.json();
+
+                if (data.error) {
+                  setError(data.error);
+                  return;
+                }
+                setIdOnEditMode(undefined);
+                setGrooves([...grooves, data.groove]);
+                router.refresh();
+              }}
+            >
+              Save
+            </button>
+          </div>
+        ) : null}
+        {props.currentGroove.userId !== props.currentUserId ? (
+          findUserId ? (
+            <button
+              onClick={async () => {
+                const response = await fetch(
+                  `/dashboard/api/grooves/usersgrooves/${props.currentGroove.id}`,
+                  {
+                    method: 'DELETE',
+                  },
+                );
+
+                const data = await response.json();
+
+                if ('errors' in data) {
+                  setError(data.errors);
+                  return;
+                } else {
+                  router.refresh();
+                }
+              }}
+            >
+              Leave
+            </button>
+          ) : (
+            <button
+              onClick={async () => {
+                const response = await fetch(
+                  `/dashboard/api/grooves/usersgrooves/${props.currentGroove.id}`,
+                  {
+                    method: 'POST',
+                    headers: {
+                      'Content-Type': 'application/json',
+                    },
+
+                    body: JSON.stringify({
+                      userId: props.currentUserId,
+                      grooveId: props.currentGroove.id,
+                    }),
+                  },
+                );
+
+                const data = await response.json();
+
+                if ('errors' in data) {
+                  setError(data.errors);
+                  return;
+                } else {
+                  router.refresh();
+                }
+              }}
+            >
+              Participate
+            </button>
+          )
+        ) : null}
+        {idOnEditMode !== props.currentGroove.id ? (
+          props.currentGroove.userId === props.currentUserId || findUserId ? (
+            <div className={styles.comments}>
               <ul>
-                {usersProfilesParticipating.map((user) => {
+                {props.commentsForCurrentGroove.map((comment) => {
+                  const commentedUser = props.users.find(
+                    (user) => user.id === comment.userId,
+                  );
+
                   return (
-                    <li key={user.id}>
-                      <Link href={`/dashboard/profile/${user.id}`}>
+                    <li key={comment.id}>
+                      <Link href={`/dashboard/profile/${commentedUser?.id}`}>
                         <img
-                          src={user.profileImgUrl}
-                          width="70"
-                          height="70"
-                          alt="Profile"
                           className={styles.profileImg}
+                          src={commentedUser?.profileImgUrl}
+                          alt="profile"
+                          width="50"
+                          height="50"
                         />
-                        <p>{user.username}</p>
+                        <div>
+                          <p> {comment.createdAt}</p>
+                          <p>{commentedUser?.username}</p>
+                          <p>{comment.content}</p>
+                        </div>
                       </Link>
                     </li>
                   );
                 })}
               </ul>
-            </>
-          ) : null}
-
-          {props.currentGroove.userId !== props.currentUserId ? (
-            findUserId ? (
+              <img
+                className={styles.profileImg}
+                src={props.currentUser.profileImgUrl}
+                alt="profile"
+                width="50"
+                height="50"
+              />
+              <label>
+                <input
+                  placeholder="What is in your mind..."
+                  value={commentContent}
+                  onChange={(e) => setCommentContent(e.currentTarget.value)}
+                />
+              </label>
               <button
                 onClick={async () => {
                   const response = await fetch(
-                    `/dashboard/api/grooves/usersgrooves/${props.currentGroove.id}`,
-                    {
-                      method: 'DELETE',
-                    },
-                  );
-
-                  const data = await response.json();
-
-                  if ('errors' in data) {
-                    setError(data.errors);
-                    return;
-                  } else {
-                    router.refresh();
-                  }
-                }}
-              >
-                Leave
-              </button>
-            ) : (
-              <button
-                onClick={async () => {
-                  const response = await fetch(
-                    `/dashboard/api/grooves/usersgrooves/${props.currentGroove.id}`,
+                    `/dashboard/api/grooves/comments/${props.currentGroove.id}`,
                     {
                       method: 'POST',
                       headers: {
                         'Content-Type': 'application/json',
                       },
-
                       body: JSON.stringify({
+                        content: commentContent,
                         userId: props.currentUserId,
                         grooveId: props.currentGroove.id,
+                        createdAt: currentTime,
                       }),
                     },
                   );
 
                   const data = await response.json();
-
-                  if ('errors' in data) {
-                    setError(data.errors);
-                    return;
-                  } else {
-                    router.refresh();
-                  }
-                }}
-              >
-                Participate
-              </button>
-            )
-          ) : (
-            <div>
-              <button
-                onClick={() => {
-                  setIdOnEditMode(props.currentGroove.id);
-                  setEditName(props.currentGroove.name);
-                  setEditOffer(props.currentGroove.offer);
-                  setEditDescription(props.currentGroove.description || '');
-                  setEditLocation(props.currentGroove.location || '');
-                  setEditLabel(props.currentGroove.label || '');
-                  setEditTime(props.currentGroove.time);
-                  setEditDate(props.currentGroove.date);
-                  setEditLanguage(props.currentGroove.language);
-                }}
-              >
-                Edit
-              </button>
-              <button
-                onClick={async () => {
-                  const response = await fetch(
-                    `/dashboard/api/grooves/${props.currentGroove.id}`,
-                    {
-                      method: 'PUT',
-                      headers: {
-                        'Content-type': 'application/json',
-                      },
-                      body: JSON.stringify({
-                        name: editName || props.currentGroove.name,
-                        offer: editOffer || props.currentGroove.offer,
-                        description:
-                          editDescription || props.currentGroove.description,
-                        location: editLocation || props.currentGroove.location,
-                        label: editLabel || props.currentGroove.label,
-                        imgUrl: editImgUrl || props.currentGroove.imgUrl,
-                        userId:
-                          props.currentUserId || props.currentGroove.userId,
-                        time: editTime || props.currentGroove.time,
-                        date: editDate || props.currentGroove.date,
-                        language: editLanguage || props.currentGroove.language,
-                      }),
-                    },
-                  );
-                  const data = await response.json();
-
                   if (data.error) {
                     setError(data.error);
                     return;
                   }
-                  setIdOnEditMode(undefined);
-                  setGrooves([...grooves, data.groove]);
+                  setCommentsInGroove([...commentsInGroove, data.comment]);
                   router.refresh();
                 }}
+                className={styles.addComment}
               >
-                Save
-              </button>
-              <button
-                onClick={async () => {
-                  const response = await fetch(
-                    `/dashboard/api/grooves/${props.currentGroove.id}`,
-                    {
-                      method: 'DELETE',
-                    },
-                  );
-                  const data = await response.json();
-                  router.refresh();
-
-                  if (data.error) {
-                    setError(data.error);
-                    return;
-                  }
-                  router.push('/dashboard/grooves/my-grooves');
-                  // setGrooves([...grooves, data.groove]);
-                  router.refresh();
-                }}
-              >
-                Delete
+                Add
               </button>
             </div>
-          )}
-          {idOnEditMode !== props.currentGroove.id ? (
-            props.currentGroove.userId === props.currentUserId || findUserId ? (
-              <div className={styles.comments}>
-                <ul>
-                  {props.commentsForCurrentGroove.map((comment) => {
-                    const commentedUser = props.users.find(
-                      (user) => user.id === comment.userId,
-                    );
-
-                    return (
-                      <li key={comment.id}>
-                        <Link href={`/dashboard/profile/${commentedUser?.id}`}>
-                          <img
-                            className={styles.profileImg}
-                            src={commentedUser?.profileImgUrl}
-                            alt="profile"
-                            width="50"
-                            height="50"
-                          />
-                          <div>
-                            <p> {comment.createdAt}</p>
-                            <p>{commentedUser?.username}</p>
-                            <p>{comment.content}</p>
-                          </div>
-                        </Link>
-                      </li>
-                    );
-                  })}
-                </ul>
-                <img
-                  className={styles.profileImg}
-                  src={props.currentUser.profileImgUrl}
-                  alt="profile"
-                  width="50"
-                  height="50"
-                />
-                <label>
-                  <input
-                    placeholder="What is in your mind..."
-                    value={commentContent}
-                    onChange={(e) => setCommentContent(e.currentTarget.value)}
-                  />
-                </label>
-                <button
-                  onClick={async () => {
-                    const response = await fetch(
-                      `/dashboard/api/grooves/comments/${props.currentGroove.id}`,
-                      {
-                        method: 'POST',
-                        headers: {
-                          'Content-Type': 'application/json',
-                        },
-                        body: JSON.stringify({
-                          content: commentContent,
-                          userId: props.currentUserId,
-                          grooveId: props.currentGroove.id,
-                          createdAt: currentTime,
-                        }),
-                      },
-                    );
-
-                    const data = await response.json();
-                    if (data.error) {
-                      setError(data.error);
-                      return;
-                    }
-                    setCommentsInGroove([...commentsInGroove, data.comment]);
-                    router.refresh();
-                  }}
-                >
-                  Add comment
-                </button>
-              </div>
-            ) : null
-          ) : null}
-        </div>
+          ) : null
+        ) : null}
       </div>
     </div>
   );

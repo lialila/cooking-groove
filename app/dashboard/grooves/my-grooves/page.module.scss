@@ -1,10 +1,10 @@
 .main {
   color: white;
   display: flex;
-  flex-direction: row;
+  flex-direction: column;
   align-items: center;
   text-align: center;
-  margin-top: 10rem;
+  margin-top: 7rem;
   justify-content: center;
   width: 96vw;
   margin-bottom: 8rem;
@@ -51,7 +51,7 @@
   border-radius: 8px;
   padding: 4px 2px;
   margin: 7px;
-  margin-top: -2rem;
+  margin-top: -1.5rem;
   width: 6rem;
   height: 2rem;
   color: white;
@@ -88,8 +88,6 @@
     flex-direction: column;
 
     li {
-      max-width: 300px;
-
       box-shadow: 0 4px 30px rgba(243, 235, 235, 0.3);
       backdrop-filter: blur(8.4px);
       -webkit-backdrop-filter: blur(8.4px);
@@ -109,11 +107,10 @@
         letter-spacing: 0.2rem;
         margin-bottom: 0;
       }
-      img {
-        border-radius: 10px;
-        width: 40vw;
-        max-width: 250px;
-      }
+      // img {
+      //   border-radius: 10px;
+      //   width: 40vw;
+      // }
     }
   }
 }
@@ -140,46 +137,73 @@
   text-align: center;
   border-bottom: solid 1.2px white;
   // padding: 1rem;
-  margin: -4rem 2rem 1rem;
-  h4 {
-    margin: 0;
-  }
+  margin: 0rem 2rem 2rem;
 }
 .buttons {
   display: flex;
 }
-
+.buttons {
+  display: flex;
+}
+// iphone 12 pro
 .carousel {
   overflow: hidden;
-  width: 400px;
-  // height: 800px;
+  width: 80vw;
+  // height: 600px;
   display: flex;
   flex-direction: column;
   justify-content: center;
-  padding: 0 2rem 2rem;
+  padding: 1rem 0.2rem 0;
   // margin: 2rem;
   border: solid 1.2px white;
-  background: rgba(2, 4, 32, 0.4);
+  background: rgba(2, 4, 32, 0.6);
   backdrop-filter: blur(8.4px);
   -webkit-backdrop-filter: blur(8.4px);
-  box-shadow: 0 4px 30px rgba(243, 235, 235, 0.3);
+  // box-shadow: 0 4px 30px rgba(243, 235, 235, 0.3);
 }
 
 .inner {
   //margin: 2rem;
   white-space: nowrap;
   transition: transform 0.4s;
-  margin-bottom: 0;
+  // margin-bottom: 10px;
+  padding-top: 0;
+  text-align: center;
 }
-.carouselItem {
+.card {
   display: flex;
   flex-direction: column;
+  justify-content: center;
+  padding-top: 1rem;
+  align-items: center;
+  h3 {
+    text-transform: uppercase;
+    font-size: 1.5rem;
+    letter-spacing: 0.2rem;
+    margin-bottom: 0;
+  }
+
+  p {
+    font-size: 1rem;
+  }
+}
+.img {
+  border-radius: 30px;
+  width: 70vw;
+  padding: 10px 40px;
+  max-width: 300px;
+  max-height: 40vh;
+}
+.carouselItem {
+  display: inline-flex;
   align-items: center;
   justify-content: center;
-  height: 30rem;
-  img {
-    padding: 0 40px;
-  }
+  margin: 0 1rem;
+  // height: 30rem;
+  // img {
+  //   padding: 10px 40px;
+  //   border-radius: 10px;
+  // }
 }
 .buttonArrow {
   background: none;
@@ -198,6 +222,7 @@
   cursor: pointer;
 }
 .carouselButtons {
+  margin: 1rem 0;
   display: flex;
   justify-content: space-evenly;
 }

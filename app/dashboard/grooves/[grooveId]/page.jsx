@@ -11,6 +11,7 @@ import {
 import { getUsersgroovesByGrooveId } from '../../../../database/usersgrooves';
 import EditGrooveForm from './EditGrooveForm';
 import { grooveNotFoundMetadata } from './not-found';
+import styles from './page.module.scss';
 
 export const dynamic = 'force-dynamic';
 
@@ -67,7 +68,7 @@ export default async function GrooveIdPage(props) {
   const ingredients = await getIngredients();
 
   return (
-    <section>
+    <section className={styles.main}>
       <EditGrooveForm
         currentGroove={currentGroove}
         currentUserId={currentUserId}

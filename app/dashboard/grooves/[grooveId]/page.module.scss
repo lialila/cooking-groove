@@ -24,13 +24,36 @@
     margin: auto;
     font-size: 1.8rem;
   }
+}
+.h1 {
+  padding-bottom: 1rem;
+  border-bottom: solid white 1.2px;
+  font-size: 1.8rem;
+  text-transform: uppercase;
+  letter-spacing: 0.1rem;
+  margin: 0.7rem 0;
   h1 {
-    padding-bottom: 1rem;
-    border-bottom: solid white 1.2px;
-    font-size: 1.8rem;
-    text-transform: uppercase;
-    letter-spacing: 0.1rem;
-    margin-bottom: 0.7rem;
+    margin-bottom: 0;
+  }
+  p {
+    text-align: center;
+    color: #ff4d76;
+    font-weight: 700;
+    letter-spacing: 0.3rem;
+  }
+  button {
+    background: rgba(185, 179, 179, 0.1);
+    border: solid rgba(255, 255, 255, 0.3) 1.2px;
+    border-radius: 8px;
+    padding: 3px 1px;
+    margin: 0;
+    width: 3rem;
+    color: white;
+    align-items: center;
+    font-size: 0.7rem;
+  }
+  button:hover {
+    background: rgba(2, 4, 32, 0.3);
   }
 }
 .div {
@@ -53,10 +76,11 @@
     margin: 1rem 0rem;
     padding: 1rem;
     color: black;
-    backdrop-filter: blur(18.2px);
-    -webkit-backdrop-filter: blur(18.2px);
-    background: rgba(255, 255, 255, 0.5);
-    border-radius: 7px;
+    // backdrop-filter: blur(18.2px);
+    // -webkit-backdrop-filter: blur(18.2px);
+    // background: rgba(255, 255, 255, 0.5);
+
+    border-top: solid 1.2px white;
   }
 }
 .hosted {
@@ -66,10 +90,10 @@
   font-size: 0.8rem;
   letter-spacing: 0.1rem;
   margin: 1rem 0;
-  padding: 0 3rem;
+  padding: 0 3rem 0 6rem;
 
   p {
-    text-align: left;
+    text-align: center;
     margin-left: 0.8rem;
   }
 }
@@ -104,8 +128,8 @@
 .offer {
   margin: 1rem 0;
   display: flex;
-  justify-content: space-between;
-  padding: 0 3rem;
+
+  padding: 0 3rem 0 6rem;
   font-size: 0.8rem;
   letter-spacing: 0.1rem;
   p {
@@ -114,8 +138,11 @@
   }
 }
 .datetimelocation {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
   border-bottom: solid white 1.2px;
-  padding: 0 3rem 1rem 3rem;
+  padding: 0 3rem 1rem 6rem;
   font-size: 0.8rem;
   letter-spacing: 0.1rem;
 }
@@ -125,7 +152,7 @@
   flex-direction: row;
   align-items: center;
   color: white;
-  padding: 0 3rem 1rem 3rem;
+  padding: 0 3rem 1rem 6rem;
   font-size: 0.8rem;
   border-bottom: solid white 1.2px;
 
@@ -181,4 +208,47 @@
     color: white;
     background-color: rgba(185, 179, 179, 0);
   }
+}
+.label {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  p {
+    margin: 0;
+  }
+}
+.onEditLabel {
+  background-color: rgba(185, 179, 179, 0);
+}
+.addComment {
+  display: flex;
+  justify-content: center;
+  font-size: 0.8rem;
+  border-radius: 8px;
+  padding: 6px 3px;
+  margin: 7px;
+  width: 4rem;
+  height: 1.7rem;
+  color: white;
+  align-items: center;
+  border: none;
+  background: hsla(285, 76%, 36%, 1);
+
+  background: linear-gradient(
+    180deg,
+    hsla(285, 76%, 36%, 1) 0%,
+    hsl(346, 100%, 65%) 100%
+  );
+
+  background: -moz-linear-gradient(
+    180deg,
+    hsla(285, 76%, 36%, 1) 0%,
+    hsla(346, 100%, 65%, 1) 100%
+  );
+
+  background: -webkit-linear-gradient(
+    180deg,
+    hsla(285, 76%, 36%, 1) 0%,
+    hsla(346, 100%, 65%, 1) 100%
+  );
 }

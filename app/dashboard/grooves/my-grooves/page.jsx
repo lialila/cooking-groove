@@ -35,8 +35,9 @@ export default async function MyGroovesPage() {
 
   return (
     <div className={`${courierPrime.className} ${styles.main}`}>
-      <MyGrooves myGrooves={myGrooves} user={user} />
-      {/* <Carousel myGrooves={myGrooves} /> */}
+      <h3 className={styles.textForList}>My grooves</h3>
+      {/* <MyGrooves myGrooves={myGrooves} user={user} /> */}
+      <Carousel myGrooves={myGrooves} />
     </div>
   );
 }

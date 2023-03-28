@@ -92,7 +92,7 @@ export default function SearchGroovesForm(props) {
                   {groove.date} at {groove.time}
                 </p>
                 <p>Offer: {groove.offer}</p>
-                {ingredients.length > 1 ? (
+                {/* {ingredients.length > 1 ? (
                   <p>Missing ingredients:</p>
                 ) : (
                   <p>Missing ingredient:</p>
@@ -103,7 +103,7 @@ export default function SearchGroovesForm(props) {
                       {ingredient.ingredientName}
                     </p>
                   );
-                })}
+                })} */}
                 <p> {groove.location} </p>
                 {!groove.label ? null : <p># {groove.label}</p>}
                 <div>

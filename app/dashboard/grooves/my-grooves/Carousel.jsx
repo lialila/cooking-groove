@@ -1,6 +1,7 @@
 'use client';
+import Link from 'next/link';
 import { useState } from 'react';
-import CarouselItem from './CarouselItem';
+// import CarouselItem from './CarouselItem';
 import styles from './page.module.scss';
 
 export default function Carousel(props) {
@@ -23,20 +24,38 @@ export default function Carousel(props) {
       >
         {props.myGrooves.map((groove) => {
           return (
-            <CarouselItem groove={groove} />
-            // <div className={styles.carouselItem}>
-            //   <h3>{groove.name}</h3>
-            //   {!groove.label ? undefined : <p> #{groove.label}</p>}
-            //   <p>
-            //     {groove.date} at {groove.time}
-            //   </p>{' '}
-            //   <p>{groove.location} </p>
-            //   {groove.imgUrl ? (
-            //     <img src={groove.imgUrl} alt="Groove" width={'100%'} />
-            //   ) : (
-            //     <img src="/background2.jpg" alt="Groove" width={'100%'} />
-            //   )}
-            // </div>
+            // <CarouselItem groove={groove} />
+            <div className={styles.carouselItem}>
+              <div className={styles.card}>
+                <h3>{groove.name}</h3>
+                {!groove.label ? undefined : <p> #{groove.label}</p>}
+                <p>
+                  {groove.date} at {groove.time}
+                </p>{' '}
+                <p>{groove.location} </p>
+                {groove.imgUrl ? (
+                  <img
+                    className={styles.img}
+                    src={groove.imgUrl}
+                    alt="Groove"
+                    width={'100%'}
+                  />
+                ) : (
+                  <img
+                    className={styles.img}
+                    src="/background2.jpg"
+                    alt="Groove"
+                    width={'100%'}
+                  />
+                )}{' '}
+                <Link
+                  href={`/dashboard/grooves/${groove.id}`}
+                  className={styles.linkView}
+                >
+                  View
+                </Link>
+              </div>{' '}
+            </div>
           );
         })}
       </div>
