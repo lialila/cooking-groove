@@ -6,7 +6,7 @@
   text-align: center;
   margin-top: 7rem;
   justify-content: center;
-  width: 96vw;
+  width: 100vw;
   margin-bottom: 8rem;
 }
 
@@ -88,10 +88,9 @@
     flex-direction: column;
 
     li {
-      box-shadow: 0 4px 30px rgba(243, 235, 235, 0.3);
-      backdrop-filter: blur(8.4px);
-      -webkit-backdrop-filter: blur(8.4px);
-      background-color: rgba(5, 12, 32, 0.3);
+      // backdrop-filter: blur(8.4px);
+      // -webkit-backdrop-filter: blur(8.4px);
+      // background-color: rgba(23, 34, 65, 0.3);
       width: 65vw;
       margin: 0.5rem 0;
       text-align: center;
@@ -99,7 +98,6 @@
       display: flex;
       flex-direction: column;
       align-items: center;
-      border: 1.2px solid white;
 
       h3 {
         text-transform: uppercase;
@@ -115,7 +113,8 @@
   }
 }
 .text {
-  font-size: 1.5rem;
+  font-size: 1.2rem;
+  font-weight: 200;
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -136,30 +135,27 @@
   color: white;
   text-align: center;
   border-bottom: solid 1.2px white;
-  // padding: 1rem;
+
   margin: 0rem 2rem 2rem;
 }
 .buttons {
   display: flex;
 }
-.buttons {
-  display: flex;
-}
+
 // iphone 12 pro
 .carousel {
   overflow: hidden;
   width: 80vw;
-  // height: 600px;
+  margin: auto;
   display: flex;
   flex-direction: column;
   justify-content: center;
   padding: 1rem 0.2rem 0;
-  // margin: 2rem;
-  border: solid 1.2px white;
-  background: rgba(2, 4, 32, 0.6);
+  border: white 1.2px solid;
+  box-shadow: 0 4px 30px rgba(243, 235, 235, 0.3);
+  background: rgba(2, 4, 32, 0.3);
   backdrop-filter: blur(8.4px);
   -webkit-backdrop-filter: blur(8.4px);
-  // box-shadow: 0 4px 30px rgba(243, 235, 235, 0.3);
 }
 
 .inner {

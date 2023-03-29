@@ -33,9 +33,9 @@ export default function MyGrooves(props) {
       ) : (
         <div className={styles.div}>
           {' '}
-          <h2 className={styles.textForList}>My Grooves</h2>
+          {/* <h2 className={styles.textForList}>My Grooves</h2> */}
           <Carousel myGrooves={props.myGrooves} />
-          <ul>
+          {/* <ul>
             {props.myGrooves.map((groove) => {
               return (
                 <li key={`groove.${groove.id}`}>
@@ -70,7 +70,7 @@ export default function MyGrooves(props) {
                 </li>
               );
             })}{' '}
-          </ul>
+          </ul> */}
         </div>
       )}
     </FadeIn>

@@ -100,11 +100,10 @@ export default function EditUserForm(props: Props) {
               )}
             </div>
           ) : (
-            <label>
+            <label className={styles.input}>
               Image:{' '}
               <input
                 type="file"
-                className={styles.input}
                 name="fileInput"
                 onChange={handleImageUpload}
               />{' '}
@@ -114,10 +113,9 @@ export default function EditUserForm(props: Props) {
           {idOnEditMode !== props.user.id ? (
             <h3>{props.user.username}</h3>
           ) : (
-            <label>
+            <label className={styles.input}>
               Username:
               <input
-                className={styles.input}
                 value={editUsername}
                 onChange={(e) => setEditUsername(e.currentTarget.value)}
               />
@@ -125,10 +123,9 @@ export default function EditUserForm(props: Props) {
           )}{' '}
           <br />
           {idOnEditMode !== props.user.id ? null : (
-            <label>
+            <label className={styles.input}>
               Name:
               <input
-                className={styles.input}
                 value={editName}
                 onChange={(e) => setEditName(e.currentTarget.value)}
               />
@@ -178,12 +175,11 @@ export default function EditUserForm(props: Props) {
             </Link>
           </div>
         ) : null}
-        <FadeIn className={styles.fadeIn}>
+        <FadeIn>
           {idOnEditMode !== props.user.id ? null : (
-            <label>
+            <label className={styles.input}>
               E-mail:
               <input
-                className={styles.input}
                 value={editEmail}
                 onChange={(e) => setEditEmail(e.currentTarget.value)}
               />{' '}
@@ -192,10 +188,9 @@ export default function EditUserForm(props: Props) {
           {idOnEditMode !== props.user.id ? (
             <p> Eating experience: {props.user.eatingExperience}</p>
           ) : (
-            <label>
+            <label className={styles.input}>
               Eating experience:
               <input
-                className={styles.input}
                 value={editEatingExperience}
                 onChange={(e) => setEditEatingExperience(e.currentTarget.value)}
               />{' '}
@@ -204,10 +199,9 @@ export default function EditUserForm(props: Props) {
           {idOnEditMode !== props.user.id ? (
             <p> Cooking experience: {props.user.cookingExperience}</p>
           ) : (
-            <label>
+            <label className={styles.input}>
               Cooking experience:
               <input
-                className={styles.input}
                 value={editCookingExperience}
                 onChange={(e) =>
                   setEditCookingExperience(e.currentTarget.value)
@@ -218,10 +212,9 @@ export default function EditUserForm(props: Props) {
           {idOnEditMode !== props.user.id ? (
             <p> Favourite food: {props.user.favouriteFood}</p>
           ) : (
-            <label>
+            <label className={styles.input}>
               Favourite food:
               <input
-                className={styles.input}
                 value={editFavouriteFood}
                 onChange={(e) => setEditFavouriteFood(e.currentTarget.value)}
               />{' '}
@@ -230,10 +223,9 @@ export default function EditUserForm(props: Props) {
           {idOnEditMode !== props.user.id ? (
             <p>Language: {props.user.language}</p>
           ) : (
-            <label>
+            <label className={styles.input}>
               Language:
               <input
-                className={styles.input}
                 value={editLanguage}
                 onChange={(e) => setEditLanguage(e.currentTarget.value)}
               />{' '}
@@ -244,7 +236,30 @@ export default function EditUserForm(props: Props) {
 
       {props.sessionUser.id === props.user.id ? (
         idOnEditMode === props.user.id ? (
-          <>
+          <div className={styles.buttonsOnEdit}>
+            <button
+              className={courierPrime.className}
+              onClick={async () => {
+                const response = await fetch(
+                  `/dashboard/api/profile/${props.user.id}`,
+                  {
+                    method: 'DELETE',
+                  },
+                );
+                const data = await response.json();
+                router.refresh();
+
+                if (data.error) {
+                  setError(data.error);
+                  return;
+                }
+                router.push('/');
+                setUsers([...users, data.users]);
+                router.refresh();
+              }}
+            >
+              Remove profile
+            </button>
             <button
               className={courierPrime.className}
               onClick={async () => {
@@ -285,30 +300,7 @@ export default function EditUserForm(props: Props) {
             >
               Save
             </button>
-            <button
-              className={courierPrime.className}
-              onClick={async () => {
-                const response = await fetch(
-                  `/dashboard/api/profile/${props.user.id}`,
-                  {
-                    method: 'DELETE',
-                  },
-                );
-                const data = await response.json();
-                router.refresh();
-
-                if (data.error) {
-                  setError(data.error);
-                  return;
-                }
-                router.push('/');
-                setUsers([...users, data.users]);
-                router.refresh();
-              }}
-            >
-              Delete profile
-            </button>
-          </>
+          </div>
         ) : (
           <Link href="/logout" prefetch={false}>
             <img

@@ -4,8 +4,8 @@
   justify-content: center;
   align-items: center;
   text-align: center;
-  margin-top: 8rem;
-  margin-bottom: 10rem;
+  margin-top: 4rem;
+  margin-bottom: 6rem;
   padding: 1.2rem;
   width: 98vw;
   color: white;
@@ -17,7 +17,7 @@
     font-size: 1.5rem;
   }
   button {
-    margin: 1.8rem 0 1rem;
+    margin: 3rem 0 1rem;
     background: hsla(285, 76%, 36%, 1);
 
     background: linear-gradient(
@@ -40,8 +40,8 @@
     border: none;
     border-radius: 8px;
     padding: 0.4rem;
-    width: 7rem;
-    height: 2.2rem;
+    width: 6rem;
+    height: 2rem;
     font-size: 14px;
     box-shadow: 0 4px 30px rgba(243, 235, 235, 0.3);
     color: white;
@@ -55,14 +55,13 @@
 }
 
 .form {
-  width: 70vw;
+  width: 80vw;
   color: white;
   display: inline-block;
   margin-top: 1rem;
   font-weight: 500;
   font-size: 1rem;
   letter-spacing: 0.2vw;
-  // border: 1px solid rgb(255, 255, 255);
   padding: 15px 40px 10px;
   box-shadow: 0 4px 30px rgba(243, 235, 235, 0.3);
   backdrop-filter: blur(8.4px);
@@ -80,4 +79,15 @@
     margin: 0.5rem;
     color: white;
   }
+}
+.label {
+  color: white;
+  background-color: rgba(185, 179, 179, 0);
+  option {
+    background-color: rgba(2, 4, 32, 0.7);
+  }
+}
+.imgUpload {
+  color: white;
+  background-color: rgba(185, 179, 179, 0);
 }

@@ -38,8 +38,11 @@ export default function CreateGrooveForm(props) {
     const formData = new FormData();
     formData.append('file', file);
     formData.append('upload_preset', 'my-uploads');
+    const [isSubmitting, setSubmitting] = useState(false);
 
     try {
+      setSubmitting(true);
+
       const cloudinaryResponse = await fetch(
         `https://api.cloudinary.com/v1_1/${process.env.NEXT_PUBLIC_CLOUDINARY_CLOUD_NAME}/upload`,
         {
@@ -84,6 +87,7 @@ export default function CreateGrooveForm(props) {
       }
 
       setGrooves([...grooves, apiData.groove]);
+      setSubmitting(false);
 
       router.replace(`/dashboard/grooves/${apiData.groove.id}`);
       router.refresh();
@@ -99,7 +103,7 @@ export default function CreateGrooveForm(props) {
         <br />
         <FadeIn>
           <label>
-            Groove name:
+            Groove name
             <input
               value={name}
               required
@@ -109,7 +113,7 @@ export default function CreateGrooveForm(props) {
           <br />
           <label>
             {' '}
-            What you got for the groove:
+            What you got for the groove
             <input
               value={offer}
               required
@@ -119,7 +123,7 @@ export default function CreateGrooveForm(props) {
           <br />
           <br />
           <label>
-            Add missing ingredient:{' '}
+            Add missing ingredient{' '}
             <input
               value={ingredientName}
               onChange={(e) => setIngredientName(e.currentTarget.value)}
@@ -127,7 +131,7 @@ export default function CreateGrooveForm(props) {
           </label>
           <br />
           <label>
-            Concept:
+            Description
             <input
               value={description}
               onChange={(e) => setDescription(e.currentTarget.value)}
@@ -135,7 +139,7 @@ export default function CreateGrooveForm(props) {
           </label>{' '}
           <br />
           <label>
-            Location:
+            Location
             <input
               value={location}
               onChange={(e) => setLocation(e.currentTarget.value)}
@@ -144,6 +148,7 @@ export default function CreateGrooveForm(props) {
           <br />
           <p>Choose a label</p>
           <select
+            className={`${styles.label} ${courierPrime.className}`}
             placeholder="Your label"
             value={label}
             onChange={(e) => setLabel(e.currentTarget.value)}
@@ -191,9 +196,14 @@ export default function CreateGrooveForm(props) {
             />{' '}
           </label>{' '}
           <br />
-          <label>
+          <label classNAme={styles.imgUpload}>
             Upload image:
-            <input type="file" name="fileInput" />
+            {/* {isSubmitting(true) && <div>Uploading...</div>} */}
+            <input
+              type="file"
+              name="fileInput"
+              classNAme={courierPrime.styles}
+            />
           </label>
           <button
             onSubmit={() => handleSubmit}

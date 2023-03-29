@@ -5,7 +5,7 @@ import Image from 'next/image';
 import Link from 'next/link';
 import { Groove } from '../database/grooves';
 import { getUserBySessionToken, getUsers } from '../database/users';
-import Footer from './Footer';
+// import Footer from './Footer';
 import styles from './layout.module.scss';
 
 export const metadata = {
@@ -67,8 +67,8 @@ export default async function RootLayout(props: Props) {
           </nav>
         </header>
         <div className={styles.children}>{props.children}</div>
-        <Footer user={user} userObj={userObj} />
-        {/* <footer className={montserratText.className}>
+        {/* <Footer user={user} userObj={userObj} /> */}
+        <footer className={montserratText.className}>
           <ul>
             {user ? (
               <div className={styles.footer}>
@@ -159,7 +159,7 @@ export default async function RootLayout(props: Props) {
               </div>
             )}
           </ul>
-        </footer> */}
+        </footer>
       </body>
     </html>
   );
