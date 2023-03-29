@@ -38,10 +38,10 @@ export default function CreateGrooveForm(props) {
     const formData = new FormData();
     formData.append('file', file);
     formData.append('upload_preset', 'my-uploads');
-    const [isSubmitting, setSubmitting] = useState(false);
+    // const [isSubmitting, setSubmitting] = useState(false);
 
     try {
-      setSubmitting(true);
+      // setSubmitting(true);
 
       const cloudinaryResponse = await fetch(
         `https://api.cloudinary.com/v1_1/${process.env.NEXT_PUBLIC_CLOUDINARY_CLOUD_NAME}/upload`,
@@ -87,7 +87,7 @@ export default function CreateGrooveForm(props) {
       }
 
       setGrooves([...grooves, apiData.groove]);
-      setSubmitting(false);
+      // setSubmitting(false);
 
       router.replace(`/dashboard/grooves/${apiData.groove.id}`);
       router.refresh();
