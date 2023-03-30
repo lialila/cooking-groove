@@ -1,7 +1,7 @@
 'use client';
+
 import Link from 'next/link';
 import { useState } from 'react';
-// import CarouselItem from './CarouselItem';
 import styles from './page.module.scss';
 
 export default function Carousel(props) {

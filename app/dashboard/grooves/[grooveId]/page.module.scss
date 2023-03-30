@@ -4,12 +4,8 @@
   justify-content: center;
   align-items: center;
   text-align: center;
-  width: 100vw;
+  width: 97vw;
 
-  box-shadow: 0 4px 30px rgba(243, 235, 235, 0.3);
-  backdrop-filter: blur(8.4px);
-  -webkit-backdrop-filter: blur(8.4px);
-  background-color: rgba(5, 12, 32, 0.2);
   p {
     font-size: 0.8rem;
     line-height: 0.8rem;
@@ -29,7 +25,7 @@
   padding-bottom: 1rem;
   border-bottom: solid white 1.2px;
   font-size: 1.8rem;
-  text-transform: uppercase;
+  // text-transform: uppercase;
   letter-spacing: 0.1rem;
   margin: 0.7rem 0;
   h1 {
@@ -57,11 +53,15 @@
   background: rgba(2, 4, 32, 0.3);
 }
 .div {
-  margin: 3rem 0 4rem 0;
+  box-shadow: 0 4px 30px rgba(243, 235, 235, 0.3);
+  backdrop-filter: blur(8.4px);
+  -webkit-backdrop-filter: blur(8.4px);
+  background-color: rgba(5, 12, 32, 0.2);
+  margin: 3rem 0 3rem 0;
+  padding: 0 1rem 2rem;
   display: flex;
   flex-direction: column;
-  // justify-content: center;
-  padding: 1.5rem;
+
   color: white;
   align-items: center;
   text-align: center;
@@ -184,17 +184,26 @@
     }
   }
 }
-
-.label {
+.hashtag {
   display: flex;
-  align-items: center;
   justify-content: center;
-  letter-spacing: 0.1rem;
-  text-transform: lowercase;
-  margin-top: 1rem;
+  align-items: center;
+
   p {
     margin: 0;
     padding-left: 0.5rem;
+  }
+}
+.label {
+  margin-top: 1.4rem;
+  width: 100%;
+}
+.imageOnEdit {
+  margin-top: 1.4rem;
+  display: flex;
+  flex-direction: column;
+  img {
+    margin: 0.7rem 0;
   }
 }
 .about {
@@ -254,65 +263,86 @@
 }
 
 // styles on edit
-.onEdit {
-  padding: 15px 20px 10px;
-  margin: 0.8rem 0;
-  text-align: left;
-  font-size: 1rem;
-  display: flex;
-  justify-content: flex-start;
-
-  input {
-    align-items: center;
-    border-bottom: solid white 1.2px;
-    border-radius: 8px;
-    color: white;
-    background-color: rgba(185, 179, 179, 0);
-  }
-}
-
-.missingOnEdit {
-  text-align: left;
-  background-color: rgba(185, 179, 179, 0);
+.formOnEdit {
+  color: white;
   display: flex;
   flex-direction: column;
-  justify-content: flex-start;
+  justify-content: center;
+  margin: 2rem 0;
+  font-weight: 400;
+  font-size: 0.8rem;
+  letter-spacing: 0.2vw;
+  padding: 2.5rem;
+  text-align: left;
 
-  font-size: 1rem;
-
-  label {
-    margin: 0.2rem;
-  }
   input {
-    align-items: center;
-    border-bottom: solid white 1.2px;
-    border-radius: 8px;
-    color: white;
+    width: 100%;
+    text-align: left;
     background-color: rgba(185, 179, 179, 0);
+    border-bottom: solid 1.2px white;
+    border-top: none;
+    border-right: none;
+    border-left: none;
+    color: white;
+  }
+  input:hover {
+    border-bottom: solid 1.2px rgba(255, 255, 255, 0.3);
   }
 }
+
 // on edit missing ingredients
-.onEditMissingIngredient {
-  padding-top: 0;
+.addIngredient {
   display: flex;
-  flex-direction: row;
-  align-items: center;
-  input {
-    color: white;
-    padding: 0.1rem;
+  flex-direction: column;
+  div:last-of-type {
+    display: flex;
   }
 }
 .missingIngredientInList {
   display: flex;
   align-items: center;
-  justify-content: center;
-  input {
-    color: white;
-    padding: 0.1rem;
-  }
+  justify-content: right;
+
   div:last-of-type {
     text-align: end;
   }
+  img {
+    margin: 0.5rem;
+  }
+}
+.squareEditButtons {
+  background-color: rgba(5, 12, 32, 0.2);
+  margin: 0.5rem;
+  color: white;
+  background-color: rgba(5, 12, 32, 0.2);
+
+  border: 1.2px rgba(164, 179, 221, 0.5) solid;
+}
+.squareEditButtons:hover {
+  background-color: rgba(113, 124, 153, 0.5);
+}
+.plus {
+  background: hsla(285, 76%, 36%, 1);
+  background: linear-gradient(
+    180deg,
+    hsla(285, 76%, 36%, 1) 0%,
+    hsl(346, 100%, 65%) 100%
+  );
+
+  background: -moz-linear-gradient(
+    180deg,
+    hsla(285, 76%, 36%, 1) 0%,
+    hsla(346, 100%, 65%, 1) 100%
+  );
+
+  background: -webkit-linear-gradient(
+    180deg,
+    hsla(285, 76%, 36%, 1) 0%,
+    hsla(346, 100%, 65%, 1) 100%
+  );
+}
+.plus:hover {
+  background: rgb(131, 12, 113) 0%;
 }
 .addComment {
   display: flex;
@@ -361,6 +391,7 @@
 .commentBody {
   display: flex;
   align-items: center;
+  margin-bottom: 0.7rem;
   div {
     align-items: center;
     text-align: center;
@@ -370,7 +401,7 @@
     flex-direction: column;
 
     img {
-      margin: 8px;
+      margin: 8px 8px 0;
     }
   }
   div:last-of-type {
@@ -392,11 +423,11 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  margin: 1rem;
+  margin: 2rem 1rem 1rem;
   button:last-of-type {
     margin: 0.5rem;
-    width: 7rem;
-    height: 2.5rem;
+    width: 6rem;
+    height: 2rem;
     border-radius: 9px;
     border: none;
     color: white;
@@ -426,8 +457,8 @@
   button:first-of-type {
     background-color: rgba(5, 12, 32, 0.2);
     margin: 0.5rem;
-    width: 7rem;
-    height: 2.5rem;
+    width: 6rem;
+    height: 2rem;
     border-radius: 9px;
     color: white;
     font-size: 0.8rem;
@@ -437,13 +468,16 @@
   button:first-of-type:hover {
     background-color: rgba(5, 12, 32, 0.8);
     margin: 0.5rem;
-    width: 7rem;
-    height: 2.5rem;
+    width: 6rem;
+    height: 2rem;
     border-radius: 9px;
     color: white;
     font-size: 0.8rem;
     font-weight: 400;
     letter-spacing: 0.2vw;
+  }
+  button:last-of-type:hover {
+    background: rgb(131, 12, 113) 0%;
   }
 }
 .participate {
@@ -476,8 +510,3 @@
     hsla(346, 100%, 65%, 1) 100%
   );
 }
-// .going {
-//   display: flex;
-//   justify-content: flex-end;
-//   gap: 0.1rem;
-// }
