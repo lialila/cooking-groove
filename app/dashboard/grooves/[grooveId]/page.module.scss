@@ -4,8 +4,8 @@
   justify-content: center;
   align-items: center;
   text-align: center;
-  min-width: 300px;
-  max-width: 500px;
+  width: 100vw;
+
   box-shadow: 0 4px 30px rgba(243, 235, 235, 0.3);
   backdrop-filter: blur(8.4px);
   -webkit-backdrop-filter: blur(8.4px);
@@ -57,10 +57,10 @@
   background: rgba(2, 4, 32, 0.3);
 }
 .div {
-  margin: 3rem auto 4rem auto;
+  margin: 3rem 0 4rem 0;
   display: flex;
   flex-direction: column;
-  justify-content: center;
+  // justify-content: center;
   padding: 1.5rem;
   color: white;
   align-items: center;
@@ -73,9 +73,14 @@
   ul {
     display: flex;
     flex-direction: column;
+    align-items: flex-start;
     margin: 1rem 0rem;
     padding: 1rem;
     color: black;
+    border-top: solid white 1.2px;
+    li {
+      margin: -0.5rem 0;
+    }
   }
 }
 .hosted {
@@ -144,6 +149,7 @@
   border-bottom: solid white 1.2px;
   font-size: 0.8rem;
   letter-spacing: 0.1rem;
+  // padding-top: 0.2rem;
 }
 .missing {
   display: flex;
@@ -211,13 +217,23 @@
     padding-left: 0.5rem;
   }
 }
+
 .attendeeH4 {
   margin: 1.2rem 0 0.5rem;
+}
+
+.attendees {
+  display: flex;
+  justify-content: left;
+  flex-wrap: wrap;
+  list-style: none;
+  gap: 0.5rem;
 }
 .attendee {
   display: flex;
   flex-direction: column;
   margin-bottom: 0.5rem;
+
   img {
     margin-bottom: 0.5rem;
   }
@@ -331,6 +347,7 @@
 }
 .commentDiv {
   display: flex;
+  justify-content: center;
   align-items: baseline;
   input {
     border: solid white 1.2px;
@@ -344,6 +361,10 @@
 .commentBody {
   display: flex;
   align-items: center;
+  div {
+    align-items: center;
+    text-align: center;
+  }
   div:first-of-type {
     display: flex;
     flex-direction: column;
@@ -455,3 +476,8 @@
     hsla(346, 100%, 65%, 1) 100%
   );
 }
+// .going {
+//   display: flex;
+//   justify-content: flex-end;
+//   gap: 0.1rem;
+// }

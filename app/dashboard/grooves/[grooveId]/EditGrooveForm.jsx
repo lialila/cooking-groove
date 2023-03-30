@@ -185,7 +185,31 @@ export default function EditGrooveForm(props) {
             {props.currentGroove.userId !== props.currentUserId ? (
               // if the current user is not the admin of the groove, show participate button or participating message
               findUserId ? (
-                <p className={styles.going}>You are going!</p>
+                <div className={styles.going}>
+                  <p>You are going!</p>
+                  <button
+                    className={styles.leave}
+                    onClick={async () => {
+                      const response = await fetch(
+                        `/dashboard/api/grooves/usersgrooves/${props.currentGroove.id}`,
+                        {
+                          method: 'DELETE',
+                        },
+                      );
+
+                      const data = await response.json();
+
+                      if ('errors' in data) {
+                        setError(data.errors);
+                        return;
+                      } else {
+                        router.refresh();
+                      }
+                    }}
+                  >
+                    Leave
+                  </button>
+                </div>
               ) : (
                 <button
                   className={`${styles.participate} ${montserrat.className}`}
@@ -251,7 +275,6 @@ export default function EditGrooveForm(props) {
         {/* if the groove is not on edit mode */}
         {idOnEditMode !== props.currentGroove.id ? (
           <>
-            {' '}
             <div className={styles.datetimelocation}>
               <div className={styles.time}>
                 <img src="/groove/time1.png" alt="time" width="20" />
@@ -338,7 +361,7 @@ export default function EditGrooveForm(props) {
                 Attendees ({usersProfilesParticipating.length})
               </h4>
             )}
-            <ul>
+            <ul className={styles.attendees}>
               {usersProfilesParticipating.map((user) => {
                 return (
                   <li>
@@ -360,30 +383,6 @@ export default function EditGrooveForm(props) {
                 );
               })}
             </ul>
-            {findUserId ? (
-              <button
-                className={styles.leave}
-                onClick={async () => {
-                  const response = await fetch(
-                    `/dashboard/api/grooves/usersgrooves/${props.currentGroove.id}`,
-                    {
-                      method: 'DELETE',
-                    },
-                  );
-
-                  const data = await response.json();
-
-                  if ('errors' in data) {
-                    setError(data.errors);
-                    return;
-                  } else {
-                    router.refresh();
-                  }
-                }}
-              >
-                Leave
-              </button>
-            ) : null}
             {/* if user admin or participator, show comments */}
             {props.currentGroove.userId === props.currentUserId ||
             findUserId ? (
@@ -421,13 +420,7 @@ export default function EditGrooveForm(props) {
                     );
                   })}
                 </ul>
-                <img
-                  className={styles.profileImg}
-                  src={props.currentUser.profileImgUrl}
-                  alt="profile"
-                  width="40"
-                  height="40"
-                />
+
                 <div className={styles.commentDiv}>
                   <label>
                     <input

@@ -4,7 +4,7 @@
   align-items: center;
   text-align: center;
   width: 100vw;
-  margin: 6.5rem auto;
+  margin: 6.5rem 0;
   font-weight: 400;
   font-size: 1rem;
   letter-spacing: 0.2vw;
@@ -72,10 +72,11 @@
   align-items: center;
   justify-content: center;
   ul {
+    gap: 1rem;
     margin-top: 2rem;
     display: flex;
-    justify-content: space-evenly;
-    align-items: flex-start;
+    justify-content: center;
+    align-content: flex-start;
     flex-wrap: wrap;
 
     li {

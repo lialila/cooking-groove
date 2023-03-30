@@ -328,7 +328,12 @@ export default function EditUserForm(props: Props) {
         )
       ) : (
         <Link href="/">
-          <img src="/additional/chat1.png" width="40" alt="chat" />
+          <img
+            className={styles.message}
+            src="/additional/chat1.png"
+            width="40"
+            alt="chat"
+          />
         </Link>
       )}
     </div>
