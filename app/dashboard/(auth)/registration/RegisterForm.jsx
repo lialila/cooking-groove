@@ -23,22 +23,26 @@ export default function RegisterForm(props) {
   const [username, setUsername] = useState('');
   const [name, setName] = useState('');
   const [email, setEmail] = useState('');
-  const [profileImgUrl, setProfileImgUrl] = useState('');
+  const [profileImgUrl, setProfileImgUrl] = useState(
+    '/default-profile-picture/defult-profile.jpg',
+  );
   const [eatingExperience, setEatingExperience] = useState('');
   const [cookingExperience, setCookingExperience] = useState('');
   const [favouriteFood, setFavouriteFood] = useState('');
   const [language, setLanguage] = useState('');
   const [password, setPassword] = useState('');
   const [errors, setErrors] = useState([]);
-
+  const [loading, setLoading] = useState(false);
   const router = useRouter();
 
-  async function handleSubmit(event) {
+  const handleImageUpload = async (event) => {
     event.preventDefault();
-    const file = event.target.elements.fileInput.files[0];
+
+    const file = event.target.files[0];
     const formData = new FormData();
     formData.append('file', file);
     formData.append('upload_preset', 'my-uploads');
+    setLoading(true);
 
     try {
       const cloudinaryResponse = await fetch(
@@ -58,9 +62,15 @@ export default function RegisterForm(props) {
       const profileImgUrl1 = cloudinaryData.secure_url;
 
       setProfileImgUrl(profileImgUrl1);
+      setLoading(false);
+    } catch (error) {
+      console.error(error);
+    }
+  };
 
-      event.preventDefault();
-
+  async function handleSubmit(event) {
+    event.preventDefault();
+    try {
       const response = await fetch('/dashboard/api/register', {
         method: 'POST',
         body: JSON.stringify({
@@ -188,7 +198,15 @@ export default function RegisterForm(props) {
         <br />
         <label className={courierPrime.className}>
           Upload image:
-          <input type="file" name="fileInput" />
+          {loading ? (
+            <p>Loading...</p>
+          ) : (
+            <div>
+              Preview:
+              <img src={profileImgUrl} width="60" alt="profile image" />
+            </div>
+          )}
+          <input type="file" name="fileInput" onChange={handleImageUpload} />
         </label>
         <br />
         <div className={styles.button}>
