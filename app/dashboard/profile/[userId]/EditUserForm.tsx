@@ -52,15 +52,20 @@ export default function EditUserForm(props: Props) {
     useState<string>('');
   const [editFavouriteFood, setEditFavouriteFood] = useState<string>('');
   const [editLanguage, setEditLanguage] = useState<string>('');
+  const [loading, setLoading] = useState(false);
 
   const [error, setError] = useState<string>();
 
   const handleImageUpload = async (e: React.ChangeEvent<HTMLInputElement>) => {
-    const image = e.target.files?.[0];
+    e.preventDefault();
+
+    const image = e.target.files[0];
     if (image) {
       const formData = new FormData();
       formData.append('file', image);
       formData.append('upload_preset', 'my-uploads');
+      setLoading(true);
+
       const response = await fetch(
         `https://api.cloudinary.com/v1_1/${process.env.NEXT_PUBLIC_CLOUDINARY_CLOUD_NAME}/upload`,
         {
@@ -71,6 +76,7 @@ export default function EditUserForm(props: Props) {
       if (response.ok) {
         const data = await response.json();
         setEditProfileImgUrl(data.secure_url);
+        setLoading(false);
       } else {
         setError(error);
       }
@@ -102,6 +108,14 @@ export default function EditUserForm(props: Props) {
           ) : (
             <label className={styles.input}>
               Image{' '}
+              {loading ? (
+                <p>Loading...</p>
+              ) : (
+                <div>
+                  Preview:
+                  <img src={editProfileImgUrl} width="60" alt="profile image" />
+                </div>
+              )}
               <input
                 type="file"
                 name="fileInput"

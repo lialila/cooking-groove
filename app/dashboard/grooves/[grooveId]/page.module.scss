@@ -41,20 +41,20 @@
     font-weight: 700;
     letter-spacing: 0.3rem;
   }
-  button {
-    background: rgba(185, 179, 179, 0.1);
-    border: solid rgba(255, 255, 255, 0.3) 1.2px;
-    border-radius: 8px;
-    padding: 3px 1px;
-    margin: 0;
-    width: 3rem;
-    color: white;
-    align-items: center;
-    font-size: 0.7rem;
-  }
-  button:hover {
-    background: rgba(2, 4, 32, 0.3);
-  }
+}
+.editButton {
+  background: rgba(185, 179, 179, 0.1);
+  border: solid rgba(255, 255, 255, 0.3) 1.2px;
+  border-radius: 8px;
+  padding: 3px 1px;
+  margin: 0;
+  width: 3rem;
+  color: white;
+  align-items: center;
+  font-size: 0.7rem;
+}
+.editButton:hover {
+  background: rgba(2, 4, 32, 0.3);
 }
 .div {
   margin: 3rem auto 4rem auto;
@@ -423,4 +423,35 @@
     font-weight: 400;
     letter-spacing: 0.2vw;
   }
+}
+.participate {
+  align-items: center;
+  text-align: center;
+  line-height: 65px;
+  font-size: 0.8rem;
+  border-radius: 8px;
+  padding: 0.5rem;
+  margin: 7px;
+  width: 6rem;
+  height: 1.5rem;
+  color: white;
+  border: none;
+  background: hsla(285, 76%, 36%, 1);
+  background: linear-gradient(
+    180deg,
+    hsla(285, 76%, 36%, 1) 0%,
+    hsl(346, 100%, 65%) 100%
+  );
+
+  background: -moz-linear-gradient(
+    180deg,
+    hsla(285, 76%, 36%, 1) 0%,
+    hsla(346, 100%, 65%, 1) 100%
+  );
+
+  background: -webkit-linear-gradient(
+    180deg,
+    hsla(285, 76%, 36%, 1) 0%,
+    hsla(346, 100%, 65%, 1) 100%
+  );
 }

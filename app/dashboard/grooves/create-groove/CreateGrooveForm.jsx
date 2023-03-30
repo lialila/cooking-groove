@@ -30,19 +30,19 @@ export default function CreateGrooveForm(props) {
   const [date, setDate] = useState('');
   const [language, setLanguage] = useState('');
   const [error, setError] = useState();
-  const [imgUrl, setImgUrl] = useState('');
+  const [imgUrl, setImgUrl] = useState('/icons-main/icon1.png');
   const [ingredientName, setIngredientName] = useState('');
-  async function handleSubmit(event) {
+  const [loading, setLoading] = useState(false);
+
+  const handleImageUpload = async (event) => {
     event.preventDefault();
-    const file = event.target.elements.fileInput.files[0];
+    const file = event.target.files[0];
     const formData = new FormData();
     formData.append('file', file);
     formData.append('upload_preset', 'my-uploads');
-    // const [isSubmitting, setSubmitting] = useState(false);
+    setLoading(true);
 
     try {
-      // setSubmitting(true);
-
       const cloudinaryResponse = await fetch(
         `https://api.cloudinary.com/v1_1/${process.env.NEXT_PUBLIC_CLOUDINARY_CLOUD_NAME}/upload`,
         {
@@ -59,6 +59,15 @@ export default function CreateGrooveForm(props) {
       const imgUrl1 = cloudinaryData.secure_url;
 
       setImgUrl(imgUrl1);
+      setLoading(false);
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
+  async function handleSubmit(event) {
+    event.preventDefault();
+    try {
       const apiResponse = await fetch('/dashboard/api/grooves', {
         method: 'POST',
         headers: {
@@ -198,8 +207,16 @@ export default function CreateGrooveForm(props) {
           <br />
           <label classNAme={styles.imgUpload}>
             Upload image:
-            {/* {isSubmitting(true) && <div>Uploading...</div>} */}
+            {loading ? (
+              <p>Loading...</p>
+            ) : (
+              <div>
+                Preview:
+                <img src={imgUrl} width="60" alt="groove picture" />
+              </div>
+            )}
             <input
+              onChange={handleImageUpload}
               type="file"
               name="fileInput"
               classNAme={courierPrime.styles}
