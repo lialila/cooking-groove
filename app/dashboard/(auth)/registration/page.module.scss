@@ -4,10 +4,12 @@
   padding: 2rem;
   padding-bottom: 5rem;
   margin-top: 5rem;
-  // width: 100vw;
+  width: 100vw;
   // height: 100vh;
 }
-
+.form_container {
+  text-align: left;
+}
 .form {
   background-color: rgba(5, 12, 32, 0.8);
   color: white;
@@ -17,17 +19,17 @@
   font-size: 1rem;
   letter-spacing: 0.2vw;
   border: 1px solid rgb(255, 255, 255);
-  padding: 1rem;
+  padding: 2rem;
 
   input {
-    width: 80%;
+    width: 100%;
     text-align: left;
     background-color: rgba(185, 179, 179, 0);
     border-bottom: solid 1.2px white;
     border-top: none;
     border-right: none;
     border-left: none;
-    // margin: 0.5rem;
+    margin: 1rem 0;
     color: white;
   }
   input:hover {
@@ -51,6 +53,27 @@
     background: rgba(20, 23, 59, 0.5);
     // border: solid rgba(255, 255, 255, 0.3) 1.2px;
   }
+  // button:last-of-type {
+  //   background: hsla(285, 76%, 36%, 1);
+
+  //   background: linear-gradient(
+  //     180deg,
+  //     hsla(285, 76%, 36%, 1) 0%,
+  //     hsl(346, 100%, 65%) 100%
+  //   );
+
+  //   background: -moz-linear-gradient(
+  //     180deg,
+  //     hsla(285, 76%, 36%, 1) 0%,
+  //     hsla(346, 100%, 65%, 1) 100%
+  //   );
+
+  //   background: -webkit-linear-gradient(
+  //     180deg,
+  //     hsla(285, 76%, 36%, 1) 0%,
+  //     hsla(346, 100%, 65%, 1) 100%
+  //   );
+  // }
 }
 .button {
   margin-top: 20px;

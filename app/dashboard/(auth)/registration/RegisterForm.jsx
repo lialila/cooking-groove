@@ -116,98 +116,100 @@ export default function RegisterForm(props) {
         <div key={`error-${error.message}`}>Error: {error.message}</div>
       ))}
       <FadeIn>
-        <label htmlFor="username" className={courierPrime.className}>
-          Username:
+        <div className={styles.form_container}>
+          <label htmlFor="username" className={courierPrime.className}>
+            Username
+            <input
+              data-test-id="username"
+              value={username}
+              required
+              onChange={(e) => setUsername(e.currentTarget.value)}
+            />
+          </label>
+          <br />
+          <label htmlFor="name" className={courierPrime.className}>
+            Name
+          </label>
           <input
-            data-test-id="username"
-            value={username}
+            data-test-id="name"
+            value={name}
             required
-            onChange={(e) => setUsername(e.currentTarget.value)}
+            onChange={(e) => setName(e.currentTarget.value)}
           />
-        </label>
-        <br />
-        <label htmlFor="name" className={courierPrime.className}>
-          Name:{' '}
-        </label>
-        <input
-          data-test-id="name"
-          value={name}
-          required
-          onChange={(e) => setName(e.currentTarget.value)}
-        />
-        <br />
-        <label htmlFor="email" className={courierPrime.className}>
-          E-mail:
-        </label>
-        <input
-          type="email"
-          data-test-id="email"
-          value={email}
-          required
-          onChange={(e) => setEmail(e.currentTarget.value)}
-        />
-        <br />
-        <label htmlFor="eatingExperience" className={courierPrime.className}>
-          Eating experience:
-        </label>
-        <input
-          data-test-id="eatingExperience"
-          value={eatingExperience}
-          required
-          onChange={(e) => setEatingExperience(e.currentTarget.value)}
-        />{' '}
-        <br />
-        <label htmlFor="cookingExperience" className={courierPrime.className}>
-          Cooking experience:
-        </label>
-        <input
-          data-test-id="cookingExperience"
-          value={cookingExperience}
-          required
-          onChange={(e) => setCookingExperience(e.currentTarget.value)}
-        />{' '}
-        <br />
-        <label htmlFor="favouriteFood" className={courierPrime.className}>
-          Favourite food:
-        </label>
-        <input
-          data-test-id="favouriteFood"
-          value={favouriteFood}
-          required
-          onChange={(e) => setFavouriteFood(e.currentTarget.value)}
-        />{' '}
-        <br />
-        <label htmlFor="language" className={courierPrime.className}>
-          Language:
-        </label>
-        <input
-          data-test-id="language"
-          value={language}
-          required
-          onChange={(e) => setLanguage(e.currentTarget.value)}
-        />{' '}
-        <label htmlFor="password" className={courierPrime.className}>
-          Password:
-        </label>
-        <input
-          data-test-id="password"
-          value={password}
-          required
-          onChange={(e) => setPassword(e.currentTarget.value)}
-        />
-        <br />
-        <label className={courierPrime.className}>
-          Upload image:
-          {loading ? (
-            <p>Loading...</p>
-          ) : (
-            <div>
-              Preview:
-              <img src={profileImgUrl} width="60" alt="profile image" />
-            </div>
-          )}
-          <input type="file" name="fileInput" onChange={handleImageUpload} />
-        </label>
+          <br />
+          <label htmlFor="email" className={courierPrime.className}>
+            E-mail
+          </label>
+          <input
+            type="email"
+            data-test-id="email"
+            value={email}
+            required
+            onChange={(e) => setEmail(e.currentTarget.value)}
+          />
+          <br />
+          <label htmlFor="eatingExperience" className={courierPrime.className}>
+            Eating experience
+          </label>
+          <input
+            data-test-id="eatingExperience"
+            value={eatingExperience}
+            required
+            onChange={(e) => setEatingExperience(e.currentTarget.value)}
+          />{' '}
+          <br />
+          <label htmlFor="cookingExperience" className={courierPrime.className}>
+            Cooking experience
+          </label>
+          <input
+            data-test-id="cookingExperience"
+            value={cookingExperience}
+            required
+            onChange={(e) => setCookingExperience(e.currentTarget.value)}
+          />{' '}
+          <br />
+          <label htmlFor="favouriteFood" className={courierPrime.className}>
+            Favourite food
+          </label>
+          <input
+            data-test-id="favouriteFood"
+            value={favouriteFood}
+            required
+            onChange={(e) => setFavouriteFood(e.currentTarget.value)}
+          />{' '}
+          <br />
+          <label htmlFor="language" className={courierPrime.className}>
+            Language
+          </label>
+          <input
+            data-test-id="language"
+            value={language}
+            required
+            onChange={(e) => setLanguage(e.currentTarget.value)}
+          />{' '}
+          <label htmlFor="password" className={courierPrime.className}>
+            Password
+          </label>
+          <input
+            data-test-id="password"
+            value={password}
+            required
+            onChange={(e) => setPassword(e.currentTarget.value)}
+          />
+          <br />
+          <label className={courierPrime.className}>
+            Upload image
+            {loading ? (
+              <p>Loading...</p>
+            ) : (
+              <div>
+                preview{' '}
+                <img src={profileImgUrl} width="60" alt="profile image" />
+              </div>
+            )}
+            <input type="file" name="fileInput" onChange={handleImageUpload} />
+          </label>
+        </div>
         <br />
         <div className={styles.button}>
           <button className={courierPrime.className}>Back </button>
