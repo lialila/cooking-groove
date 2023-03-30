@@ -165,16 +165,48 @@ export default function EditGrooveForm(props) {
       className={`${montserrat.className} ${styles.div}`}
     >
       <form>
-        {' '}
+        {/* if the groove is not on edit mode */}
         {idOnEditMode !== props.currentGroove.id ? (
           <div className={styles.h1}>
             <h1>{props.currentGroove.name}</h1>
             {props.currentGroove.userId !== props.currentUserId ? (
+              // if the current user is not the admin of the groove, show participate button or participating message
               findUserId ? (
                 <p className={styles.going}>You are going!</p>
-              ) : null
-            ) : null}
-            {props.currentGroove.userId === props.currentUserId ? (
+              ) : (
+                <button
+                  className={styles.addComment}
+                  onClick={async () => {
+                    const response = await fetch(
+                      `/dashboard/api/grooves/usersgrooves/${props.currentGroove.id}`,
+                      {
+                        method: 'POST',
+                        headers: {
+                          'Content-Type': 'application/json',
+                        },
+
+                        body: JSON.stringify({
+                          userId: props.currentUserId,
+                          grooveId: props.currentGroove.id,
+                        }),
+                      },
+                    );
+
+                    const data = await response.json();
+
+                    if ('errors' in data) {
+                      setError(data.errors);
+                      return;
+                    } else {
+                      router.refresh();
+                    }
+                  }}
+                >
+                  Participate
+                </button>
+              )
+            ) : (
+              // if the current user is the admin of the groove and the groove is not on edit mode, show edit button
               <button
                 onClick={() => {
                   setIdOnEditMode(props.currentGroove.id);
@@ -190,7 +222,7 @@ export default function EditGrooveForm(props) {
               >
                 Edit
               </button>
-            ) : null}
+            )}
           </div>
         ) : (
           <label className={styles.onEdit}>
@@ -201,66 +233,25 @@ export default function EditGrooveForm(props) {
             />
           </label>
         )}{' '}
-        <div className={styles.datetimelocation}>
-          {idOnEditMode !== props.currentGroove.id ? (
-            <div className={styles.time}>
-              <img src="/groove/time1.png" alt="time" width="20" />
-              <p>
-                {props.currentGroove.date} at {props.currentGroove.time}
-              </p>
-            </div>
-          ) : (
-            <>
-              <label className={styles.onEdit}>
-                Time
-                <input
-                  type="time"
-                  value={editTime}
-                  onChange={(e) => setEditTime(e.currentTarget.value)}
-                />
-              </label>
-              <label className={styles.onEdit}>
-                Date
-                <input
-                  type="date"
-                  value={editDate}
-                  onChange={(e) => setEditDate(e.currentTarget.value)}
-                />
-              </label>
-            </>
-          )}{' '}
-          {idOnEditMode !== props.currentGroove.id ? (
-            <div className={styles.location}>
-              <img src="/groove/place1.png" alt="location" width="20" />
-              <p>{props.currentGroove.location}</p>
-            </div>
-          ) : (
-            <label className={styles.onEdit}>
-              Location
-              <input
-                value={editLocation || ''}
-                onChange={(e) => setEditLocation(e.currentTarget.value)}
-              />{' '}
-            </label>
-          )}{' '}
-        </div>
         {idOnEditMode !== props.currentGroove.id ? (
-          <div className={styles.offer}>
+          <>
             {' '}
-            <img src="/groove/donerose.png" alt="done" width="30" />
-            <p>{props.currentGroove.offer}</p>
-          </div>
-        ) : (
-          <label className={styles.onEdit}>
-            Offer
-            <input
-              value={editOffer}
-              onChange={(e) => setEditOffer(e.currentTarget.value)}
-            />{' '}
-          </label>
-        )}{' '}
-        <div>
-          {idOnEditMode !== props.currentGroove.id ? (
+            <div className={styles.datetimelocation}>
+              <div className={styles.time}>
+                <img src="/groove/time1.png" alt="time" width="20" />
+                <p>
+                  {props.currentGroove.date} at {props.currentGroove.time}
+                </p>
+              </div>
+              <div className={styles.location}>
+                <img src="/groove/place1.png" alt="location" width="20" />
+                <p>{props.currentGroove.location}</p>
+              </div>
+            </div>
+            <div className={styles.offer}>
+              <img src="/groove/donerose.png" alt="done" width="30" />
+              <p>{props.currentGroove.offer}</p>
+            </div>
             <div className={styles.missing}>
               {' '}
               <div>
@@ -281,72 +272,96 @@ export default function EditGrooveForm(props) {
                 })}
               </div>
             </div>
-          ) : (
-            <div>
-              <p>Add missing ingredient</p>
-              <div className={styles.onEditMissingIngredient}>
-                <label className={styles.onEdit}>
-                  <input
-                    value={ingredient}
-                    onChange={(e) => setIngredient(e.currentTarget.value)}
-                  />{' '}
-                </label>
-                <button
-                  className={styles.plus}
-                  onClick={handleIngredientAddition}
-                >
-                  +
-                </button>
-              </div>
-              {/* {groovesIngredients.length ===
-              0 ? null : groovesIngredients.length > 1 ? (
-                <p>Missing ingredients</p>
-              ) : (
-                <p>Missing ingredient: </p>
-              )} */}{' '}
-              <div className={styles.missingIngredientInList}>
-                <img src="/groove/questionrose.png" alt="missing" width="60" />
-                <div>
-                  {groovesIngredients.map((singleIngredient) => {
-                    return (
-                      <div key={`ingredient.${singleIngredient.id}`}>
-                        <label className={styles.ingredients}>
-                          {' '}
-                          {singleIngredient.ingredientName}
-                          {/* <input type="checkbox" />{' '} */}
-                          <button
-                            type="button"
-                            onClick={() =>
-                              handleIngredientDelete(singleIngredient.id)
-                            }
-                          >
-                            X
-                          </button>
-                        </label>{' '}
-                      </div>
-                    );
-                  })}{' '}
-                </div>
+            <div className={styles.hosted}>
+              <Link href={`/dashboard/profile/${grooveAdmin.id}`}>
+                <img
+                  src={grooveAdmin.profileImgUrl}
+                  width="40"
+                  height="40"
+                  alt="Profile"
+                  className={styles.profileImg}
+                />
+              </Link>{' '}
+              <p>Hosted by {grooveAdmin.username}</p>
+            </div>
+          </>
+        ) : (
+          <>
+            <label className={styles.onEdit}>
+              Time
+              <input
+                type="time"
+                value={editTime}
+                onChange={(e) => setEditTime(e.currentTarget.value)}
+              />
+            </label>
+            <label className={styles.onEdit}>
+              Date
+              <input
+                type="date"
+                value={editDate}
+                onChange={(e) => setEditDate(e.currentTarget.value)}
+              />
+            </label>
+            <label className={styles.onEdit}>
+              Location
+              <input
+                value={editLocation || ''}
+                onChange={(e) => setEditLocation(e.currentTarget.value)}
+              />{' '}
+            </label>
+            <label className={styles.onEdit}>
+              Offer
+              <input
+                value={editOffer}
+                onChange={(e) => setEditOffer(e.currentTarget.value)}
+              />{' '}
+            </label>
+
+            <p>Add missing ingredient</p>
+            <div className={styles.onEditMissingIngredient}>
+              <label className={styles.onEdit}>
+                <input
+                  value={ingredient}
+                  onChange={(e) => setIngredient(e.currentTarget.value)}
+                />{' '}
+              </label>
+              <button
+                className={styles.plus}
+                onClick={handleIngredientAddition}
+              >
+                +
+              </button>
+            </div>
+            <div className={styles.missingIngredientInList}>
+              <img src="/groove/questionrose.png" alt="missing" width="60" />
+              <div>
+                {groovesIngredients.map((singleIngredient) => {
+                  return (
+                    <div key={`ingredient.${singleIngredient.id}`}>
+                      <label className={styles.ingredients}>
+                        {singleIngredient.ingredientName}
+
+                        <button
+                          type="button"
+                          onClick={() =>
+                            handleIngredientDelete(singleIngredient.id)
+                          }
+                        >
+                          X
+                        </button>
+                      </label>{' '}
+                    </div>
+                  );
+                })}{' '}
               </div>
             </div>
-          )}{' '}
-        </div>
+          </>
+        )}{' '}
         {idOnEditMode !== props.currentGroove.id ? (
-          <div className={styles.hosted}>
-            <Link href={`/dashboard/profile/${grooveAdmin.id}`}>
-              <img
-                src={grooveAdmin.profileImgUrl}
-                width="40"
-                height="40"
-                alt="Profile"
-                className={styles.profileImg}
-              />
-            </Link>{' '}
-            <p>Hosted by {grooveAdmin.username}</p>
-          </div>
-        ) : null}
-        {idOnEditMode !== props.currentGroove.id ? (
-          !props.currentGroove.imgUrl ? undefined : ( // <img src="/groove-default.jpeg" width="150" alt="Groove" />
+          !props.currentGroove.imgUrl ? (
+            <img src="/groove-default.jpeg" width="150" alt="Groove" />
+          ) : (
             <div>
               {' '}
               <img
@@ -560,36 +575,7 @@ export default function EditGrooveForm(props) {
             Leave
           </button>
         ) : (
-          <button
-            className={styles.addComment}
-            onClick={async () => {
-              const response = await fetch(
-                `/dashboard/api/grooves/usersgrooves/${props.currentGroove.id}`,
-                {
-                  method: 'POST',
-                  headers: {
-                    'Content-Type': 'application/json',
-                  },
-
-                  body: JSON.stringify({
-                    userId: props.currentUserId,
-                    grooveId: props.currentGroove.id,
-                  }),
-                },
-              );
-
-              const data = await response.json();
-
-              if ('errors' in data) {
-                setError(data.errors);
-                return;
-              } else {
-                router.refresh();
-              }
-            }}
-          >
-            Participate
-          </button>
+          <h1>PArticipate button</h1>
         )
       ) : null}
       {idOnEditMode !== props.currentGroove.id ? (

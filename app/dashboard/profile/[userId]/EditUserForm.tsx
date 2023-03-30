@@ -101,7 +101,7 @@ export default function EditUserForm(props: Props) {
             </div>
           ) : (
             <label className={styles.input}>
-              Image:{' '}
+              Image{' '}
               <input
                 type="file"
                 name="fileInput"
@@ -114,7 +114,7 @@ export default function EditUserForm(props: Props) {
             <h3>{props.user.username}</h3>
           ) : (
             <label className={styles.input}>
-              Username:
+              Username
               <input
                 value={editUsername}
                 onChange={(e) => setEditUsername(e.currentTarget.value)}
