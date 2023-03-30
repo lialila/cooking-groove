@@ -108,120 +108,122 @@ export default function CreateGrooveForm(props) {
   return (
     <div className={`${courierPrime.className} ${styles.div}`}>
       <h3 className={montserratText.className}>Create Groove</h3>
-      <form className={styles.form} onSubmit={handleSubmit}>
+      <form onSubmit={handleSubmit}>
         <br />
         <FadeIn>
-          <label>
-            Groove name
-            <input
-              value={name}
-              required
-              onChange={(e) => setName(e.currentTarget.value)}
-            />
-          </label>
-          <br />
-          <label>
-            {' '}
-            What you got for the groove
-            <input
-              value={offer}
-              required
-              onChange={(e) => setOffer(e.currentTarget.value)}
-            />
-          </label>
-          <br />
-          <br />
-          <label>
-            Add missing ingredient{' '}
-            <input
-              value={ingredientName}
-              onChange={(e) => setIngredientName(e.currentTarget.value)}
-            />{' '}
-          </label>
-          <br />
-          <label>
-            Description
-            <input
-              value={description}
-              onChange={(e) => setDescription(e.currentTarget.value)}
-            />{' '}
-          </label>{' '}
-          <br />
-          <label>
-            Location
-            <input
-              value={location}
-              onChange={(e) => setLocation(e.currentTarget.value)}
-            />
-          </label>{' '}
-          <br />
-          <p>Choose a label</p>
-          <select
-            className={`${styles.label} ${courierPrime.className}`}
-            placeholder="Your label"
-            value={label}
-            onChange={(e) => setLabel(e.currentTarget.value)}
-          >
-            <option defaultValue="Choose the label">Choose the label</option>
+          <div className={styles.form}>
+            <label>
+              Groove name
+              <input
+                value={name}
+                required
+                onChange={(e) => setName(e.currentTarget.value)}
+              />
+            </label>
+            <br />
+            <label>
+              {' '}
+              What you got for the groove
+              <input
+                value={offer}
+                required
+                onChange={(e) => setOffer(e.currentTarget.value)}
+              />
+            </label>
+            <br />
+            <br />
+            <label>
+              Add missing ingredient{' '}
+              <input
+                value={ingredientName}
+                onChange={(e) => setIngredientName(e.currentTarget.value)}
+              />{' '}
+            </label>
+            <br />
+            <label>
+              Description
+              <input
+                value={description}
+                onChange={(e) => setDescription(e.currentTarget.value)}
+              />{' '}
+            </label>{' '}
+            <br />
+            <label>
+              Location
+              <input
+                value={location}
+                onChange={(e) => setLocation(e.currentTarget.value)}
+              />
+            </label>{' '}
+            <br />
+            <p>Choose a label</p>
+            <select
+              className={`${styles.label} ${courierPrime.className}`}
+              placeholder="Your label"
+              value={label}
+              onChange={(e) => setLabel(e.currentTarget.value)}
+            >
+              <option defaultValue="Choose the label">Choose the label</option>
 
-            <option>Vegeterian</option>
-            <option>Vegan</option>
-            <option>Gluten free</option>
-            <option>Diabetic</option>
-            <option>Pescatarian</option>
-            <option>Carnivore</option>
-            <option>Kosher</option>
-            <option>Halal</option>
-            <option>Raw</option>
-            <option>Organic</option>
-          </select>
-          <br />
-          <label>
-            Time:
-            <input
-              type="time"
-              value={time}
-              required
-              onChange={(e) => setTime(e.currentTarget.value)}
-            />
-          </label>
-          <br />
-          <label>
-            Date:
-            <input
-              value={date}
-              type="date"
-              required
-              onChange={(e) => setDate(e.currentTarget.value)}
-            />{' '}
-          </label>{' '}
-          <br />
-          <label>
-            Language:
-            <input
-              value={language}
-              required
-              onChange={(e) => setLanguage(e.currentTarget.value)}
-            />{' '}
-          </label>{' '}
-          <br />
-          <label classNAme={styles.imgUpload}>
-            Upload image:
-            {loading ? (
-              <p>Loading...</p>
-            ) : (
-              <div>
-                Preview:
-                <img src={imgUrl} width="60" alt="groove picture" />
-              </div>
-            )}
-            <input
-              onChange={handleImageUpload}
-              type="file"
-              name="fileInput"
-              classNAme={courierPrime.styles}
-            />
-          </label>
+              <option>Vegeterian</option>
+              <option>Vegan</option>
+              <option>Gluten free</option>
+              <option>Diabetic</option>
+              <option>Pescatarian</option>
+              <option>Carnivore</option>
+              <option>Kosher</option>
+              <option>Halal</option>
+              <option>Raw</option>
+              <option>Organic</option>
+            </select>
+            <br />
+            <label>
+              Time
+              <input
+                type="time"
+                value={time}
+                required
+                onChange={(e) => setTime(e.currentTarget.value)}
+              />
+            </label>
+            <br />
+            <label>
+              Date
+              <input
+                value={date}
+                type="date"
+                required
+                onChange={(e) => setDate(e.currentTarget.value)}
+              />{' '}
+            </label>{' '}
+            <br />
+            <label>
+              Language
+              <input
+                value={language}
+                required
+                onChange={(e) => setLanguage(e.currentTarget.value)}
+              />{' '}
+            </label>{' '}
+            <br />
+            <label classNAme={styles.imgUpload}>
+              Upload image
+              {loading ? (
+                <p>Loading...</p>
+              ) : (
+                <div>
+                  preview:
+                  <img src={imgUrl} width="60" alt="groove picture" />
+                </div>
+              )}
+              <input
+                onChange={handleImageUpload}
+                type="file"
+                name="fileInput"
+                classNAme={courierPrime.styles}
+              />
+            </label>
+          </div>
           <button
             onSubmit={() => handleSubmit}
             className={courierPrime.className}

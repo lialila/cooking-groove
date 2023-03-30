@@ -104,47 +104,10 @@ export default function EditUserForm(props: Props) {
                   className={styles.img}
                 />
               )}
+              <h3>{props.user.username}</h3>
             </div>
-          ) : (
-            <label className={styles.input}>
-              Image{' '}
-              {loading ? (
-                <p>Loading...</p>
-              ) : (
-                <div>
-                  Preview:
-                  <img src={editProfileImgUrl} width="60" alt="profile image" />
-                </div>
-              )}
-              <input
-                type="file"
-                name="fileInput"
-                onChange={handleImageUpload}
-              />{' '}
-            </label>
-          )}{' '}
+          ) : null}{' '}
           <br />
-          {idOnEditMode !== props.user.id ? (
-            <h3>{props.user.username}</h3>
-          ) : (
-            <label className={styles.input}>
-              Username
-              <input
-                value={editUsername}
-                onChange={(e) => setEditUsername(e.currentTarget.value)}
-              />
-            </label>
-          )}{' '}
-          <br />
-          {idOnEditMode !== props.user.id ? null : (
-            <label className={styles.input}>
-              Name:
-              <input
-                value={editName}
-                onChange={(e) => setEditName(e.currentTarget.value)}
-              />
-            </label>
-          )}{' '}
           <br />
           {props.sessionUser.id === props.user.id &&
           idOnEditMode !== props.user.id ? (
@@ -190,60 +153,82 @@ export default function EditUserForm(props: Props) {
           </div>
         ) : null}
         <FadeIn>
-          {idOnEditMode !== props.user.id ? null : (
-            <label className={styles.input}>
-              E-mail:
-              <input
-                value={editEmail}
-                onChange={(e) => setEditEmail(e.currentTarget.value)}
-              />{' '}
-            </label>
-          )}
           {idOnEditMode !== props.user.id ? (
-            <p> Eating experience: {props.user.eatingExperience}</p>
+            <>
+              <p> Eating experience: {props.user.eatingExperience}</p>
+              <p> Cooking experience: {props.user.cookingExperience}</p>
+              <p> Favourite food: {props.user.favouriteFood}</p>
+              <p>Language: {props.user.language}</p>
+            </>
           ) : (
-            <label className={styles.input}>
-              Eating experience:
-              <input
-                value={editEatingExperience}
-                onChange={(e) => setEditEatingExperience(e.currentTarget.value)}
-              />{' '}
-            </label>
-          )}
-          {idOnEditMode !== props.user.id ? (
-            <p> Cooking experience: {props.user.cookingExperience}</p>
-          ) : (
-            <label className={styles.input}>
-              Cooking experience:
-              <input
-                value={editCookingExperience}
-                onChange={(e) =>
-                  setEditCookingExperience(e.currentTarget.value)
-                }
-              />{' '}
-            </label>
-          )}
-          {idOnEditMode !== props.user.id ? (
-            <p> Favourite food: {props.user.favouriteFood}</p>
-          ) : (
-            <label className={styles.input}>
-              Favourite food:
-              <input
-                value={editFavouriteFood}
-                onChange={(e) => setEditFavouriteFood(e.currentTarget.value)}
-              />{' '}
-            </label>
-          )}
-          {idOnEditMode !== props.user.id ? (
-            <p>Language: {props.user.language}</p>
-          ) : (
-            <label className={styles.input}>
-              Language:
-              <input
-                value={editLanguage}
-                onChange={(e) => setEditLanguage(e.currentTarget.value)}
-              />{' '}
-            </label>
+            <div className={styles.formOnEdit}>
+              <label className={styles.input}>
+                Username
+                <input
+                  value={editUsername}
+                  onChange={(e) => setEditUsername(e.currentTarget.value)}
+                />
+              </label>
+              <label className={styles.input}>
+                Name
+                <input
+                  value={editName}
+                  onChange={(e) => setEditName(e.currentTarget.value)}
+                />
+              </label>{' '}
+              <label className={styles.input}>
+                E-mail
+                <input
+                  value={editEmail}
+                  onChange={(e) => setEditEmail(e.currentTarget.value)}
+                />{' '}
+              </label>
+              <label className={styles.input}>
+                Eating experience:
+                <input
+                  value={editEatingExperience}
+                  onChange={(e) =>
+                    setEditEatingExperience(e.currentTarget.value)
+                  }
+                />{' '}
+              </label>{' '}
+              <label className={styles.input}>
+                Cooking experience
+                <input
+                  value={editCookingExperience}
+                  onChange={(e) =>
+                    setEditCookingExperience(e.currentTarget.value)
+                  }
+                />{' '}
+              </label>
+              <label className={styles.input}>
+                Favourite food
+                <input
+                  value={editFavouriteFood}
+                  onChange={(e) => setEditFavouriteFood(e.currentTarget.value)}
+                />{' '}
+              </label>
+              <label className={styles.input}>
+                Language
+                <input
+                  value={editLanguage}
+                  onChange={(e) => setEditLanguage(e.currentTarget.value)}
+                />{' '}
+              </label>
+              <label className={styles.input}>
+                Image preview{' '}
+                {loading ? (
+                  <p>Loading...</p>
+                ) : (
+                  <img src={editProfileImgUrl} width="60" alt="profile image" />
+                )}
+                <input
+                  type="file"
+                  name="fileInput"
+                  onChange={handleImageUpload}
+                />{' '}
+              </label>
+            </div>
           )}
         </FadeIn>
       </div>

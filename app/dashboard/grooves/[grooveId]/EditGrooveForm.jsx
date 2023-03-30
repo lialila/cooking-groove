@@ -184,8 +184,8 @@ export default function EditGrooveForm(props) {
             {props.currentGroove.userId !== props.currentUserId ? (
               // if the current user is not the admin of the groove, show participate button or participating message
               findUserId ? (
-                <div className={styles.going}>
-                  <p>You are going!</p>
+                <div>
+                  <p className={styles.going}>You are going!</p>
                   <button
                     className={styles.leave}
                     onClick={async () => {
