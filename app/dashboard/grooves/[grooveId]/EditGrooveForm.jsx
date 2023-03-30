@@ -259,9 +259,9 @@ export default function EditGrooveForm(props) {
             />{' '}
           </label>
         )}{' '}
-        <div className={styles.missing}>
+        <div>
           {idOnEditMode !== props.currentGroove.id ? (
-            <>
+            <div className={styles.missing}>
               {' '}
               <div>
                 <img src="/groove/questionrose.png" alt="missing" width="60" />
@@ -280,7 +280,7 @@ export default function EditGrooveForm(props) {
                   );
                 })}
               </div>
-            </>
+            </div>
           ) : (
             <div>
               <p>Add missing ingredient</p>
@@ -364,25 +364,11 @@ export default function EditGrooveForm(props) {
           </label>
         )}
         {idOnEditMode !== props.currentGroove.id ? (
-          <>
-            <h4 className={styles.about}>About</h4>
-            {idOnEditMode !== props.currentGroove.id ? (
-              <div className={`${styles.label} ${styles.onEdit}`}>
-                {' '}
-                <img src="/groove/hashtag.png" alt="hashtag" width="20" />
-                <p>{props.currentGroove.label}</p>
-              </div>
-            ) : (
-              <label>
-                Add labels
-                <input
-                  value={editLabel || ''}
-                  onChange={(e) => setEditLabel(e.currentTarget.value)}
-                />
-              </label>
-            )}{' '}
+          <div className={styles.about}>
+            <h4>About</h4>
+
             <p>{props.currentGroove.description}</p>
-          </>
+          </div>
         ) : (
           <>
             <label className={styles.onEdit}>
@@ -418,6 +404,21 @@ export default function EditGrooveForm(props) {
               <br />
             </div>
           </>
+        )}{' '}
+        {idOnEditMode !== props.currentGroove.id ? (
+          <div className={styles.label}>
+            {' '}
+            <img src="/groove/hashtag.png" alt="hashtag" width="20" />
+            <p>{props.currentGroove.label}</p>
+          </div>
+        ) : (
+          <label>
+            Add labels
+            <input
+              value={editLabel || ''}
+              onChange={(e) => setEditLabel(e.currentTarget.value)}
+            />
+          </label>
         )}{' '}
         {idOnEditMode !== props.currentGroove.id ? (
           <div className={styles.language}>
@@ -560,6 +561,7 @@ export default function EditGrooveForm(props) {
           </button>
         ) : (
           <button
+            className={styles.addComment}
             onClick={async () => {
               const response = await fetch(
                 `/dashboard/api/grooves/usersgrooves/${props.currentGroove.id}`,
