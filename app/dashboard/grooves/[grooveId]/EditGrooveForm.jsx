@@ -386,94 +386,89 @@ export default function EditGrooveForm(props) {
             ) : null}
             {/* if user admin or participator, show comments */}
             {props.currentGroove.userId === props.currentUserId ||
-              (findUserId && (
-                <div className={styles.comments}>
-                  <ul>
-                    {props.commentsForCurrentGroove.map((comment) => {
-                      const commentedUser = props.users.find(
-                        (user) => user.id === comment.userId,
-                      );
+            findUserId ? (
+              <div className={styles.comments}>
+                <ul>
+                  {props.commentsForCurrentGroove.map((comment) => {
+                    const commentedUser = props.users.find(
+                      (user) => user.id === comment.userId,
+                    );
 
-                      return (
-                        <li key={comment.id}>
-                          <Link
-                            className={styles.commentBody}
-                            href={`/dashboard/profile/${commentedUser?.id}`}
-                          >
-                            <div>
-                              <img
-                                className={styles.profileImg}
-                                src={commentedUser?.profileImgUrl}
-                                alt="profile"
-                                width="50"
-                                height="50"
-                              />{' '}
-                              <p>{commentedUser?.username}</p>
-                            </div>{' '}
-                            <div>
-                              <p>{comment.content}</p>{' '}
-                              <p>
-                                <span> {comment.createdAt}</span>
-                              </p>
-                            </div>
-                          </Link>
-                        </li>
-                      );
-                    })}
-                  </ul>
-                  <img
-                    className={styles.profileImg}
-                    src={props.currentUser.profileImgUrl}
-                    alt="profile"
-                    width="40"
-                    height="40"
-                  />
-                  <div className={styles.commentDiv}>
-                    <label>
-                      <input
-                        placeholder="What is in your mind..."
-                        value={commentContent}
-                        onChange={(e) =>
-                          setCommentContent(e.currentTarget.value)
-                        }
-                      />
-                    </label>
-                    <button
-                      onClick={async () => {
-                        const response = await fetch(
-                          `/dashboard/api/grooves/comments/${props.currentGroove.id}`,
-                          {
-                            method: 'POST',
-                            headers: {
-                              'Content-Type': 'application/json',
-                            },
-                            body: JSON.stringify({
-                              content: commentContent,
-                              userId: props.currentUserId,
-                              grooveId: props.currentGroove.id,
-                              createdAt: currentTime,
-                            }),
+                    return (
+                      <li key={comment.id}>
+                        <Link
+                          className={styles.commentBody}
+                          href={`/dashboard/profile/${commentedUser?.id}`}
+                        >
+                          <div>
+                            <img
+                              className={styles.profileImg}
+                              src={commentedUser?.profileImgUrl}
+                              alt="profile"
+                              width="50"
+                              height="50"
+                            />{' '}
+                            <p>{commentedUser?.username}</p>
+                          </div>{' '}
+                          <div>
+                            <p>{comment.content}</p>{' '}
+                            <p>
+                              <span> {comment.createdAt}</span>
+                            </p>
+                          </div>
+                        </Link>
+                      </li>
+                    );
+                  })}
+                </ul>
+                <img
+                  className={styles.profileImg}
+                  src={props.currentUser.profileImgUrl}
+                  alt="profile"
+                  width="40"
+                  height="40"
+                />
+                <div className={styles.commentDiv}>
+                  <label>
+                    <input
+                      placeholder="What is in your mind..."
+                      value={commentContent}
+                      onChange={(e) => setCommentContent(e.currentTarget.value)}
+                    />
+                  </label>
+                  <button
+                    onClick={async () => {
+                      const response = await fetch(
+                        `/dashboard/api/grooves/comments/${props.currentGroove.id}`,
+                        {
+                          method: 'POST',
+                          headers: {
+                            'Content-Type': 'application/json',
                           },
-                        );
+                          body: JSON.stringify({
+                            content: commentContent,
+                            userId: props.currentUserId,
+                            grooveId: props.currentGroove.id,
+                            createdAt: currentTime,
+                          }),
+                        },
+                      );
 
-                        const data = await response.json();
-                        if (data.error) {
-                          setError(data.error);
-                          return;
-                        }
-                        setCommentsInGroove([
-                          ...commentsInGroove,
-                          data.comment,
-                        ]);
-                        router.refresh();
-                      }}
-                      className={styles.addComment}
-                    >
-                      Add
-                    </button>
-                  </div>
+                      const data = await response.json();
+                      if (data.error) {
+                        setError(data.error);
+                        return;
+                      }
+                      setCommentsInGroove([...commentsInGroove, data.comment]);
+                      router.refresh();
+                    }}
+                    className={styles.addComment}
+                  >
+                    Add
+                  </button>
                 </div>
-              ))}
+              </div>
+            ) : null}
           </>
         ) : (
           // if the page is on edit mode

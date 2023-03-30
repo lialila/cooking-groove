@@ -194,9 +194,10 @@
 .about {
   margin-bottom: 0;
   max-width: 400px;
+  padding-bottom: 1rem;
+
   h4 {
     letter-spacing: 0.2rem;
-    padding-bottom: 1rem;
   }
 }
 .language {
@@ -425,9 +426,8 @@
   }
 }
 .participate {
-  align-items: center;
   text-align: center;
-  line-height: 65px;
+  line-height: 0.2rem;
   font-size: 0.8rem;
   border-radius: 8px;
   padding: 0.5rem;
