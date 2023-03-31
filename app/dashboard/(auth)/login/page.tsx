@@ -1,3 +1,4 @@
+import { Montserrat } from '@next/font/google';
 import { cookies } from 'next/headers';
 import { redirect } from 'next/navigation';
 import { getValidSessionByToken } from '../../../../database/sessions';
@@ -17,6 +18,7 @@ export default async function LoginPAge(props: Props) {
   if (session) {
     redirect('/');
   }
+
   return (
     <section className={styles.main}>
       <Form returnTo={props.searchParams.returnTo} />

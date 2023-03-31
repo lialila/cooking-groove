@@ -50,6 +50,16 @@ export const updateIngredientById = cache(
   },
 );
 
+export const getIngredientsByUsersgrovesId = cache(
+  async (usersgrooveId: number) => {
+    const ingredients = await sql<Ingredient[]>`
+SELECT * FROM ingredients
+WHERE groove_id = ${usersgrooveId.grooveId}
+`;
+    return ingredients;
+  },
+);
+
 export const deleteIngredientByGrooveId = cache(async (grooveId: number) => {
   const [ingredient] = await sql<Ingredient[]>`
   DELETE FROM

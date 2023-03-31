@@ -3,17 +3,7 @@ import { Courier_Prime, Montserrat } from '@next/font/google';
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
 import { useState } from 'react';
-// import { Comment } from '../../../../database/comments';
-// import { Groove } from '../../../../database/grooves';
-// import { Ingredient } from '../../../../database/ingredients';
-// import { User } from '../../../../database/users';
-// import { Usersgroove } from '../../../../database/usersgrooves';
 import styles from './page.module.scss';
-
-// const courierPrime = Courier_Prime({
-//   weight: '400',
-//   subsets: ['latin'],
-// });
 
 const montserrat = Montserrat({
   weight: '400',

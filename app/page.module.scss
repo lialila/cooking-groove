@@ -28,13 +28,13 @@
   }
   p {
     color: white;
-    border: solid 1.2px white;
-    padding: 15px;
+    padding: 15px 0 20px;
     font-size: 16px;
     margin: 0;
-    padding-bottom: 20px;
     margin-bottom: 10px;
-    border-bottom: solid 1.2px rgb(254, 253, 253);
+    border-top: solid 1.2px rgba(254, 253, 253, 0.7);
+    border-bottom: solid 1.2px rgba(254, 253, 253, 0.7);
+
     font-weight: 400;
     letter-spacing: 1.5px;
     line-height: 1.6rem;

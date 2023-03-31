@@ -1,8 +1,14 @@
+import { Montserrat } from '@next/font/google';
 import { cookies } from 'next/headers';
 import { redirect } from 'next/navigation';
 import { getValidSessionByToken } from '../../../../database/sessions';
 import styles from './page.module.scss';
 import RegisterForm from './RegisterForm';
+
+const montserrat = Montserrat({
+  weight: '400',
+  subsets: ['latin'],
+});
 
 interface Metadata {
   title: {

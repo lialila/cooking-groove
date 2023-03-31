@@ -14,11 +14,6 @@ const courierPrime = Courier_Prime({
   subsets: ['latin'],
 });
 
-// const montserratText = Montserrat({
-//   weight: '400',
-//   subsets: ['latin'],
-// });
-
 export default function RegisterForm(props) {
   const [username, setUsername] = useState('');
   const [name, setName] = useState('');

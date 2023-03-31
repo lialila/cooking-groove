@@ -104,43 +104,45 @@ export default function EditUserForm(props: Props) {
                   className={styles.img}
                 />
               )}
-              <h3>{props.user.username}</h3>
+              <div className={styles.profile}>
+                {props.sessionUser.id === props.user.id && (
+                  <button
+                    className={courierPrime.className}
+                    onClick={() => {
+                      setIdOnEditMode(props.user.id);
+                      setEditName(props.user.name);
+                      setEditUsername(props.user.username);
+                      setEditEmail(props.user.email);
+                      setEditProfileImgUrl(props.user.profileImgUrl || '');
+                      setEditEatingExperience(
+                        props.user.eatingExperience || '',
+                      );
+                      setEditCookingExperience(
+                        props.user.cookingExperience || '',
+                      );
+                      setEditFavouriteFood(props.user.favouriteFood || '');
+                      setEditLanguage(props.user.language || '');
+                    }}
+                  >
+                    <img src="/additional/edit1.png" alt="edit" width="17" />
+                  </button>
+                )}
+                <h3>{props.user.username}</h3>
+              </div>
             </div>
           ) : null}{' '}
           <br />
           <br />
           {props.sessionUser.id === props.user.id &&
           idOnEditMode !== props.user.id ? (
-            <>
-              <div className={styles.profile}>
-                <button
-                  className={courierPrime.className}
-                  onClick={() => {
-                    setIdOnEditMode(props.user.id);
-                    setEditName(props.user.name);
-                    setEditUsername(props.user.username);
-                    setEditEmail(props.user.email);
-                    setEditProfileImgUrl(props.user.profileImgUrl || '');
-                    setEditEatingExperience(props.user.eatingExperience || '');
-                    setEditCookingExperience(
-                      props.user.cookingExperience || '',
-                    );
-                    setEditFavouriteFood(props.user.favouriteFood || '');
-                    setEditLanguage(props.user.language || '');
-                  }}
-                >
-                  Edit
-                </button>{' '}
-              </div>
-              <div className={styles.profileMenu}>
-                <Link href="/dashboard/grooves/my-grooves">
-                  <div className={courierPrime.className}>My grooves</div>
-                </Link>
-                <Link href="/dashboard/grooves/participation-grooves">
-                  <div className={courierPrime.className}>Participation</div>
-                </Link>
-              </div>
-            </>
+            <div className={styles.profileMenu}>
+              <Link href="/dashboard/grooves/my-grooves">
+                <div className={courierPrime.className}>My grooves</div>
+              </Link>
+              <Link href="/dashboard/grooves/participation-grooves">
+                <div className={courierPrime.className}>Participation</div>
+              </Link>
+            </div>
           ) : null}{' '}
         </div>
         {props.sessionUser.id !== props.user.id ? (
@@ -301,22 +303,27 @@ export default function EditUserForm(props: Props) {
             </button>
           </div>
         ) : (
-          <Link href="/logout" prefetch={false}>
-            <img
-              className={styles.logout}
-              src="/nav-footer/logout.png"
-              width="25"
-              height="25"
-              alt="search"
-            />
-          </Link>
+          <div className={styles.signes}>
+            <Link href="/logout" prefetch={false}>
+              <img
+                className={styles.logout}
+                src="/nav-footer/logout.png"
+                width="23"
+                height="23"
+                alt="search"
+              />
+            </Link>
+          </div>
         )
       ) : (
-        <Link href="/">
+        <Link
+          className={styles.signes}
+          href={`/dashboard/profile/${props.sessionUser.id}/chat`}
+        >
           <img
             className={styles.message}
             src="/additional/chat1.png"
-            width="40"
+            width="30"
             alt="chat"
           />
         </Link>

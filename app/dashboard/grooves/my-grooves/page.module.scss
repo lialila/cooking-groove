@@ -146,10 +146,12 @@
 .carousel {
   overflow: hidden;
   width: 80vw;
+
   margin: auto;
   display: flex;
   flex-direction: column;
   justify-content: center;
+  // text-align: center;
   padding: 0 0.2rem 0;
   border: white 1.2px solid;
   box-shadow: 0 4px 30px rgba(243, 235, 235, 0.3);
@@ -184,7 +186,7 @@
   }
 }
 .img {
-  border-radius: 30px;
+  border-radius: 0.5rem;
   width: 70vw;
   padding: 10px 40px;
   max-width: 300px;

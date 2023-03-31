@@ -5,7 +5,7 @@
   align-items: center;
   text-align: center;
   margin: 4rem 0 6rem;
-  width: 97vw;
+  width: 100vw;
   padding-top: 2rem;
   font-weight: 400;
   font-size: 1rem;
@@ -47,7 +47,7 @@
   // text-align: left;
   align-items: center;
   padding: 1rem;
-  margin: 1.6rem 0.8rem;
+  margin: 1.6rem 0.8rem 0rem;
   line-height: 1rem;
   font-weight: 400;
   font-size: 0.8rem;
@@ -60,10 +60,11 @@
   margin: 0;
   line-height: 0.8rem;
   h3 {
-    margin: 0.3rem;
+    margin: 0.3rem 0;
     font-size: 1.2rem;
     margin-bottom: -0.9rem;
     padding-top: 0.7rem;
+    // margin-right: -2.8rem;
   }
 }
 
@@ -88,9 +89,9 @@
   border-radius: 50%;
 }
 
-.logout {
-  margin-bottom: 1rem;
-}
+// .logout {
+//   padding-bottom: 0.5rem;
+// }
 
 .profileMenu {
   margin: 0.5rem;
@@ -192,6 +193,28 @@
 }
 // message sign from the user page
 
-.message {
-  padding-bottom: 0.5rem;
+.signes {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-bottom: 0.5rem;
+  gap: 0.5rem;
+}
+.profile {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  button {
+    border: none;
+    background-color: rgba(185, 179, 179, 0);
+    // margin-top: -0.5rem;
+  }
+
+  img {
+    margin: 0.3rem;
+    font-size: 1.2rem;
+    margin-bottom: -2rem;
+    margin-right: -5rem;
+  }
 }
