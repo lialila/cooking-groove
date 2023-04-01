@@ -112,9 +112,7 @@ export default function EditGrooveForm(props) {
   const groovesIngredients = props.ingredients.filter((item) => {
     return item.grooveId === props.currentGroove.id;
   });
-  // const singleIngredient = groovesIngredients.find((item) => {
-  //   return item.id === ingredient.id;
-  // });
+
   const handleCommentAddition = async (e) => {
     e.preventDefault();
     const response = await fetch(
