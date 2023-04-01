@@ -43,10 +43,11 @@
     font-size: 0.8rem;
     list-style: none;
     padding: 0;
-    text-transform: lowercase;
+
     margin: 0;
   }
   nav {
+    text-transform: lowercase;
     text-align: center;
     width: 100vw;
     height: 30px;
@@ -100,6 +101,7 @@
 }
 
 .footer {
+  text-transform: lowercase;
   background-color: rgba(1, 7, 15, 0.902);
   position: fixed;
   bottom: 0;
