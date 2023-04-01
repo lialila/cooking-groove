@@ -5,7 +5,11 @@
   align-items: center;
   text-align: center;
   width: 100vw;
-
+  form {
+    backdrop-filter: blur(8.4px);
+    -webkit-backdrop-filter: blur(8.4px);
+    background-color: rgba(5, 12, 32, 0.2);
+  }
   p {
     font-size: 0.8rem;
     line-height: 0.8rem;
@@ -57,9 +61,7 @@
 }
 .div {
   // box-shadow: 0 4px 30px rgba(243, 235, 235, 0.3);
-  backdrop-filter: blur(8.4px);
-  -webkit-backdrop-filter: blur(8.4px);
-  background-color: rgba(5, 12, 32, 0.2);
+
   margin: 3rem 0 3rem 0;
   padding: 0 1rem 2rem;
   display: flex;

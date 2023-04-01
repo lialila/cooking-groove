@@ -164,7 +164,7 @@ export default function EditGrooveForm(props) {
 
   return (
     <div key={props.currentGroove.id} className={styles.div}>
-      <form>
+      <form className={styles.form}>
         {/* if the groove is not on edit mode */}
         {idOnEditMode !== props.currentGroove.id ? (
           <div className={styles.h1}>
@@ -438,11 +438,11 @@ export default function EditGrooveForm(props) {
                       );
 
                       const data = await response.json();
-                      if (data.error) {
-                        setError(data.error);
-                        return;
-                      }
-                      setCommentsInGroove([...commentsInGroove, data.comment]);
+                      // if (data.error) {
+                      //   setError(data.error);
+                      //   return;
+                      // }
+                      // setCommentsInGroove([...commentsInGroove, data.comment]);
                       router.refresh();
                     }}
                     className={`${styles.addComment} ${courierPrime.className}`}
