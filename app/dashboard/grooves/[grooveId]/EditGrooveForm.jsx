@@ -319,8 +319,8 @@ export default function EditGrooveForm(props) {
               <Link href={`/dashboard/profile/${grooveAdmin.id}`}>
                 <img
                   src={grooveAdmin.profileImgUrl}
-                  width="40"
-                  height="40"
+                  width="60"
+                  height="60"
                   alt="Profile"
                   className={styles.profileImg}
                 />
