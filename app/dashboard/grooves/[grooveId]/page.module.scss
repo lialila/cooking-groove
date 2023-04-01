@@ -74,6 +74,7 @@
 }
 .profileImg {
   border-radius: 50%;
+  padding: 0.5rem;
 }
 .comments {
   ul {
@@ -86,6 +87,9 @@
     border-top: solid white 1.2px;
     li {
       margin: -0.5rem 0;
+      img {
+        padding: 0.5rem;
+      }
     }
   }
 }
