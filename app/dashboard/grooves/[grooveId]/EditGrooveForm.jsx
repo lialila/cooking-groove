@@ -115,6 +115,32 @@ export default function EditGrooveForm(props) {
   // const singleIngredient = groovesIngredients.find((item) => {
   //   return item.id === ingredient.id;
   // });
+  const handleCommentAddition = async (e) => {
+    e.preventDefault();
+    const response = await fetch(
+      `/dashboard/api/grooves/comments/${props.currentGroove.id}`,
+      {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          content: commentContent,
+          userId: props.currentUserId,
+          grooveId: props.currentGroove.id,
+          createdAt: currentTime,
+        }),
+      },
+    );
+    const data = await response.json();
+    if (data.error) {
+      setError(data.error);
+      return;
+    }
+    setCommentsInGroove([...commentsInGroove, data.comment]);
+    setCommentContent('');
+    router.refresh();
+  };
 
   const handleIngredientAddition = async (e) => {
     e.preventDefault();
@@ -420,31 +446,7 @@ export default function EditGrooveForm(props) {
                     />
                   </label>
                   <button
-                    onClick={async () => {
-                      const response = await fetch(
-                        `/dashboard/api/grooves/comments/${props.currentGroove.id}`,
-                        {
-                          method: 'POST',
-                          headers: {
-                            'Content-Type': 'application/json',
-                          },
-                          body: JSON.stringify({
-                            content: commentContent,
-                            userId: props.currentUserId,
-                            grooveId: props.currentGroove.id,
-                            createdAt: currentTime,
-                          }),
-                        },
-                      );
-
-                      const data = await response.json();
-                      // if (data.error) {
-                      //   setError(data.error);
-                      //   return;
-                      // }
-                      // setCommentsInGroove([...commentsInGroove, data.comment]);
-                      router.refresh();
-                    }}
+                    onClick={handleCommentAddition}
                     className={`${styles.addComment} ${courierPrime.className}`}
                   >
                     Add
