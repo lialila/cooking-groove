@@ -1,0 +1,33 @@
+.page {
+  color: white;
+  margin: 8rem 2rem;
+  border-top: solid white 1.2px;
+  border-bottom: solid white 1.2px;
+  padding: 1rem 3rem;
+  background-color: rgba(8, 14, 37, 0.3);
+  h3 {
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    font-weight: 600;
+    font-size: 2rem;
+  }
+}
+.buttons {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-evenly;
+  align-items: center;
+  margin-top: 2rem;
+
+  button {
+    color: white;
+    background-color: rgba(8, 14, 37, 0);
+    padding: 0.2rem 1rem;
+  }
+  a {
+    font-size: 0.8rem;
+  }
+  a:hover {
+    text-decoration: underline;
+  }
+}
