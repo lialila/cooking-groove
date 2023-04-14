@@ -1,57 +1,71 @@
-~~6.03: Create a page for users to create an event (groove) with a **form for users** to enter event details. Store the event information securely in the database~~.
+# COOKING GROOVE
 
-7.03: Implement a page for users to **view all grooves/events created by other users.** Implement pagination, so the user can view grooves across multiple pages.
+## Description
 
-8.03: ~~Implement a page for users to view a single groove/event,~~ with the **ability to join and leave the groove.**
+Cooking groove application helps people to find friends to cook and eat together and also to share ingredients. The users can create their own cooking grooves, add the missing ingredients, participate and comment on the grooves of other.
 
-9.03: Implement user profile pages with the ability to **upload profile pictures using Cloudinary**. **Display a list of grooves created by the user.**
+The application is designed for mobile devices first, but it is also fully responsive.
 
-- ~~Create a new page in your Next.js application for user profiles, such as **`/users/:id`**.~~
-- ~~Implement a **`GET`** route in your REST API that retrieves the user data from the database and returns it as JSON.~~
-- ~~Use server-side rendering to render the user profile page with the initial data from the **`GET`** request.~~
-- **Add a form to the user profile page that allows users to upload a profile picture** using Cloudinary's API.
-- Display a list of grooves created by the user on their profile page.
+## Technonolies Used to Build the App
 
-  10.03 **.Add a map** to the page showing the location of the event.
+- Next.js 13
+- Node.js
+- PostgreSQL
+- CSS
+- Cloudinary
+- Figma
+- DrawSql - used for designing data base:
+  ![Screenshot 2023-04-03 182421](https://user-images.githubusercontent.com/116379561/229570181-08d3afc9-9e71-4e29-8258-9d21eb5749ad.png)
 
-**`???`** 11.03: Implement **commenting functionality on groove pages**. Users should be able to leave comments on grooves and view comments left by others.
+## The application is deployed on:
 
-- Create a new table in your database to store comments, with foreign keys to link comments to the user who left them and the groove they are associated with.
-- Implement a **`GET`** route in your REST API that retrieves all comments for a specific groove and returns them as JSON.
-- Implement a **`POST`** route in your REST API that allows users to leave comments on grooves and stores them securely in the database.
-- Add a form to the groove page that allows users to leave comments.
-- Display a list of comments left on the groove page, with the ability to paginate through multiple pages.
+Fly.io
 
-  11.03: Implement search functionality on the grooves page. Users should be able to **filter grooves by date, time, location, and label.**
+## Setup instructions
 
-- Add search inputs to the grooves page that allow users to filter grooves by date, time, location, and label.
-- Implement a **`GET`** route in your REST API that retrieves grooves based on the search criteria and returns them as JSON.
-- Use server-side rendering to render the grooves page with the initial data from the **`GET`** request.
-- Add pagination to the search results to allow the user to view grooves across multiple pages.
+- Clone the repository with `git clone <repo>`
+- Setup the database by downloading and installing PostgreSQL
+- Create a user and a database
+- Create a new file `.env`
+- Copy the environment variables from `.env-example` into `.env`
+- Replace the placeholders xxxxx with your username, password and name of database
+- Install dotenv-cli with `yarn add dotenv-cli`
+- Run `yarn install` in your command line
+- Run the migrations with `yarn migrate up`
+- Start the server by running `yarn dev`
+-
 
-  12.03: Implement **responsive design** using pure CSS, without a library. Ensure that the application is fully functional and looks good on mobile devices.
+# Visuals
 
-- Use CSS media queries to create responsive styles that adjust the layout and appearance of the application based on screen size.
-- Test the application on multiple devices and ensure that it looks and works well on mobile devices.
-- Ensure that the application is accessible to users with disabilities by following accessibility best practices.
+### Landing page
 
-  13.03: Implement additional features and polish the application.
+![Landing PAge_iphone12prographite_portrait](https://user-images.githubusercontent.com/116379561/229558726-9a79d759-7de3-4b83-81d7-9de988bcfb7f.png)
+![ipad air_ipadair4_spacegrey_portrait](https://user-images.githubusercontent.com/116379561/229567338-9f731e2e-f05e-4e0a-ac97-57b62ac2c603.png)
 
-- Add any additional features that you feel are necessary or desirable, such as a password reset function, email verification, or social login.
-- Test the application thoroughly to ensure that it is functional, secure, and easy to use.
-- Add **dropdown menu** with js
+## Create groove page
 
-  14.03: Write unit **tests with Jest and use Playwright** to test the user interface.
+![ipad air2_ipadair4_spacegrey_portrait](https://user-images.githubusercontent.com/116379561/229567413-c0cf23ad-1adb-4072-9791-9d4e96bf15fe.png)
 
-- Write Jest tests to ensure that all server-side and client-side code is working as expected.
-- Use Playwright to test the user interface, making sure that all buttons, forms, and links are working correctly.
-- Test the application on multiple devices and browsers to ensure that it works well on a variety of platforms.
+## Registration page
 
-  15.03: **Deploy** the application to a hosting provider.
+![registration_iphone12prographite_portrait](https://user-images.githubusercontent.com/116379561/229553926-f3c55ecb-e3c5-47b7-9e67-cdb17f0c4d0d.png)
 
-- Choose a hosting provider that supports Next.js and PostgreSQL, such as Vercel or Heroku.
-- Create a production build of your Next.js application.
-- Set up a PostgreSQL database on your hosting provider, and migrate your database schema and data to the production database.
-- Deploy your application to the hosting provider, ensuring that all necessary environment variables are set up correctly.
-- Test the deployed application to ensure that it is functioning correctly and securely.
-- Set up continuous integration and deployment (CI/CD) to automate the deployment process and ensure that the application is always up to date.
+## Profile page
+
+![profile page_iphone12prographite_portrait](https://user-images.githubusercontent.com/116379561/229556894-f1232ba3-d1ea-4924-ae04-f5414f66f7b6.png)
+
+## My Groove page
+
+![my groove_iphone12prographite_portrait](https://user-images.githubusercontent.com/116379561/229558197-130910ad-f68a-413d-84e5-447554887964.png)
+
+## Groove page
+
+![groove page_iphone12prographite_portrait](https://user-images.githubusercontent.com/116379561/229558267-9d411560-dbef-456d-bf73-da526ca3e98f.png)
+![groove going1_iphone12prographite_portrait](https://user-images.githubusercontent.com/116379561/229558292-725880fa-d9e9-4a4a-a15f-57b51307055c.png)
+![going2_iphone12prographite_portrait](https://user-images.githubusercontent.com/116379561/229558344-7483355c-d5ab-4c09-82fe-0b3085792ad5.png)
+
+## My Grooves page
+
+![My Grooves page_iphone12prographite_portrait](https://user-images.githubusercontent.com/116379561/229558487-e949c476-2fd9-4b6f-9034-ed7461c32556.png)
+
+Thank you for viewing!
