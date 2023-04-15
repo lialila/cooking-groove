@@ -96,7 +96,6 @@ export default function CreateGrooveForm(props) {
       }
 
       setGrooves([...grooves, apiData.groove]);
-      // setSubmitting(false);
 
       router.replace(`/dashboard/grooves/${apiData.groove.id}`);
       router.refresh();
@@ -163,7 +162,7 @@ export default function CreateGrooveForm(props) {
               value={label}
               onChange={(e) => setLabel(e.currentTarget.value)}
             >
-              <option defaultValue="Choose the label">Choose the label</option>
+              <option defaultValue=""></option>
 
               <option>Vegeterian</option>
               <option>Vegan</option>
@@ -213,7 +212,7 @@ export default function CreateGrooveForm(props) {
               ) : (
                 <div>
                   preview:
-                  <img src={imgUrl} width="60" alt="groove picture" />
+                  <img src={imgUrl} width="100" alt="groove picture" />
                 </div>
               )}
               <input

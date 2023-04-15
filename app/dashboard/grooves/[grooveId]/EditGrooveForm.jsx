@@ -377,18 +377,20 @@ export default function EditGrooveForm(props) {
                       key={user.id}
                       className={styles.attendee}
                     >
-                      <img
-                        src={user.profileImgUrl}
-                        width="70"
-                        height="70"
-                        alt="Profile"
-                        className={styles.profileImg}
-                      />
-                      {!user.profileImgUrl && (
+                      {user.profileImgUrl ? (
                         <img
-                          src="default-profile-picture/defult-profile.jpeg"
+                          src={user.profileImgUrl}
+                          width="70"
+                          height="70"
+                          alt="Profile"
+                          className={styles.profileImg}
+                        />
+                      ) : (
+                        <img
+                          src="/default-profile-picture/defult-profile.jpg"
                           width="70"
                           alt="Profile"
+                          className={styles.profileImg}
                         />
                       )}
                       <p>{user.username}</p>
