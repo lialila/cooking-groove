@@ -7,7 +7,14 @@ import { createTokenFromSecret } from '../../../../utils/csrf';
 import CreateGrooveForm from './CreateGrooveForm';
 import styles from './page.module.scss';
 
-export default async function CreateGroove() {
+type Props = {
+  grooves: Groove[];
+  userId: number;
+  csrfToken: string;
+  groove: Groove[];
+};
+
+export default async function CreateGroove(props: Props) {
   const cookieStore = cookies();
   const sessionToken = cookieStore.get('sessionToken');
   const sessionTokenCookie = cookies().get('sessionToken');

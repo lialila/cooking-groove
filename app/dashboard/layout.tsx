@@ -11,13 +11,16 @@ const montserratText = Montserrat({
   subsets: ['latin'],
 });
 
+type Props = {
+  children: React.ReactNode;
+};
 export const dynamic = 'force-dynamic';
 
-export default function DashboardLayout({ children }) {
+export default function DashboardLayout(props: Props) {
   return (
     <section className={styles.html}>
       <div className={`${montserratText.className} ${styles.body}`}>
-        {children}
+        {props.children}
       </div>
     </section>
   );

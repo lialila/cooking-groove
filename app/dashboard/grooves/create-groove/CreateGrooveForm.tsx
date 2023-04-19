@@ -1,10 +1,9 @@
 'use client';
 import { Courier_Prime, Montserrat } from '@next/font/google';
-// import { v2 as cloudinary } from 'cloudinary';
 import { useRouter } from 'next/navigation';
-import { useState } from 'react';
+import { EventHandler, useState } from 'react';
 import FadeIn from 'react-fade-in/lib/FadeIn';
-// import DatePicker from 'react-date-picker';
+import { Groove } from '../../../../database/grooves';
 import styles from './page.module.scss';
 
 const courierPrime = Courier_Prime({
@@ -17,7 +16,14 @@ const montserratText = Montserrat({
   subsets: ['latin'],
 });
 
-export default function CreateGrooveForm(props) {
+type Props = {
+  grooves: Groove[];
+  userId: number;
+  csrfToken: string;
+  groove: Groove[];
+};
+
+export default function CreateGrooveForm(props: Props) {
   const router = useRouter();
 
   const [grooves, setGrooves] = useState(props.grooves);
@@ -34,9 +40,12 @@ export default function CreateGrooveForm(props) {
   const [ingredientName, setIngredientName] = useState('');
   const [loading, setLoading] = useState(false);
 
-  const handleImageUpload = async (event) => {
+  const handleImageUpload = async (event: Event<HTMLInputElement>) => {
     event.preventDefault();
-    const file = event.target.files[0];
+    const target = event.target as HTMLInputElement;
+
+    const file = target.files[0];
+    // const file = event.target.files[0];
     const formData = new FormData();
     formData.append('file', file);
     formData.append('upload_preset', 'my-uploads');
@@ -65,7 +74,7 @@ export default function CreateGrooveForm(props) {
     }
   };
 
-  async function handleSubmit(event) {
+  async function handleSubmit(event: EventHandler) {
     event.preventDefault();
     try {
       const apiResponse = await fetch('/dashboard/api/grooves', {
@@ -205,7 +214,7 @@ export default function CreateGrooveForm(props) {
               />{' '}
             </label>{' '}
             <br />
-            <label classNAme={styles.imgUpload}>
+            <label className={styles.imgUpload}>
               Upload image
               {loading ? (
                 <p>Loading...</p>
@@ -219,7 +228,7 @@ export default function CreateGrooveForm(props) {
                 onChange={handleImageUpload}
                 type="file"
                 name="fileInput"
-                classNAme={courierPrime.styles}
+                className={courierPrime.className}
               />
             </label>
           </div>
