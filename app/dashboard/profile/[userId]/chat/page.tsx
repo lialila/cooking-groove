@@ -1,4 +1,5 @@
 import { cookies } from 'next/headers';
+import { redirect } from 'next/navigation';
 import {
   getUserById,
   getUserBySessionToken,
@@ -11,6 +12,12 @@ type Props = {
   params: {
     userId: number;
   };
+};
+type sessionUser = {
+  id: number;
+  name: string;
+  email: string;
+  csrfSecret: string;
 };
 export default async function UserIdChat({ params }: Props) {
   const user = await getUserById(params.userId);
@@ -26,6 +33,11 @@ export default async function UserIdChat({ params }: Props) {
   if (!sessionUser) {
     return redirect(`/dashboard/login?returnTo=/dashboard/profile/${user.id}`);
   }
+
+  // ably chat
+  const ably = new Ably.Realtime.Promise('q9iq5Q.pLvcXg:*****');
+  await ably.connection.once('connected');
+  console.log('Connected to Ably!');
 
   return (
     <section className={styles.main}>
