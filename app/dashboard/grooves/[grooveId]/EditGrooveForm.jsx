@@ -447,17 +447,19 @@ export default function EditGrooveForm(props) {
                             </p>
                             <p>{comment.content}</p>{' '}
                           </div>{' '}
-                          <button
-                            type="button"
-                            onClick={() => handleCommentDelete(comment.id)}
-                          >
-                            <img
-                              src="/groove/delete-white.png"
-                              alt="delete"
-                              width="30"
-                              className={styles.deleteComment}
-                            />
-                          </button>
+                          {comment.userId === props.currentUserId && (
+                            <button
+                              type="button"
+                              onClick={() => handleCommentDelete(comment.id)}
+                            >
+                              <img
+                                src="/groove/delete-white.png"
+                                alt="delete"
+                                width="30"
+                                className={styles.deleteComment}
+                              />
+                            </button>
+                          )}
                         </div>
                       </li>
                     );
