@@ -429,33 +429,33 @@ export default function EditGrooveForm(props) {
 
                     return (
                       <li key={comment.id}>
-                        <div className={styles.commentWithDelete}>
+                        <div className={styles.commentBody}>
                           <Link
-                            className={styles.commentBody}
                             href={`/dashboard/profile/${commentedUser?.id}`}
                           >
-                            <div>
-                              <img
-                                className={styles.profileImg}
-                                src={commentedUser?.profileImgUrl}
-                                alt="profile"
-                                width="50"
-                                height="50"
-                              />{' '}
-                              <p>{commentedUser?.username}</p>
-                            </div>{' '}
-                            <div>
-                              <p>{comment.content}</p>{' '}
-                              <p>
-                                <span> {comment.createdAt}</span>
-                              </p>
-                            </div>{' '}
-                          </Link>
+                            <img
+                              src={commentedUser?.profileImgUrl}
+                              alt="profile"
+                              width="50"
+                              height="50"
+                            />{' '}
+                          </Link>{' '}
+                          <div>
+                            <h5>{commentedUser?.username}</h5>
+                            <p>{comment.content}</p>{' '}
+                            <p>
+                              <span> {comment.createdAt}</span>
+                            </p>
+                          </div>{' '}
                           <button
-                            tpye="button"
+                            type="button"
                             onClick={() => handleCommentDelete(comment.id)}
                           >
-                            delete
+                            <img
+                              src="/groove/delete-white.png"
+                              alt="delete"
+                              width="45"
+                            />
                           </button>
                         </div>
                       </li>
