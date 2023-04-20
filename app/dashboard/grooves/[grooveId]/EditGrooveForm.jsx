@@ -442,10 +442,10 @@ export default function EditGrooveForm(props) {
                           </Link>{' '}
                           <div>
                             <h5>{commentedUser?.username}</h5>
-                            <p>{comment.content}</p>{' '}
                             <p>
                               <span> {comment.createdAt}</span>
                             </p>
+                            <p>{comment.content}</p>{' '}
                           </div>{' '}
                           <button
                             type="button"
@@ -454,7 +454,8 @@ export default function EditGrooveForm(props) {
                             <img
                               src="/groove/delete-white.png"
                               alt="delete"
-                              width="45"
+                              width="30"
+                              className={styles.deleteComment}
                             />
                           </button>
                         </div>
@@ -466,6 +467,7 @@ export default function EditGrooveForm(props) {
                 <div className={styles.commentDiv}>
                   <label>
                     <input
+                      type="text arrea"
                       placeholder="What is in your mind..."
                       value={commentContent}
                       onChange={(e) => setCommentContent(e.currentTarget.value)}
