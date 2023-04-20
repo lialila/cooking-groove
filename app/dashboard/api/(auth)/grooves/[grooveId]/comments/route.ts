@@ -32,14 +32,6 @@ export type CommentResponseBodyPost =
       comment: Comment;
     };
 
-export type CommentResponseBodyDelete =
-  | {
-      error: string;
-    }
-  | {
-      comment: Comment;
-    };
-
 export async function GET(
   request: NextRequest,
   { params }: { params: Record<string, string | string[]> },
@@ -98,29 +90,4 @@ export async function POST(
     );
   }
   return NextResponse.json({ comment: newComment });
-}
-
-export async function DELETE(
-  request: NextRequest,
-  { params }: { params: Record<string, string | string[]> },
-): Promise<NextResponse<CommentResponseBodyDelete>> {
-  const commentId = Number(params.commentId);
-  if (!commentId) {
-    return NextResponse.json(
-      {
-        errors: 'Request body is missing some properties',
-      },
-      { status: 400 },
-    );
-  }
-  const singleComment = await deleteCommentById(commentId);
-  if (!singleComment) {
-    return NextResponse.json(
-      {
-        errors: 'Comment does not exist',
-      },
-      { status: 400 },
-    );
-  }
-  return NextResponse.json({ comment: singleComment });
 }

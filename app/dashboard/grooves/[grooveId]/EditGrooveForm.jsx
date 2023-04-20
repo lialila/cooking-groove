@@ -116,7 +116,7 @@ export default function EditGrooveForm(props) {
   const handleCommentAddition = async (e) => {
     e.preventDefault();
     const response = await fetch(
-      `/dashboard/api/grooves/comments/${props.currentGroove.id}`,
+      `/dashboard/api/grooves/${props.currentGroove.id}/comments`,
       {
         method: 'POST',
         headers: {
@@ -137,6 +137,24 @@ export default function EditGrooveForm(props) {
     }
     setCommentsInGroove([...commentsInGroove, data.comment]);
     setCommentContent('');
+    router.refresh();
+  };
+
+  const handleCommentDelete = async (id) => {
+    const response = await fetch(
+      `/dashboard/api/grooves/${props.currentGroove.id}/comments/${id}`,
+      {
+        method: 'DELETE',
+      },
+    );
+    const data = await response.json();
+    if (data.error) {
+      setError(data.error);
+      return;
+    }
+    // setCommentsInGroove(
+    //   commentsInGroove.filter((item) => item.id !== data.comment.id),
+    // );
     router.refresh();
   };
 
@@ -411,27 +429,35 @@ export default function EditGrooveForm(props) {
 
                     return (
                       <li key={comment.id}>
-                        <Link
-                          className={styles.commentBody}
-                          href={`/dashboard/profile/${commentedUser?.id}`}
-                        >
-                          <div>
-                            <img
-                              className={styles.profileImg}
-                              src={commentedUser?.profileImgUrl}
-                              alt="profile"
-                              width="50"
-                              height="50"
-                            />{' '}
-                            <p>{commentedUser?.username}</p>
-                          </div>{' '}
-                          <div>
-                            <p>{comment.content}</p>{' '}
-                            <p>
-                              <span> {comment.createdAt}</span>
-                            </p>
-                          </div>
-                        </Link>
+                        <div className={styles.commentWithDelete}>
+                          <Link
+                            className={styles.commentBody}
+                            href={`/dashboard/profile/${commentedUser?.id}`}
+                          >
+                            <div>
+                              <img
+                                className={styles.profileImg}
+                                src={commentedUser?.profileImgUrl}
+                                alt="profile"
+                                width="50"
+                                height="50"
+                              />{' '}
+                              <p>{commentedUser?.username}</p>
+                            </div>{' '}
+                            <div>
+                              <p>{comment.content}</p>{' '}
+                              <p>
+                                <span> {comment.createdAt}</span>
+                              </p>
+                            </div>{' '}
+                          </Link>
+                          <button
+                            tpye="button"
+                            onClick={() => handleCommentDelete(comment.id)}
+                          >
+                            delete
+                          </button>
+                        </div>
                       </li>
                     );
                   })}
