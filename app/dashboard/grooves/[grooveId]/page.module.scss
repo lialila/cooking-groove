@@ -14,7 +14,6 @@
   p {
     font-size: 0.8rem;
     line-height: 0.8rem;
-    margin: auto;
     text-align: left;
   }
   h3 {
@@ -341,19 +340,13 @@
   ul {
     display: flex;
     flex-direction: column;
-    justify-content: flex-start;
     margin: 1rem 0;
     padding: 1rem;
     color: black;
     border-top: solid white 1.2px;
     li {
-      text-align: left;
-
       div {
         text-align: left;
-        p {
-          text-align: left;
-        }
       }
       img {
         border-radius: 50%;
@@ -417,13 +410,11 @@
   display: flex;
   margin-bottom: 0.7rem;
   align-items: flex-start;
-  align-content: flex-start;
+  text-align: left;
   h5 {
     margin: 0;
   }
-  p {
-    text-align: left;
-  }
+
   button {
     background-color: rgba(255, 77, 118, 0);
     border: none;
