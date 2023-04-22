@@ -37,7 +37,6 @@ export default function EditGrooveForm(props) {
 
   // set ingredients
   const [ingredient, setIngredient] = useState('');
-  // const [updated, setUpdated] = useState(message);
 
   // set comment on edit mode
   const [commentContent, setCommentContent] = useState('');
@@ -56,9 +55,23 @@ export default function EditGrooveForm(props) {
 
   const minutes = today.getMinutes().toString();
   const date = today.getDate().toString();
-  const month = today.getMonth().toString();
+  const monthName = [
+    'January',
+    'February',
+    'March',
+    'April',
+    'May',
+    'June',
+    'July',
+    'August',
+    'September',
+    'October',
+    'November',
+    'December',
+  ];
+  const month = monthName[today.getMonth()];
   const year = today.getFullYear().toString();
-  const currentTime = `${hours}:${minutes} ${date}.${month}.${year}`;
+  const currentTime = `${hours}:${minutes}, ${date} ${month} ${year}`;
 
   // handle the image upload
   const handleImageUpload = async (e) => {
@@ -443,7 +456,7 @@ export default function EditGrooveForm(props) {
                           <div>
                             <h5>{commentedUser?.username}</h5>
                             <p>
-                              <span> {comment.createdAt}</span>
+                              <span>Commented at {comment.createdAt}</span>
                             </p>
                             <p>{comment.content}</p>{' '}
                           </div>{' '}
