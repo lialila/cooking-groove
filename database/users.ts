@@ -1,4 +1,3 @@
-// import { Martian_Mono } from '@next/font/google';
 import { cache } from 'react';
 import { sql } from './connect';
 
