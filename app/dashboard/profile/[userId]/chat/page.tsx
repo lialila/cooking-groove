@@ -1,4 +1,4 @@
-import Ably from 'ably/promises';
+// import Ably from 'ably/promises';
 import { cookies } from 'next/headers';
 import { redirect } from 'next/navigation';
 import {
@@ -36,9 +36,9 @@ export default async function UserIdChat({ params }: Props) {
   }
 
   // ably chat
-  const ably = new Ably.Realtime.Promise('q9iq5Q.pLvcXg:*****');
-  await ably.connection.once('connected');
-  console.log('Connected to Ably!');
+  // const ably = new Ably.Realtime.Promise('q9iq5Q.pLvcXg:*****');
+  // await ably.connection.once('connected');
+  // console.log('Connected to Ably!');
 
   return (
     <section className={styles.main}>
