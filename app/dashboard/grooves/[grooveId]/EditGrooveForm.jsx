@@ -51,14 +51,28 @@ export default function EditGrooveForm(props) {
   const [loading, setLoading] = useState(false);
 
   // set the createdAt for comment
+  const monthList = [
+    'January',
+    'February',
+    'March',
+    'April',
+    'May',
+    'June',
+    'July',
+    'August',
+    'September',
+    'October',
+    'November',
+    'December',
+  ];
   const today = new Date();
   const hours = today.getHours().toString();
 
   const minutes = today.getMinutes().toString();
   const date = today.getDate().toString();
-  const month = today.getMonth().toString();
+  const month = monthList[today.getMonth()];
   const year = today.getFullYear().toString();
-  const currentTime = `${hours}:${minutes} ${date}.${month}.${year}`;
+  const currentTime = `${hours}:${minutes} ${date}th ${month} ${year}`;
 
   // handle the image upload
   const handleImageUpload = async (e) => {
@@ -443,7 +457,7 @@ export default function EditGrooveForm(props) {
                           <div>
                             <h5>{commentedUser?.username}</h5>
                             <p>
-                              <span> {comment.createdAt}</span>
+                              <span>Created at {comment.createdAt}</span>
                             </p>
                             <p>{comment.content}</p>{' '}
                           </div>{' '}
