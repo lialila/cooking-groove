@@ -12,10 +12,6 @@
   },
   "dependencies": {
     "@next/font": "^13.2.1",
-    "@types/dotenv-safe": "^8.1.2",
-    "@types/node": "18.14.1",
-     "@types/react": "18.0.28",
-     "@types/react-dom": "18.0.11",
     "bcrypt": "^5.1.0",
     "cookie": "^0.5.0",
     "csrf": "^3.1.0",
@@ -35,12 +31,14 @@
     "zod": "^3.20.6"
   },
   "devDependencies": {
+    "@types/node": "18.15.6",
+    "@types/react": "18.0.28",
+    "@types/react-dom": "18.0.11",
+    "@types/dotenv-safe": "^8.1.2",
     "@babel/eslint-parser": "7.21.3",
     "@next/eslint-plugin-next": "13.2.4",
     "@types/bcrypt": "^5.0.0",
     "@types/eslint": "8.21.3",
-    "@types/node": "18.15.6",
-
     "@typescript-eslint/eslint-plugin": "5.56.0",
     "@typescript-eslint/parser": "5.56.0",
     "@upleveled/eslint-config-upleveled": "^3.20.0",
