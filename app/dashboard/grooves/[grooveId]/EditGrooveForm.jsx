@@ -403,7 +403,7 @@ export default function EditGrooveForm(props) {
             <ul className={styles.attendees}>
               {usersProfilesParticipating.map((user) => {
                 return (
-                  <li>
+                  <li key={user.id}>
                     <Link
                       href={`/dashboard/profile/${user.id}`}
                       key={user.id}
