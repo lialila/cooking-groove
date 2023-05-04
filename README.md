@@ -33,7 +33,6 @@ Fly.io
 - Run `yarn install` in your command line
 - Run the migrations with `yarn migrate up`
 - Start the server by running `yarn dev`
--
 
 # Visuals
 
